@@ -1,0 +1,75 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block content %}
+<div class="page-head">
+  <h1>{% blocktranslate with name=user.first_name|default:user.username %}Salom, {{ name }}!{% endblocktranslate %}</h1>
+  <div class="actions">
+    {% if user|can:"receipts.create" %}<a class="btn" href="{% url 'operations:create' 'receipt' %}">+ {% translate "Kirim" %}</a>{% endif %}
+    {% if user|can:"shipments.create" %}<a class="btn" href="{% url 'operations:create' 'shipment' %}">+ {% translate "Chiqim" %}</a>{% endif %}
+  </div>
+</div>
+
+{% if not warehouses_count %}
+  <div class="card" style="margin-bottom:18px">
+    {% if user.is_manager %}
+      <h2>{% translate "Boshlash uchun 3 qadam" %}</h2>
+      <ol>
+        <li><a href="{% url 'warehouses:create' %}">{% translate "Ombor qo'shing" %}</a></li>
+        <li><a href="{% url 'warehouses:location_create' %}">{% translate "Ombordagi joylarni (yacheykalarni) kiriting" %}</a></li>
+        <li><a href="{% url 'catalog:product_create' %}">{% translate "Tovarlarni qo'shing" %}</a> {% translate "va birinchi kirimni rasmiylashtiring" %}</li>
+      </ol>
+    {% else %}
+      <p>{% translate "Sizga hali birorta ombor biriktirilmagan. Menejeringizga murojaat qiling." %}</p>
+    {% endif %}
+  </div>
+{% endif %}
+
+<div class="stats">
+  <div class="card stat"><div class="label">{% translate "Omborlar" %}</div><div class="value">{{ warehouses_count }}</div></div>
+  <div class="card stat"><div class="label">{% translate "Omborda bor tovarlar" %}</div><div class="value">{{ stock_total.products }}</div></div>
+  <div class="card stat"><div class="label">{% translate "Bugun kirdi" %}</div><div class="value plus">{{ today.incoming|qty }}</div></div>
+  <div class="card stat"><div class="label">{% translate "Bugun chiqdi" %}</div><div class="value minus">{{ today.outgoing|default:0|qty|cut:"-" }}</div></div>
+</div>
+
+<div class="grid-2">
+  <div class="card table-wrap">
+    <h2>{% translate "Ochiq hujjatlar" %}</h2>
+    <table>
+      <tbody>
+      {% for doc in open_documents %}
+        <tr>
+          <td><a href="{% url 'operations:detail' doc.kind doc.pk %}">{{ doc.number }}</a></td>
+          <td>{{ doc.get_kind_display }}</td>
+          <td>{{ doc.warehouse.name }}</td>
+          <td><span class="badge badge-{{ doc.status }}">{{ doc.get_status_display }}</span></td>
+        </tr>
+      {% empty %}
+        <tr><td class="empty">{% translate "Ochiq hujjat yo'q." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card table-wrap">
+    <h2>{% translate "Kam qolgan tovarlar" %}</h2>
+    <table>
+      <tbody>
+      {% for product in low_stock %}
+        <tr>
+          <td><a href="{% url 'catalog:product_detail' product.pk %}">{{ product.name }}</a></td>
+          <td class="num minus">{{ product.total|qty }}</td>
+          <td class="num muted">/ {{ product.min_stock|qty }}</td>
+        </tr>
+      {% empty %}
+        <tr><td class="empty">{% translate "Hammasi yetarli." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card table-wrap" style="margin-top:18px">
+  <h2>{% translate "Oxirgi harakatlar" %}</h2>
+  {% include "inventory/_movements_table.html" with movements=recent_movements %}
+</div>
+{% endblock %}

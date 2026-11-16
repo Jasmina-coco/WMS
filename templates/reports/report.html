@@ -1,0 +1,48 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block title %}{{ title }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>{% translate "Hisobotlar" %}</h1>
+  <div class="actions">
+    <button class="btn" onclick="window.print()">{% translate "Chop etish / PDF" %}</button>
+    {% if user|can:"reports.export" %}<a class="btn btn-primary" href="?{% query_with export='csv' %}">{% translate "CSV yuklab olish" %}</a>{% endif %}
+  </div>
+</div>
+
+<div class="actions no-print" style="margin-bottom:14px">
+  {% for key, label in reports.items %}
+    <a class="btn btn-sm {% if key == report %}btn-primary{% endif %}" href="{% url 'reports:report' key %}">{{ label }}</a>
+  {% endfor %}
+</div>
+
+{% if uses_period or uses_warehouse %}
+<form class="filters no-print" method="get">
+  {% if uses_period %}
+    <input type="date" name="from" value="{{ date_from|date:'Y-m-d' }}">
+    <input type="date" name="to" value="{{ date_to|date:'Y-m-d' }}">
+  {% endif %}
+  {% if uses_warehouse %}
+    <select name="warehouse">
+      <option value="">{% translate "Barcha omborlar" %}</option>
+      {% for w in warehouses %}<option value="{{ w.pk }}" {% if request.GET.warehouse == w.pk|stringformat:"s" %}selected{% endif %}>{{ w.name }}</option>{% endfor %}
+    </select>
+  {% endif %}
+  <button class="btn" type="submit">{% translate "Ko'rsatish" %}</button>
+</form>
+{% endif %}
+
+<div class="card table-wrap">
+  <h2>{{ title }}{% if uses_period %} <span class="muted small">{{ date_from|date:"d.m.Y" }} — {{ date_to|date:"d.m.Y" }}</span>{% endif %}</h2>
+  <table>
+    <thead><tr>{% for col in header %}<th>{{ col }}</th>{% endfor %}</tr></thead>
+    <tbody>
+    {% for row in rows %}
+      <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+    {% empty %}
+      <tr><td colspan="{{ header|length }}" class="empty">{% translate "Ma'lumot yo'q." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
