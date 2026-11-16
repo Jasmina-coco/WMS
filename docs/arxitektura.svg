@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" font-family="Arial, sans-serif" font-size="14">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#5d6880"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #c3cbdb; stroke-width: 1.5; rx: 10; }
+      .aws { fill: #fff7ec; stroke: #f59e0b; stroke-width: 1.5; rx: 10; }
+      .ec2 { fill: #eef4ff; stroke: #1f5eff; stroke-width: 1.5; stroke-dasharray: 6 4; rx: 14; }
+      .title { font-weight: bold; font-size: 15px; fill: #172033; }
+      .sub { font-size: 12px; fill: #5d6880; }
+      .line { stroke: #5d6880; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="960" height="600" fill="#f8fafc"/>
+  <text x="24" y="34" font-size="20" font-weight="bold" fill="#172033">OmborHub — AWS arxitekturasi (eu-central-1)</text>
+
+  <!-- Foydalanuvchi va GitHub -->
+  <rect class="box" x="24" y="80" width="160" height="64"/>
+  <text class="title" x="40" y="106">Foydalanuvchi</text>
+  <text class="sub" x="40" y="126">brauzer, HTTPS</text>
+
+  <rect class="box" x="24" y="420" width="160" height="80"/>
+  <text class="title" x="40" y="446">GitHub Actions</text>
+  <text class="sub" x="40" y="466">lint → test → build</text>
+  <text class="sub" x="40" y="484">GHCR → deploy</text>
+
+  <rect class="box" x="230" y="80" width="150" height="64"/>
+  <text class="title" x="246" y="106">vangogh.uz</text>
+  <text class="sub" x="246" y="126">DNS (eskiz.uz) → Elastic IP</text>
+
+  <!-- EC2 -->
+  <rect class="ec2" x="420" y="60" width="300" height="370"/>
+  <text class="title" x="436" y="86">EC2 t3.micro · Docker Swarm</text>
+  <text class="sub" x="436" y="104">Security Group: 80, 443 hamma; 22 faqat admin</text>
+
+  <rect class="box" x="450" y="122" width="240" height="56"/>
+  <text class="title" x="466" y="146">Nginx</text>
+  <text class="sub" x="466" y="164">HTTPS · load balancer (least_conn)</text>
+
+  <rect class="box" x="450" y="210" width="72" height="60"/>
+  <text class="title" x="462" y="236">web 1</text>
+  <text class="sub" x="462" y="254">Django</text>
+  <rect class="box" x="534" y="210" width="72" height="60"/>
+  <text class="title" x="546" y="236">web 2</text>
+  <text class="sub" x="546" y="254">Django</text>
+  <rect class="box" x="618" y="210" width="72" height="60" stroke-dasharray="4 3"/>
+  <text class="title" x="630" y="236">web N</text>
+  <text class="sub" x="630" y="254">2–4 ta</text>
+
+  <rect class="box" x="450" y="300" width="240" height="56"/>
+  <text class="title" x="466" y="324">Autoscaler (Python)</text>
+  <text class="sub" x="466" y="342">CPU &gt; 70% → +1 · CPU &lt; 25% → −1</text>
+
+  <rect class="box" x="450" y="372" width="240" height="40"/>
+  <text class="sub" x="466" y="397">CloudWatch Agent · awslogs driver</text>
+
+  <!-- AWS servislar -->
+  <rect class="aws" x="770" y="90" width="170" height="80"/>
+  <text class="title" x="786" y="116">Amazon RDS</text>
+  <text class="sub" x="786" y="136">PostgreSQL 16</text>
+  <text class="sub" x="786" y="154">5432 faqat EC2 dan</text>
+
+  <rect class="aws" x="770" y="200" width="170" height="80"/>
+  <text class="title" x="786" y="226">Amazon S3</text>
+  <text class="sub" x="786" y="246">rasmlar, hujjatlar</text>
+  <text class="sub" x="786" y="264">private + presigned URL</text>
+
+  <rect class="aws" x="770" y="310" width="170" height="80"/>
+  <text class="title" x="786" y="336">CloudWatch</text>
+  <text class="sub" x="786" y="356">metrika, log, alarm</text>
+  <text class="sub" x="786" y="374">dashboard</text>
+
+  <rect class="aws" x="770" y="420" width="170" height="80"/>
+  <text class="title" x="786" y="446">IAM</text>
+  <text class="sub" x="786" y="466">EC2 role (minimal)</text>
+  <text class="sub" x="786" y="484">GitHub OIDC role</text>
+
+  <!-- Chiziqlar -->
+  <path class="line" d="M184 112 H226"/>
+  <path class="line" d="M380 112 H420 V150 H448"/>
+  <path class="line" d="M520 178 V208"/>
+  <path class="line" d="M570 178 V208"/>
+  <path class="line" d="M640 178 V208"/>
+  <path class="line" d="M690 230 H730 V130 H768"/>
+  <path class="line" d="M690 250 H768"/>
+  <path class="line" d="M690 392 H730 V350 H768"/>
+  <path class="line" d="M570 300 V272"/>
+  <path class="line" d="M184 460 H400 V400 H448"/>
+  <path class="line" d="M184 480 H760 V460 H768"/>
+</svg>
