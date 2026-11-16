@@ -1,0 +1,18 @@
+{% extends "app_base.html" %}
+{% load i18n %}
+{% block title %}{% firstof title view.title %} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>{% firstof title view.title %}{% if object.pk %}: {{ object }}{% elif not title %} — {% translate "yangi" %}{% endif %}</h1>
+</div>
+<div class="card form-card">
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% include "_form_fields.html" %}
+    <div class="actions">
+      <button class="btn btn-primary" type="submit">{% translate "Saqlash" %}</button>
+      <a class="btn" href="javascript:history.back()">{% translate "Bekor qilish" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

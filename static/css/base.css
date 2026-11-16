@@ -1,0 +1,177 @@
+/*
+  Umumiy uslublar: ranglar, shriftlar, tugmalar, formalar, jadvallar.
+  Landing ham, tizim ham shu fayldan foydalanadi.
+  Ranglar o'zgaruvchilarda — bitta joyda o'zgartirsangiz, hamma joyda o'zgaradi.
+*/
+
+:root {
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface-2: #eef2f8;
+  --border: #dde3ee;
+  --text: #172033;
+  --muted: #5d6880;
+  --primary: #1f5eff;
+  --primary-dark: #1546c7;
+  --primary-soft: #e6eeff;
+  --success: #12805c;
+  --success-soft: #e3f6ef;
+  --warning: #a35c00;
+  --warning-soft: #fff2dc;
+  --danger: #c4314b;
+  --danger-soft: #fde8ec;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(23, 32, 51, 0.06), 0 4px 16px rgba(23, 32, 51, 0.06);
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 { line-height: 1.25; margin: 0 0 12px; }
+h1 { font-size: 24px; }
+h2 { font-size: 19px; }
+h3 { font-size: 16px; }
+
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.nowrap { white-space: nowrap; }
+.right { text-align: right; }
+.hidden { display: none !important; }
+
+/* --- Tugmalar --- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn:hover { background: var(--surface-2); text-decoration: none; }
+.btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-success { background: var(--success); border-color: var(--success); color: #fff; }
+.btn-success:hover { filter: brightness(0.92); background: var(--success); }
+.btn-danger { color: var(--danger); border-color: #f2c2cb; }
+.btn-danger:hover { background: var(--danger-soft); }
+.btn-sm { padding: 5px 10px; font-size: 13px; }
+.btn-lg { padding: 13px 24px; font-size: 16px; }
+
+/* --- Formalar --- */
+
+.field { margin-bottom: 14px; }
+.field label { display: block; font-weight: 500; margin-bottom: 5px; }
+.field .help { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.field .error { font-size: 13px; color: var(--danger); margin-top: 4px; }
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"],
+input[type="tel"], input[type="date"], input[type="search"], select, textarea {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+textarea { resize: vertical; }
+
+.checkbox-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.checkbox-list label, .check { display: flex; align-items: center; gap: 8px; font-weight: 400; }
+input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); }
+
+.form-errors {
+  background: var(--danger-soft);
+  color: var(--danger);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+/* --- Kartalar va jadvallar --- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); font-weight: 600; background: var(--surface-2); }
+tbody tr:hover { background: #fafbfe; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+.badge-draft, .badge-new, .badge-open { background: var(--primary-soft); color: var(--primary); }
+.badge-picking, .badge-contacted { background: var(--warning-soft); color: var(--warning); }
+.badge-done, .badge-agreed, .badge-finished, .badge-active { background: var(--success-soft); color: var(--success); }
+.badge-cancelled, .badge-rejected, .badge-blocked { background: var(--danger-soft); color: var(--danger); }
+
+.plus { color: var(--success); }
+.minus { color: var(--danger); }
+
+/* --- Xabarlar --- */
+
+.messages { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 8px; }
+.messages li { padding: 11px 14px; border-radius: 8px; background: var(--primary-soft); color: var(--primary-dark); }
+.messages li.success { background: var(--success-soft); color: var(--success); }
+.messages li.error { background: var(--danger-soft); color: var(--danger); }
+
+/* --- Til almashtirish --- */
+
+.lang-switch { display: inline-flex; gap: 2px; background: var(--surface-2); padding: 3px; border-radius: 8px; }
+.lang-switch button {
+  border: 0; background: transparent; padding: 4px 9px; border-radius: 6px;
+  font: inherit; font-size: 13px; color: var(--muted); cursor: pointer;
+}
+.lang-switch button.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+
+/* Kichik markazlashgan sahifalar: login, 403, 404, rahmat */
+.auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.auth .card { width: 100%; max-width: 380px; }
+.auth .brand { font-weight: 700; font-size: 20px; color: var(--text); display: block; margin-bottom: 18px; }

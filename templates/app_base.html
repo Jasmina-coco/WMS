@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static i18n wms %}
+{% block styles %}<link rel="stylesheet" href="{% static 'css/app.css' %}">{% endblock %}
+{% block body %}
+{% with url_name=request.resolver_match.url_name ns=request.resolver_match.namespace %}
+<div class="app">
+  <aside class="sidebar">
+    <a class="brand" href="{% url 'accounts:after_login' %}">{{ SITE_NAME }}</a>
+    {% block sidebar %}
+    <div class="company">{{ request.company.name }}</div>
+    <a class="nav-link {% if url_name == 'dashboard' %}active{% endif %}" href="{% url 'reports:dashboard' %}">{% translate "Bosh sahifa" %}</a>
+
+    <div class="nav-title">{% translate "Operatsiyalar" %}</div>
+    {% if user|can:"receipts.view" %}<a class="nav-link {% if kind == 'receipt' %}active{% endif %}" href="{% url 'operations:list' 'receipt' %}">{% translate "Kirim" %}</a>{% endif %}
+    {% if user|can:"shipments.view" %}<a class="nav-link {% if kind == 'shipment' %}active{% endif %}" href="{% url 'operations:list' 'shipment' %}">{% translate "Chiqim" %}</a>{% endif %}
+    {% if user|can:"transfers.view" %}<a class="nav-link {% if kind == 'transfer' %}active{% endif %}" href="{% url 'operations:list' 'transfer' %}">{% translate "Ko'chirish" %}</a>{% endif %}
+    {% if user|can:"counts.view" %}<a class="nav-link {% if url_name == 'counts' or url_name == 'count_detail' %}active{% endif %}" href="{% url 'operations:counts' %}">{% translate "Inventarizatsiya" %}</a>{% endif %}
+
+    <div class="nav-title">{% translate "Ombor" %}</div>
+    {% if user|can:"stock.view" %}<a class="nav-link {% if ns == 'inventory' and url_name == 'stock' %}active{% endif %}" href="{% url 'inventory:stock' %}">{% translate "Qoldiqlar" %}</a>
+    <a class="nav-link {% if url_name == 'movements' %}active{% endif %}" href="{% url 'inventory:movements' %}">{% translate "Harakatlar tarixi" %}</a>{% endif %}
+    {% if user|can:"products.view" %}<a class="nav-link {% if ns == 'catalog' %}active{% endif %}" href="{% url 'catalog:products' %}">{% translate "Tovarlar" %}</a>{% endif %}
+    {% if user|can:"warehouses.view" %}<a class="nav-link {% if ns == 'warehouses' %}active{% endif %}" href="{% url 'warehouses:list' %}">{% translate "Omborlar va joylar" %}</a>{% endif %}
+
+    {% if user|can:"reports.view" %}
+    <div class="nav-title">{% translate "Tahlil" %}</div>
+    <a class="nav-link {% if url_name == 'report' or url_name == 'report_default' %}active{% endif %}" href="{% url 'reports:report' 'stock' %}">{% translate "Hisobotlar" %}</a>
+    {% endif %}
+
+    {% if user|can:"staff.manage" %}
+    <div class="nav-title">{% translate "Boshqaruv" %}</div>
+    <a class="nav-link {% if url_name == 'staff' or url_name == 'staff_create' or url_name == 'staff_edit' %}active{% endif %}" href="{% url 'accounts:staff' %}">{% translate "Xodimlar" %}</a>
+    <a class="nav-link {% if url_name == 'roles' or url_name == 'role_create' or url_name == 'role_edit' %}active{% endif %}" href="{% url 'accounts:roles' %}">{% translate "Rollar" %}</a>
+    {% endif %}
+    {% endblock %}
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button type="button" class="btn btn-sm menu-toggle" aria-label="{% translate 'Menyu' %}">&#9776;</button>
+      <span></span>
+      <div class="user">
+        {% include "_lang_switch.html" %}
+        {% if not user.is_superuser %}<a href="{% url 'accounts:password_change' %}">{{ user.display_name }}</a>{% else %}<span>{{ user.display_name }}</span>{% endif %}
+        <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="btn btn-sm" type="submit">{% translate "Chiqish" %}</button></form>
+      </div>
+    </header>
+    <main class="content">
+      {% include "_messages.html" %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+{% endwith %}
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/app.js' %}"></script>{% endblock %}
