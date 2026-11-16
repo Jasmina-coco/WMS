@@ -1,0 +1,20 @@
+{% extends "panel/base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head"><h1>{% if object %}{{ object.name }}{% else %}{% translate "Yangi kompaniya" %}{% endif %}</h1></div>
+<div class="card form-card">
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include "_form_fields.html" %}
+    {% if not object %}<p class="muted small">{% translate "Menejer shu login va parol bilan kiradi. Ularni mijozga xavfsiz yo'l bilan yetkazing." %}</p>{% endif %}
+    <div class="actions">
+      <button class="btn btn-primary" type="submit">{% translate "Saqlash" %}</button>
+      <a class="btn" href="{% url 'panel:companies' %}">{% translate "Bekor qilish" %}</a>
+    </div>
+  </form>
+  {% if managers %}
+    <h3 style="margin-top:20px">{% translate "Menejerlar" %}</h3>
+    <ul>{% for m in managers %}<li>{{ m.username }}{% if m.get_full_name %} — {{ m.get_full_name }}{% endif %}</li>{% endfor %}</ul>
+  {% endif %}
+</div>
+{% endblock %}

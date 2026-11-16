@@ -1,0 +1,31 @@
+{% extends "panel/base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head">
+  <h1>{{ lead.company_name }} <span class="badge badge-{{ lead.status }}">{{ lead.get_status_display }}</span></h1>
+  <div class="actions">
+    <a class="btn" href="tel:{{ lead.phone }}">{% translate "Qo'ng'iroq qilish" %}</a>
+    {% if lead.status == "agreed" %}<a class="btn btn-primary" href="{% url 'panel:company_create' %}?lead={{ lead.pk }}">{% translate "Kompaniya yaratish" %}</a>{% endif %}
+  </div>
+</div>
+<div class="grid-2">
+  <div class="card">
+    <dl class="meta">
+      <div><dt>{% translate "Ism" %}</dt><dd>{{ lead.name }}</dd></div>
+      <div><dt>{% translate "Telefon" %}</dt><dd>{{ lead.phone }}</dd></div>
+      <div><dt>Email</dt><dd>{{ lead.email|default:"—" }}</dd></div>
+      <div><dt>{% translate "Omborlar soni" %}</dt><dd>{{ lead.warehouses_count|default:"—" }}</dd></div>
+      <div><dt>{% translate "Kelgan vaqti" %}</dt><dd>{{ lead.created_at|date:"d.m.Y H:i" }}</dd></div>
+    </dl>
+    {% if lead.message %}<h3 style="margin-top:16px">{% translate "Xabar" %}</h3><p>{{ lead.message|linebreaksbr }}</p>{% endif %}
+  </div>
+  <div class="card">
+    <h2>{% translate "Qo'ng'iroq natijasi" %}</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include "_form_fields.html" %}
+      <button class="btn btn-primary" type="submit">{% translate "Saqlash" %}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

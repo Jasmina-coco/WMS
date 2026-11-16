@@ -1,0 +1,27 @@
+{% extends "panel/base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head">
+  <h1>{% translate "Kompaniyalar" %}</h1>
+  <a class="btn btn-primary" href="{% url 'panel:company_create' %}">+ {% translate "Kompaniya qo'shish" %}</a>
+</div>
+<div class="card table-wrap">
+  <table>
+    <thead><tr><th>{% translate "Nomi" %}</th><th>{% translate "Mas'ul shaxs" %}</th><th>{% translate "Telefon" %}</th><th class="num">{% translate "Foydalanuvchilar" %}</th><th>{% translate "Holat" %}</th><th>{% translate "Qo'shilgan" %}</th></tr></thead>
+    <tbody>
+    {% for company in companies %}
+      <tr>
+        <td><a href="{% url 'panel:company_edit' company.pk %}">{{ company.name }}</a></td>
+        <td>{{ company.contact_person|default:"—" }}</td>
+        <td class="nowrap">{{ company.phone|default:"—" }}</td>
+        <td class="num">{{ company.users_count }}</td>
+        <td>{% if company.is_active %}<span class="badge badge-active">{% translate "Faol" %}</span>{% else %}<span class="badge badge-blocked">{% translate "Bloklangan" %}</span>{% endif %}</td>
+        <td class="small">{{ company.created_at|date:"d.m.Y" }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6" class="empty">{% translate "Hali kompaniya yo'q." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

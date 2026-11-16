@@ -1,0 +1,15 @@
+{% extends "panel/base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head"><h1>{% translate "Platforma" %}</h1></div>
+<div class="stats">
+  <a class="card stat" href="{% url 'panel:leads' %}?status=new"><div class="label">{% translate "Yangi arizalar" %}</div><div class="value">{{ lead_stats.new }}</div></a>
+  <div class="card stat"><div class="label">{% translate "Bog'lanildi" %}</div><div class="value">{{ lead_stats.contacted }}</div></div>
+  <div class="card stat"><div class="label">{% translate "Rozi bo'lganlar" %}</div><div class="value plus">{{ lead_stats.agreed }}</div></div>
+  <a class="card stat" href="{% url 'panel:companies' %}"><div class="label">{% translate "Faol kompaniyalar" %}</div><div class="value">{{ company_stats.active }} <span class="muted small">/ {{ company_stats.total }}</span></div></a>
+</div>
+<div class="card table-wrap">
+  <h2>{% translate "Oxirgi arizalar" %}</h2>
+  {% include "panel/_lead_table.html" with leads=latest_leads %}
+</div>
+{% endblock %}
