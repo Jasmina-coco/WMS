@@ -1,0 +1,38 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block content %}
+<div class="page-head">
+  <h1>{% translate "Tovarlar" %}</h1>
+  <div class="actions">
+    <a class="btn" href="{% url 'catalog:categories' %}">{% translate "Kategoriyalar" %}</a>
+    {% if user|can:"products.edit" %}<a class="btn btn-primary" href="{% url 'catalog:product_create' %}">+ {% translate "Tovar qo'shish" %}</a>{% endif %}
+  </div>
+</div>
+<form class="filters" method="get">
+  <input type="search" name="q" value="{{ request.GET.q }}" placeholder="{% translate 'Nomi, SKU yoki shtrix-kod' %}">
+  <select name="category">
+    <option value="">{% translate "Barcha kategoriyalar" %}</option>
+    {% for c in categories %}<option value="{{ c.pk }}" {% if request.GET.category == c.pk|stringformat:"s" %}selected{% endif %}>{{ c.name }}</option>{% endfor %}
+  </select>
+  <button class="btn" type="submit">{% translate "Qidirish" %}</button>
+</form>
+<div class="card table-wrap">
+  <table>
+    <thead><tr><th>SKU</th><th>{% translate "Nomi" %}</th><th>{% translate "Kategoriya" %}</th><th class="num">{% translate "Qoldiq" %}</th><th class="num">{% translate "Minimal" %}</th></tr></thead>
+    <tbody>
+    {% for product in object_list %}
+      <tr>
+        <td class="nowrap">{{ product.sku }}</td>
+        <td><a href="{% url 'catalog:product_detail' product.pk %}">{{ product.name }}</a>{% if not product.is_active %} <span class="badge">{% translate "Nofaol" %}</span>{% endif %}</td>
+        <td>{{ product.category|default:"—" }}</td>
+        <td class="num {% if product.min_stock and product.total_qty|default:0 < product.min_stock %}minus{% endif %}">{{ product.total_qty|qty }} {{ product.get_unit_display }}</td>
+        <td class="num muted">{{ product.min_stock|qty }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5" class="empty">{% translate "Tovarlar topilmadi." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "_pagination.html" %}
+{% endblock %}

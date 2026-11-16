@@ -1,0 +1,28 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block content %}
+<div class="page-head">
+  <h1>{% translate "Omborlar" %}</h1>
+  <div class="actions">
+    <a class="btn" href="{% url 'warehouses:locations' %}">{% translate "Joylar (yacheykalar)" %}</a>
+    {% if user|can:"warehouses.edit" %}<a class="btn btn-primary" href="{% url 'warehouses:create' %}">+ {% translate "Ombor qo'shish" %}</a>{% endif %}
+  </div>
+</div>
+<div class="card table-wrap">
+  <table>
+    <thead><tr><th>{% translate "Nomi" %}</th><th>{% translate "Manzil" %}</th><th>{% translate "Holat" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for warehouse in object_list %}
+      <tr>
+        <td><a href="{% url 'warehouses:locations' %}?warehouse={{ warehouse.pk }}">{{ warehouse.name }}</a></td>
+        <td>{{ warehouse.address|default:"—" }}</td>
+        <td>{% if warehouse.is_active %}<span class="badge badge-active">{% translate "Faol" %}</span>{% else %}<span class="badge">{% translate "Nofaol" %}</span>{% endif %}</td>
+        <td class="right">{% if user|can:"warehouses.edit" %}<a href="{% url 'warehouses:edit' warehouse.pk %}">{% translate "Tahrirlash" %}</a>{% endif %}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4" class="empty">{% translate "Hali ombor yo'q." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

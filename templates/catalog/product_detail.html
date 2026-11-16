@@ -1,0 +1,39 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block content %}
+<div class="page-head">
+  <h1>{{ product.name }}</h1>
+  {% if user|can:"products.edit" %}<a class="btn" href="{% url 'catalog:product_edit' product.pk %}">{% translate "Tahrirlash" %}</a>{% endif %}
+</div>
+<div class="grid-2">
+  <div class="card">
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      {% if product.image %}<img class="product-thumb" src="{{ product.image.url }}" alt="{{ product.name }}">{% endif %}
+      <dl class="meta" style="flex:1">
+        <div><dt>SKU</dt><dd>{{ product.sku }}</dd></div>
+        <div><dt>{% translate "Shtrix-kod" %}</dt><dd>{{ product.barcode|default:"—" }}</dd></div>
+        <div><dt>{% translate "Kategoriya" %}</dt><dd>{{ product.category|default:"—" }}</dd></div>
+        <div><dt>{% translate "O'lchov birligi" %}</dt><dd>{{ product.get_unit_display }}</dd></div>
+        <div><dt>{% translate "Minimal qoldiq" %}</dt><dd>{{ product.min_stock|qty }}</dd></div>
+      </dl>
+    </div>
+  </div>
+  <div class="card table-wrap">
+    <h2>{% translate "Qayerda turibdi" %}</h2>
+    <table>
+      <thead><tr><th>{% translate "Ombor" %}</th><th>{% translate "Joy" %}</th><th class="num">{% translate "Miqdor" %}</th></tr></thead>
+      <tbody>
+      {% for row in stock %}
+        <tr><td>{{ row.location.warehouse.name }}</td><td>{{ row.location.code }}</td><td class="num">{{ row.quantity|qty }}</td></tr>
+      {% empty %}
+        <tr><td colspan="3" class="empty">{% translate "Omborda yo'q." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card table-wrap" style="margin-top:18px">
+  <h2>{% translate "Oxirgi harakatlar" %}</h2>
+  {% include "inventory/_movements_table.html" with movements=movements hide_product=True %}
+</div>
+{% endblock %}

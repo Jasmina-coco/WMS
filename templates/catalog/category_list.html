@@ -1,0 +1,21 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block content %}
+<div class="page-head">
+  <h1>{% translate "Kategoriyalar" %}</h1>
+  {% if user|can:"products.edit" %}<a class="btn btn-primary" href="{% url 'catalog:category_create' %}">+ {% translate "Kategoriya qo'shish" %}</a>{% endif %}
+</div>
+<div class="card table-wrap">
+  <table>
+    <thead><tr><th>{% translate "Nomi" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for category in object_list %}
+      <tr><td><a href="{% url 'catalog:products' %}?category={{ category.pk }}">{{ category.name }}</a></td>
+      <td class="right">{% if user|can:"products.edit" %}<a href="{% url 'catalog:category_edit' category.pk %}">{% translate "Tahrirlash" %}</a>{% endif %}</td></tr>
+    {% empty %}
+      <tr><td colspan="2" class="empty">{% translate "Hali kategoriya yo'q." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
