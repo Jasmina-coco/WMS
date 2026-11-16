@@ -1,0 +1,25 @@
+{% extends "app_base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head"><h1>{% if object %}{{ object.username }}{% else %}{% translate "Yangi xodim" %}{% endif %}</h1></div>
+<div class="card form-card">
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors|join:" " }}</div>{% endif %}
+    <div class="form-grid">
+      {% include "_field.html" with field=form.first_name %}
+      {% include "_field.html" with field=form.last_name %}
+      {% include "_field.html" with field=form.username %}
+      {% include "_field.html" with field=form.password %}
+      {% include "_field.html" with field=form.phone %}
+      {% include "_field.html" with field=form.role %}
+      {% include "_field.html" with field=form.warehouses class="wide" %}
+      {% include "_field.html" with field=form.is_active class="wide" %}
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" type="submit">{% translate "Saqlash" %}</button>
+      <a class="btn" href="{% url 'accounts:staff' %}">{% translate "Bekor qilish" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

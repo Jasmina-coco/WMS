@@ -1,0 +1,27 @@
+{% extends "app_base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head">
+  <h1>{% translate "Xodimlar" %}</h1>
+  <a class="btn btn-primary" href="{% url 'accounts:staff_create' %}">+ {% translate "Xodim qo'shish" %}</a>
+</div>
+<div class="card table-wrap">
+  <table>
+    <thead><tr><th>{% translate "Ism" %}</th><th>{% translate "Login" %}</th><th>{% translate "Rol" %}</th><th>{% translate "Omborlar" %}</th><th>{% translate "Holat" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for person in staff %}
+      <tr>
+        <td>{{ person.get_full_name|default:"—" }}</td>
+        <td>{{ person.username }}</td>
+        <td>{{ person.role|default:"—" }}</td>
+        <td class="small">{% for w in person.warehouses.all %}{{ w.name }}{% if not forloop.last %}, {% endif %}{% empty %}<span class="muted">{% translate "biriktirilmagan" %}</span>{% endfor %}</td>
+        <td>{% if person.is_active %}<span class="badge badge-active">{% translate "Faol" %}</span>{% else %}<span class="badge badge-blocked">{% translate "O'chirilgan" %}</span>{% endif %}</td>
+        <td class="right"><a href="{% url 'accounts:staff_edit' person.pk %}">{% translate "Tahrirlash" %}</a></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6" class="empty">{% translate "Hali xodim qo'shilmagan." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

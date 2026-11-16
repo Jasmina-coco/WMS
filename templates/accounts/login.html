@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}{% translate "Kirish" %} — {{ SITE_NAME }}{% endblock %}
+{% block body %}
+<div class="auth">
+  <div class="card">
+    <a class="brand" href="{% url 'landing:home' %}">{{ SITE_NAME }}</a>
+    <h1>{% translate "Tizimga kirish" %}</h1>
+    {% include "_messages.html" %}
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if form.errors %}<div class="form-errors">{% translate "Login yoki parol noto'g'ri." %}</div>{% endif %}
+      {% for field in form %}{% include "_field.html" %}{% endfor %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn btn-primary" type="submit" style="width:100%">{% translate "Kirish" %}</button>
+    </form>
+    <p class="muted small" style="margin-top:16px">{% translate "Akkauntingiz yo'qmi?" %} <a href="{% url 'landing:home' %}#ariza">{% translate "Ariza qoldiring" %}</a></p>
+    {% include "_lang_switch.html" %}
+  </div>
+</div>
+{% endblock %}

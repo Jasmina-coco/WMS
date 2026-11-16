@@ -1,0 +1,21 @@
+{% extends "app_base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head">
+  <h1>{% translate "Rollar" %}</h1>
+  <a class="btn btn-primary" href="{% url 'accounts:role_create' %}">+ {% translate "Yangi rol" %}</a>
+</div>
+<p class="muted">{% translate "Rol — bu xodim nimalarni qila olishi ro'yxati. Rol yaratib, keyin uni xodimlarga biriktirasiz." %}</p>
+<div class="card table-wrap">
+  <table>
+    <thead><tr><th>{% translate "Nomi" %}</th><th class="num">{% translate "Ruxsatlar soni" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for role in object_list %}
+      <tr><td>{{ role.name }}</td><td class="num">{{ role.permissions|length }}</td><td class="right"><a href="{% url 'accounts:role_edit' role.pk %}">{% translate "Tahrirlash" %}</a></td></tr>
+    {% empty %}
+      <tr><td colspan="3" class="empty">{% translate "Hali rol yo'q. Masalan, «Omborchi» rolini yarating." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

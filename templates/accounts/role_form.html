@@ -1,0 +1,27 @@
+{% extends "app_base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head"><h1>{% if object %}{{ object.name }}{% else %}{% translate "Yangi rol" %}{% endif %}</h1></div>
+<form method="post" class="card stack" novalidate>
+  {% csrf_token %}
+  {% include "_field.html" with field=form.name %}
+  <div>
+    <label style="font-weight:500">{% translate "Ruxsatlar" %}</label>
+    <p class="muted small">{% translate "Xodim faqat belgilangan amallarni bajara oladi." %}</p>
+    <div class="perm-groups">
+      {% for group_name, items in groups %}
+      <div class="perm-group">
+        <h3>{{ group_name }}</h3>
+        {% for code, label in items %}
+          <label class="check"><input type="checkbox" name="permissions" value="{{ code }}" {% if code in selected %}checked{% endif %}> {{ label }}</label>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" type="submit">{% translate "Saqlash" %}</button>
+    <a class="btn" href="{% url 'accounts:roles' %}">{% translate "Bekor qilish" %}</a>
+  </div>
+</form>
+{% endblock %}
