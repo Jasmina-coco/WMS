@@ -1,0 +1,130 @@
+/* Landing sahifa uslublari. Umumiy narsalar (tugma, input) base.css da. */
+
+html { scroll-behavior: smooth; }
+body { background: var(--surface); }
+
+.container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+.container.narrow { max-width: 760px; }
+
+/* --- Sarlavha (header) --- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+.logo { font-weight: 800; font-size: 20px; color: var(--text); }
+.logo:hover { text-decoration: none; }
+.site-nav { display: flex; gap: 24px; }
+.site-nav a { color: var(--muted); font-weight: 500; }
+.site-nav a:hover { color: var(--text); text-decoration: none; }
+.header-actions { display: flex; align-items: center; gap: 12px; }
+
+/* --- Hero --- */
+
+.hero {
+  padding: 72px 0 80px;
+  background: radial-gradient(1100px 500px at 85% 0%, #e3ebff 0%, transparent 60%), var(--surface);
+}
+.hero-inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+.eyebrow { color: var(--primary); font-weight: 600; margin: 0 0 12px; }
+.hero h1 { font-size: 44px; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 18px; }
+.lead { font-size: 18px; color: var(--muted); margin: 0 0 26px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-points { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 6px; color: var(--muted); }
+.hero-points li::before { content: "✓"; color: var(--success); font-weight: 700; margin-right: 8px; }
+
+.mockup {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(23, 32, 51, 0.14);
+  overflow: hidden;
+}
+.mockup-bar { display: flex; gap: 6px; padding: 12px 14px; background: var(--surface-2); }
+.mockup-bar span { width: 10px; height: 10px; border-radius: 50%; background: #c8d0e0; }
+.mockup-body { padding: 18px; display: grid; gap: 16px; }
+.mock-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.mock-stats div { background: var(--surface-2); border-radius: 10px; padding: 12px; }
+.mock-stats small { display: block; color: var(--muted); font-size: 12px; }
+.mock-stats b { font-size: 20px; }
+.mock-table { display: grid; gap: 1px; background: var(--border); border-radius: 10px; overflow: hidden; }
+.mock-table div { display: flex; justify-content: space-between; padding: 11px 14px; background: var(--surface); font-size: 14px; }
+.mock-table span:last-child { color: var(--warning); font-weight: 600; font-size: 13px; }
+.mock-table span.ok { color: var(--success); }
+
+/* --- Bo'limlar --- */
+
+.section { padding: 76px 0; }
+.section.alt { background: var(--bg); }
+.section-title { font-size: 32px; letter-spacing: -0.01em; text-align: center; margin-bottom: 36px; }
+.section-title.left { text-align: left; margin-bottom: 14px; }
+
+.cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.cards-3 .card { box-shadow: none; }
+.cards-3 h3 { font-size: 17px; margin-bottom: 8px; }
+.cards-3 p { margin: 0; color: var(--muted); }
+.feature .icon { font-size: 26px; display: block; margin-bottom: 10px; }
+
+.steps { list-style: none; counter-reset: step; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.steps li { counter-increment: step; position: relative; padding-top: 52px; }
+.steps li::before {
+  content: counter(step);
+  position: absolute; top: 0; left: 0;
+  width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--primary); color: #fff; font-weight: 700;
+}
+.steps b { display: block; font-size: 17px; margin-bottom: 4px; }
+.steps span { color: var(--muted); }
+
+.faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.faq summary { cursor: pointer; font-weight: 600; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--primary); font-size: 22px; line-height: 1; }
+.faq details[open] summary::after { content: "−"; }
+.faq p { color: var(--muted); margin: 10px 0 0; }
+
+/* --- Aloqa va forma --- */
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: start; }
+.contacts { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+.contacts small { display: block; color: var(--muted); }
+.contacts a { font-size: 20px; font-weight: 600; color: var(--text); }
+
+.lead-form h3 { font-size: 20px; margin-bottom: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.lead-form .btn { width: 100%; }
+.field .error:empty { display: none; }
+.field.has-error input, .field.has-error textarea { border-color: var(--danger); }
+/* Honeypot — odam ko'rmaydi */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-result { margin: 12px 0 0; font-weight: 500; }
+.form-result.ok { color: var(--success); }
+.form-result.fail { color: var(--danger); }
+
+.site-footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--muted); }
+.footer-inner { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* --- Moslashuvchanlik --- */
+
+@media (max-width: 960px) {
+  .site-nav { display: none; }
+  .hero-inner, .contact-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 34px; }
+  .cards-3 { grid-template-columns: 1fr 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 44px 0 56px; }
+  .hero h1 { font-size: 28px; }
+  .section { padding: 52px 0; }
+  .section-title { font-size: 25px; }
+  .cards-3, .steps, .form-row { grid-template-columns: 1fr; }
+  .header-actions .lang-switch { display: none; }
+}

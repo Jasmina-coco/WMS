@@ -1,0 +1,5 @@
+<div class="field" data-field="{{ field.name }}">
+  <label for="{{ field.id_for_label }}">{{ label }}{% if field.field.required %} *{% endif %}</label>
+  {{ field }}
+  <div class="error">{% for e in field.errors %}{{ e }} {% endfor %}</div>
+</div>

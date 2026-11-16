@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block body %}
+<div class="auth"><div class="card">
+  <h1>{% translate "Rahmat!" %}</h1>
+  <p>{{ message }}</p>
+  <a class="btn btn-primary" href="{% url 'landing:home' %}">{% translate "Bosh sahifaga" %}</a>
+</div></div>
+{% endblock %}

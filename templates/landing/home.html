@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}{{ SITE_NAME }} — {% translate "omborlarni boshqarish tizimi" %}{% endblock %}
+{% block styles %}
+<meta name="description" content="{% translate 'Omborlar, qoldiqlar, kirim-chiqim va inventarizatsiyani bitta tizimda boshqaring.' %}">
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+{% endblock %}
+
+{% block body %}
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="#">{{ SITE_NAME }}</a>
+    <nav class="site-nav">
+      <a href="#imkoniyatlar">{% translate "Imkoniyatlar" %}</a>
+      <a href="#qanday">{% translate "Qanday ishlaydi" %}</a>
+      <a href="#savollar">{% translate "Savollar" %}</a>
+      <a href="#aloqa">{% translate "Aloqa" %}</a>
+    </nav>
+    <div class="header-actions">
+      {% include "_lang_switch.html" %}
+      <a class="btn" href="{% url 'accounts:login' %}">{% translate "Kirish" %}</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="eyebrow">{% translate "Omborlarni boshqarish tizimi (WMS)" %}</p>
+        <h1>{% translate "Omboringizda nima, qayerda va qancha borligini har doim aniq biling" %}</h1>
+        <p class="lead">{% translate "Kirim, terish va jo'natish, ko'chirish, inventarizatsiya va hisobotlar — bitta qulay tizimda. Bir nechta ombor bilan ishlaysizmi? Hammasi bir joyda." %}</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#ariza">{% translate "Ariza qoldirish" %}</a>
+          <a class="btn btn-lg" href="#imkoniyatlar">{% translate "Batafsil" %}</a>
+        </div>
+        <ul class="hero-points">
+          <li>{% translate "O'rnatish shart emas — brauzerda ishlaydi" %}</li>
+          <li>{% translate "Ma'lumotlar bulutda xavfsiz saqlanadi" %}</li>
+        </ul>
+      </div>
+      {# Tizim qanday ko'rinishini ko'rsatuvchi kichik namuna (faqat HTML/CSS) #}
+      <div class="mockup" aria-hidden="true">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-body">
+          <div class="mock-stats">
+            <div><small>{% translate "Bugun kirdi" %}</small><b class="plus">+1 240</b></div>
+            <div><small>{% translate "Bugun chiqdi" %}</small><b class="minus">−860</b></div>
+            <div><small>{% translate "Tovarlar" %}</small><b>3 415</b></div>
+          </div>
+          <div class="mock-table">
+            <div><span>CH-000214</span><span>{% translate "Terilmoqda" %}</span></div>
+            <div><span>KR-000188</span><span class="ok">{% translate "Bajarildi" %}</span></div>
+            <div><span>KO-000052</span><span class="ok">{% translate "Bajarildi" %}</span></div>
+            <div><span>CH-000213</span><span class="ok">{% translate "Bajarildi" %}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">{% translate "Tanish muammolarmi?" %}</h2>
+      <div class="cards-3">
+        <div class="card"><h3>{% translate "Qoldiq Excel bilan mos kelmaydi" %}</h3><p>{% translate "Har oy sanoqda «yo'qolgan» tovar chiqadi, sababini hech kim bilmaydi." %}</p></div>
+        <div class="card"><h3>{% translate "Tovarni qidirib vaqt ketadi" %}</h3><p>{% translate "Omborchi kerakli tovar qaysi tokchada turganini eslab yurishi kerak." %}</p></div>
+        <div class="card"><h3>{% translate "Kim nima qilgani noma'lum" %}</h3><p>{% translate "Xato chiqqanda kim kiritgani, qachon chiqarilgani topilmaydi." %}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="imkoniyatlar">
+    <div class="container">
+      <h2 class="section-title">{% translate "Imkoniyatlar" %}</h2>
+      <div class="cards-3">
+        <div class="card feature"><span class="icon">📦</span><h3>{% translate "Omborlar va yacheykalar" %}</h3><p>{% translate "Bir nechta ombor, zonalar va aniq joylar (A-01-03). Har bir tovar qayerda turgani ko'rinib turadi." %}</p></div>
+        <div class="card feature"><span class="icon">⬇️</span><h3>{% translate "Kirim" %}</h3><p>{% translate "Yetkazib beruvchidan qabul qilish, nakladnoyni biriktirish, tovarni joyiga qo'yish." %}</p></div>
+        <div class="card feature"><span class="icon">⬆️</span><h3>{% translate "Terish va jo'natish" %}</h3><p>{% translate "Terish varag'i: omborchi qaysi tovarni qaysi yacheykadan olishini aniq biladi." %}</p></div>
+        <div class="card feature"><span class="icon">🔁</span><h3>{% translate "Ko'chirish" %}</h3><p>{% translate "Yacheykalar va omborlar orasida ko'chirish — qoldiq ikkala tomonda avtomatik yangilanadi." %}</p></div>
+        <div class="card feature"><span class="icon">✅</span><h3>{% translate "Inventarizatsiya" %}</h3><p>{% translate "Sanoq varag'i, farqlarni ko'rsatish va bir tugma bilan qoldiqni tuzatish." %}</p></div>
+        <div class="card feature"><span class="icon">📊</span><h3>{% translate "Hisobotlar" %}</h3><p>{% translate "Qoldiq, aylanma, kam qolgan tovarlar, xodimlar faolligi. Excel (CSV) va PDF ga eksport." %}</p></div>
+        <div class="card feature"><span class="icon">👥</span><h3>{% translate "Rollar va ruxsatlar" %}</h3><p>{% translate "Har bir xodimga faqat kerakli amallarni va kerakli omborlarni bering." %}</p></div>
+        <div class="card feature"><span class="icon">🧾</span><h3>{% translate "To'liq tarix" %}</h3><p>{% translate "Har bir harakat yoziladi: kim, qachon, qaysi hujjat bilan. Hech narsa izsiz o'zgarmaydi." %}</p></div>
+        <div class="card feature"><span class="icon">☁️</span><h3>{% translate "Bulutda ishlaydi" %}</h3><p>{% translate "Kompyuter, planshet yoki telefondan — internet bor joyda ishlaydi." %}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="qanday">
+    <div class="container">
+      <h2 class="section-title">{% translate "Qanday boshlanadi" %}</h2>
+      <ol class="steps">
+        <li><b>{% translate "Ariza qoldirasiz" %}</b><span>{% translate "Pastdagi formani to'ldirasiz — 1 daqiqa." %}</span></li>
+        <li><b>{% translate "Biz qo'ng'iroq qilamiz" %}</b><span>{% translate "Omboringiz haqida so'rab, tizimni ko'rsatamiz." %}</span></li>
+        <li><b>{% translate "Akkaunt ochiladi" %}</b><span>{% translate "Menejer login va parolini olasiz." %}</span></li>
+        <li><b>{% translate "Ishlay boshlaysiz" %}</b><span>{% translate "Ombor, tovar va xodimlarni qo'shasiz." %}</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <h2 class="section-title">{% translate "Kimlar uchun" %}</h2>
+      <div class="cards-3">
+        <div class="card"><h3>{% translate "Chakana savdo tarmoqlari" %}</h3><p>{% translate "Markaziy ombor va do'konlar orasidagi tovar oqimi." %}</p></div>
+        <div class="card"><h3>{% translate "Distribyutorlar" %}</h3><p>{% translate "Ko'p mijozga tez va xatosiz terish va jo'natish." %}</p></div>
+        <div class="card"><h3>{% translate "Ishlab chiqarish" %}</h3><p>{% translate "Xomashyo va tayyor mahsulot omborlari nazorati." %}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="savollar">
+    <div class="container narrow">
+      <h2 class="section-title">{% translate "Ko'p beriladigan savollar" %}</h2>
+      <div class="faq">
+        <details><summary>{% translate "Biror dastur o'rnatish kerakmi?" %}</summary><p>{% translate "Yo'q. Tizim brauzerda ishlaydi — faqat internet kerak." %}</p></details>
+        <details><summary>{% translate "Ma'lumotlarimizni boshqa kompaniyalar ko'radimi?" %}</summary><p>{% translate "Yo'q. Har bir kompaniyaning ma'lumotlari to'liq ajratilgan, faqat sizning xodimlaringiz ko'radi." %}</p></details>
+        <details><summary>{% translate "Nechta ombor va xodim qo'shish mumkin?" %}</summary><p>{% translate "Cheklov yo'q — omborlar, joylar va xodimlarni o'zingiz qo'shasiz." %}</p></details>
+        <details><summary>{% translate "Xodim faqat o'z omborini ko'rishi mumkinmi?" %}</summary><p>{% translate "Ha. Menejer har bir xodimga rol va omborlarni biriktiradi." %}</p></details>
+        <details><summary>{% translate "Shtrix-kod skaneri bilan ishlaydimi?" %}</summary><p>{% translate "Hozircha shtrix-kod qo'lda kiritiladi. Skaner bilan ishlash yaqin orada qo'shiladi." %}</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="aloqa">
+    <div class="container contact-grid">
+      <div>
+        <h2 class="section-title left">{% translate "Bog'lanish" %}</h2>
+        <p class="lead">{% translate "Ariza qoldiring — biz qo'ng'iroq qilib, tizimni sizning omboringiz misolida ko'rsatamiz." %}</p>
+        <ul class="contacts">
+          {% if CONTACT_PHONE %}<li><small>{% translate "Telefon" %}</small><a href="tel:{{ CONTACT_PHONE|cut:' ' }}">{{ CONTACT_PHONE }}</a></li>{% endif %}
+          {% if CONTACT_EMAIL %}<li><small>Email</small><a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a></li>{% endif %}
+        </ul>
+      </div>
+
+      <form id="ariza" class="card lead-form" method="post" action="{% url 'landing:submit' %}" novalidate>
+        {% csrf_token %}
+        <h3>{% translate "Ariza qoldirish" %}</h3>
+        <div class="form-row">
+          {% include "landing/_input.html" with field=form.name label=_("Ismingiz") %}
+          {% include "landing/_input.html" with field=form.phone label=_("Telefon") %}
+        </div>
+        {% include "landing/_input.html" with field=form.company_name label=_("Kompaniya nomi") %}
+        <div class="form-row">
+          {% include "landing/_input.html" with field=form.email label="Email" %}
+          {% include "landing/_input.html" with field=form.warehouses_count label=_("Omborlar soni") %}
+        </div>
+        {% include "landing/_input.html" with field=form.message label=_("Izoh") %}
+        <div class="hp">{{ form.website }}</div>
+        <button class="btn btn-primary btn-lg" type="submit">{% translate "Yuborish" %}</button>
+        <p class="form-result" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>© {% now "Y" %} {{ SITE_NAME }}</span>
+    <a href="{% url 'accounts:login' %}">{% translate "Tizimga kirish" %}</a>
+  </div>
+</footer>
+{% endblock %}
+
+{% block scripts %}<script src="{% static 'js/landing.js' %}"></script>{% endblock %}
