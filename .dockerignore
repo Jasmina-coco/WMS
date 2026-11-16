@@ -1,7 +1,5 @@
-.git
-.github
-.venv
-.env
+# Yashirin fayl va papkalar (.git, .github, .env, IDE sozlamalari) image ichiga tushmasin
+.*
 __pycache__
 *.pyc
 media
