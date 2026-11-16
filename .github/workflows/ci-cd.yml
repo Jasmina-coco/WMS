@@ -1,0 +1,183 @@
+# CI/CD
+#
+# Har bir push va pull request:  lint -> testlar
+# main branchga push bo'lganda:   + Docker image'lar yig'iladi -> GHCR -> EC2 ga deploy
+#
+# Deploy uchun GitHub'da sozlanadigan narsalar (Settings -> Secrets and variables -> Actions):
+#   Variables: DEPLOY_ENABLED=true, AWS_REGION=eu-central-1, SECURITY_GROUP_ID=sg-...
+#   Secrets:   SSH_HOST, SSH_USER, SSH_KEY, AWS_DEPLOY_ROLE_ARN
+# Deploy yoqilmagan bo'lsa (DEPLOY_ENABLED yo'q), faqat CI va build ishlaydi.
+
+name: CI/CD
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - name: Formatlash (black)
+        run: black --check .
+      - name: Kod sifati (flake8)
+        run: flake8
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: wms
+          POSTGRES_USER: wms
+          POSTGRES_PASSWORD: wms
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U wms"
+          --health-interval 5s
+          --health-retries 10
+    env:
+      SECRET_KEY: ci-only
+      DB_NAME: wms
+      DB_USER: wms
+      DB_PASSWORD: wms
+      DB_HOST: localhost
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Migratsiyalar unutilmaganini tekshirish
+        run: python manage.py makemigrations --check --dry-run
+      - name: Testlar
+        run: python manage.py test
+
+  build:
+    needs: [lint, test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      prefix: ${{ steps.vars.outputs.prefix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: vars
+        # GHCR faqat kichik harflarni qabul qiladi
+        run: echo "prefix=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: web image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: web
+          push: true
+          tags: ${{ steps.vars.outputs.prefix }}/wms-web:${{ github.sha }},${{ steps.vars.outputs.prefix }}/wms-web:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: nginx image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: nginx
+          push: true
+          tags: ${{ steps.vars.outputs.prefix }}/wms-nginx:${{ github.sha }},${{ steps.vars.outputs.prefix }}/wms-nginx:latest
+          cache-from: type=gha
+      - name: autoscaler image
+        uses: docker/build-push-action@v6
+        with:
+          context: deploy/autoscaler
+          push: true
+          tags: ${{ steps.vars.outputs.prefix }}/wms-autoscaler:${{ github.sha }},${{ steps.vars.outputs.prefix }}/wms-autoscaler:latest
+
+  deploy:
+    needs: build
+    if: vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+      packages: read
+      id-token: write # AWS ga kalitsiz (OIDC) kirish uchun
+    env:
+      IMAGE_PREFIX: ${{ needs.build.outputs.prefix }}
+      TAG: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # SSH porti hammaga yopiq. Deploy vaqtida faqat shu runner'ning IP manzili
+      # uchun vaqtincha ochamiz va oxirida albatta yopamiz.
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: SSH ni runner IP si uchun ochish
+        id: ip
+        run: |
+          IP=$(curl -s https://checkip.amazonaws.com)
+          echo "ip=$IP" >> "$GITHUB_OUTPUT"
+          aws ec2 authorize-security-group-ingress \
+            --group-id "${{ vars.SECURITY_GROUP_ID }}" --protocol tcp --port 22 --cidr "$IP/32"
+
+      - name: SSH kalitini tayyorlash
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Fayllarni serverga yuborish
+        run: |
+          scp -i ~/.ssh/deploy_key deploy/docker-stack.yml deploy/nginx/prod.conf \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/wms/"
+
+      - name: Migratsiya va rolling update
+        run: |
+          ssh -i ~/.ssh/deploy_key "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" bash -s <<EOF
+          set -e
+          cd /opt/wms
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker pull "$IMAGE_PREFIX/wms-web:$TAG"
+          docker run --rm --env-file /opt/wms/.env "$IMAGE_PREFIX/wms-web:$TAG" python manage.py migrate --noinput
+          IMAGE_PREFIX="$IMAGE_PREFIX" TAG="$TAG" CONF_VERSION="${TAG:0:7}" \
+            docker stack deploy -c docker-stack.yml --with-registry-auth --prune wms
+          docker logout ghcr.io
+          EOF
+
+      - name: Sayt ishlayotganini tekshirish
+        run: |
+          for i in $(seq 1 20); do
+            if curl -fsS "https://${{ secrets.SSH_HOST }}/health/" -o /dev/null --insecure; then
+              echo "Sayt ishlayapti"; exit 0
+            fi
+            sleep 6
+          done
+          echo "Sayt javob bermadi"; exit 1
+
+      - name: SSH ni qayta yopish
+        if: always() && steps.ip.outputs.ip != ''
+        run: |
+          aws ec2 revoke-security-group-ingress \
+            --group-id "${{ vars.SECURITY_GROUP_ID }}" --protocol tcp --port 22 --cidr "${{ steps.ip.outputs.ip }}/32"
