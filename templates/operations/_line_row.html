@@ -1,0 +1,26 @@
+{% load i18n %}
+<tr class="{% if line.DELETE.value %}hidden{% endif %}">
+  <td>
+    {% for hidden in line.hidden_fields %}{{ hidden }}{% endfor %}
+    {{ line.product }}
+    {% for e in line.product.errors %}<div class="error small">{{ e }}</div>{% endfor %}
+  </td>
+  <td>
+    {{ line.location }}
+    {% for e in line.location.errors %}<div class="error small">{{ e }}</div>{% endfor %}
+  </td>
+  {% if line.to_location %}
+  <td>
+    {{ line.to_location }}
+    {% for e in line.to_location.errors %}<div class="error small">{{ e }}</div>{% endfor %}
+  </td>
+  {% endif %}
+  <td style="max-width:130px">
+    {{ line.quantity }}
+    {% for e in line.quantity.errors %}<div class="error small">{{ e }}</div>{% endfor %}
+  </td>
+  <td>
+    <span class="hidden">{{ line.DELETE }}</span>
+    <button type="button" class="btn btn-sm btn-danger" data-remove-line title="{% translate 'O‘chirish' %}">&times;</button>
+  </td>
+</tr>

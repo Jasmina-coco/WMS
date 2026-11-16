@@ -1,0 +1,68 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block content %}
+<div class="page-head">
+  <h1>{{ count.number }} <span class="badge badge-{{ count.status }}">{{ count.get_status_display }}</span></h1>
+  <div class="actions">
+    <button class="btn" onclick="window.print()">{% translate "Sanoq varag'ini chop etish" %}</button>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:18px">
+  <dl class="meta">
+    <div><dt>{% translate "Ombor" %}</dt><dd>{{ count.warehouse.name }}</dd></div>
+    <div><dt>{% translate "Zona" %}</dt><dd>{{ count.zone|default:_("butun ombor") }}</dd></div>
+    <div><dt>{% translate "Ochgan" %}</dt><dd>{{ count.created_by.display_name }}, {{ count.created_at|date:"d.m.Y H:i" }}</dd></div>
+    {% if count.finished_by %}<div><dt>{% translate "Yakunlagan" %}</dt><dd>{{ count.finished_by.display_name }}, {{ count.finished_at|date:"d.m.Y H:i" }}</dd></div>{% endif %}
+  </dl>
+</div>
+
+<form method="post" class="card table-wrap">
+  {% csrf_token %}
+  {% if is_open %}<p class="muted small no-print">{% translate "Har bir qatorga haqiqatda sanalgan miqdorni yozing. Sanalmagan qatorni bo'sh qoldiring — u o'zgarmaydi." %}</p>{% endif %}
+  <table>
+    <thead><tr>
+      <th>{% translate "Joy" %}</th><th>SKU</th><th>{% translate "Tovar" %}</th>
+      <th class="num">{% translate "Tizimda" %}</th><th class="num">{% translate "Sanaldi" %}</th><th class="num">{% translate "Farq" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for line in lines %}
+      <tr>
+        <td><strong>{{ line.location.code }}</strong></td>
+        <td class="nowrap">{{ line.product.sku }}</td>
+        <td>{{ line.product.name }}</td>
+        <td class="num">{{ line.system_quantity|qty }}</td>
+        <td class="num" style="width:140px">
+          {% if is_open %}
+            <input type="number" step="0.001" min="0" name="counted_{{ line.pk }}" value="{% if line.counted_quantity is not None %}{{ line.counted_quantity|qty }}{% endif %}">
+          {% else %}{{ line.counted_quantity|qty|default:"—" }}{% endif %}
+        </td>
+        <td class="num {% if line.difference > 0 %}plus{% elif line.difference < 0 %}minus{% endif %}">
+          {% if line.difference is not None %}{% if line.difference > 0 %}+{% endif %}{{ line.difference|qty }}{% else %}—{% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6" class="empty">{% translate "Bu joylarda tizim bo'yicha qoldiq yo'q. Topilgan tovarlarni pastdan qo'shing." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if is_open %}
+  <div class="actions no-print" style="margin-top:14px">
+    {% if user|can:"counts.do" %}<button class="btn btn-primary" name="action" value="save">{% translate "Saqlash" %}</button>{% endif %}
+    {% if user|can:"counts.finish" %}<button class="btn btn-success" name="action" value="finish" data-confirm="{% translate 'Yakunlaysizmi? Farqlar qoldiqqa yoziladi va buni qaytarib bo‘lmaydi.' %}">{% translate "Yakunlash" %}</button>{% endif %}
+  </div>
+  {% endif %}
+</form>
+
+{% if is_open and user|can:"counts.do" %}
+<form method="post" class="card no-print" style="margin-top:18px">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="add_line">
+  <h2>{% translate "Tizimda yo'q tovar topildimi?" %}</h2>
+  <div class="form-grid">
+    {% for field in extra_form %}{% include "_field.html" %}{% endfor %}
+  </div>
+  <button class="btn" type="submit">{% translate "Qo'shish" %}</button>
+</form>
+{% endif %}
+{% endblock %}

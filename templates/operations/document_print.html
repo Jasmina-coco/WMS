@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static i18n wms %}
+{% block title %}{{ document.number }}{% endblock %}
+{% block styles %}
+<style>
+  body { background: #fff; padding: 28px; font-size: 14px; }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+  .check-col { width: 60px; }
+  .box { display: inline-block; width: 16px; height: 16px; border: 1.5px solid #333; border-radius: 3px; }
+  .signatures { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+  .signatures div { border-top: 1px solid #333; padding-top: 6px; font-size: 13px; }
+  @media print { .no-print { display: none; } body { padding: 0; } }
+</style>
+{% endblock %}
+{% block body %}
+<div class="head">
+  <div>
+    <h1>{% if kind == "shipment" %}{% translate "Terish varag'i" %}{% else %}{{ kind_label }}{% endif %} {{ document.number }}</h1>
+    <div>{{ request.company.name }} · {{ document.warehouse.name }}{% if document.dest_warehouse %} &rarr; {{ document.dest_warehouse.name }}{% endif %}</div>
+    {% if document.partner %}<div>{{ document.partner }}</div>{% endif %}
+  </div>
+  <div class="right">
+    <div>{{ document.created_at|date:"d.m.Y" }}</div>
+    <button class="btn no-print" onclick="window.print()">{% translate "Chop etish" %}</button>
+  </div>
+</div>
+<table>
+  <thead><tr>
+    <th>#</th>
+    <th>{% if kind == "transfer" %}{% translate "Qayerdan" %}{% else %}{% translate "Joy" %}{% endif %}</th>
+    {% if kind == "transfer" %}<th>{% translate "Qayerga" %}</th>{% endif %}
+    <th>SKU</th><th>{% translate "Tovar" %}</th><th class="num">{% translate "Miqdor" %}</th>
+    {% if kind == "shipment" %}<th class="check-col">{% translate "Olindi" %}</th>{% endif %}
+  </tr></thead>
+  <tbody>
+  {% for line in lines %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td><strong>{{ line.location.code }}</strong></td>
+      {% if kind == "transfer" %}<td><strong>{{ line.to_location.code }}</strong></td>{% endif %}
+      <td>{{ line.product.sku }}</td>
+      <td>{{ line.product.name }}</td>
+      <td class="num">{{ line.quantity|qty }} {{ line.product.get_unit_display }}</td>
+      {% if kind == "shipment" %}<td class="check-col"><span class="box"></span></td>{% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div class="signatures">
+  <div>{% translate "Topshirdi" %}</div>
+  <div>{% translate "Qabul qildi" %}</div>
+</div>
+{% endblock %}

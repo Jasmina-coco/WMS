@@ -1,0 +1,43 @@
+{% extends "app_base.html" %}
+{% load i18n %}
+{% block title %}{{ kind_label }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>{{ kind_label }}</h1>
+  {% if can_create %}<a class="btn btn-primary" href="{% url 'operations:create' kind %}">+ {% translate "Yangi hujjat" %}</a>{% endif %}
+</div>
+<form class="filters" method="get">
+  <select name="status">
+    <option value="">{% translate "Barcha holatlar" %}</option>
+    {% for value, label in statuses %}
+      {% if value != "picking" or kind == "shipment" %}<option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>{{ label }}</option>{% endif %}
+    {% endfor %}
+  </select>
+  <input type="search" name="q" value="{{ request.GET.q }}" placeholder="{% translate 'Raqam yoki kontragent' %}">
+  <button class="btn" type="submit">{% translate "Qidirish" %}</button>
+</form>
+<div class="card table-wrap">
+  <table>
+    <thead><tr>
+      <th>{% translate "Raqam" %}</th><th>{% translate "Sana" %}</th><th>{% translate "Ombor" %}</th>
+      <th>{% if kind == "transfer" %}{% translate "Qaysi omborga" %}{% else %}{% translate "Kontragent" %}{% endif %}</th>
+      <th>{% translate "Holat" %}</th><th>{% translate "Yaratgan" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for doc in documents %}
+      <tr>
+        <td class="nowrap"><a href="{% url 'operations:detail' kind doc.pk %}"><strong>{{ doc.number }}</strong></a></td>
+        <td class="nowrap small">{{ doc.created_at|date:"d.m.Y H:i" }}</td>
+        <td>{{ doc.warehouse.name }}</td>
+        <td>{% if kind == "transfer" %}{{ doc.dest_warehouse.name }}{% else %}{{ doc.partner|default:"—" }}{% endif %}</td>
+        <td><span class="badge badge-{{ doc.status }}">{{ doc.get_status_display }}</span></td>
+        <td class="small">{{ doc.created_by.display_name }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6" class="empty">{% translate "Hujjatlar yo'q." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "_pagination.html" %}
+{% endblock %}

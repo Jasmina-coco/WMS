@@ -1,0 +1,94 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block title %}{{ document.number }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>{{ kind_label }} {{ document.number }} <span class="badge badge-{{ document.status }}">{{ document.get_status_display }}</span></h1>
+  <div class="actions">
+    <a class="btn" href="{% url 'operations:print' kind document.pk %}" target="_blank">
+      {% if kind == "shipment" %}{% translate "Terish varag'i" %}{% else %}{% translate "Chop etish" %}{% endif %}
+    </a>
+    {% if can_edit %}<a class="btn" href="{% url 'operations:edit' kind document.pk %}">{% translate "Tahrirlash" %}</a>{% endif %}
+    {% if can_cancel %}
+      <form method="post" action="{% url 'operations:action' kind document.pk 'cancel' %}">
+        {% csrf_token %}
+        <button class="btn btn-danger" data-confirm="{% translate 'Hujjatni bekor qilasizmi?' %}">{% translate "Bekor qilish" %}</button>
+      </form>
+    {% endif %}
+    {% if can_confirm %}
+      <form method="post" action="{% url 'operations:action' kind document.pk 'confirm' %}">
+        {% csrf_token %}
+        {% if kind == "shipment" and document.status == "draft" %}
+          <button class="btn btn-primary" data-confirm="{% translate 'Terishni boshlaysizmi?' %}">{% translate "Terishni boshlash" %}</button>
+        {% elif kind == "shipment" %}
+          <button class="btn btn-success" data-confirm="{% translate 'Tovar jo‘natildimi? Qoldiq kamayadi.' %}">{% translate "Jo'natildi" %}</button>
+        {% else %}
+          <button class="btn btn-success" data-confirm="{% translate 'Tasdiqlaysizmi? Qoldiq o‘zgaradi.' %}">{% translate "Tasdiqlash" %}</button>
+        {% endif %}
+      </form>
+    {% endif %}
+  </div>
+</div>
+
+<div class="stack">
+  <div class="card">
+    <dl class="meta">
+      <div><dt>{% translate "Ombor" %}</dt><dd>{{ document.warehouse.name }}</dd></div>
+      {% if kind == "transfer" %}
+        <div><dt>{% translate "Qaysi omborga" %}</dt><dd>{{ document.dest_warehouse.name }}</dd></div>
+      {% else %}
+        <div><dt>{% if kind == "receipt" %}{% translate "Yetkazib beruvchi" %}{% else %}{% translate "Mijoz / manzil" %}{% endif %}</dt><dd>{{ document.partner|default:"—" }}</dd></div>
+      {% endif %}
+      <div><dt>{% translate "Yaratdi" %}</dt><dd>{{ document.created_by.display_name }}, {{ document.created_at|date:"d.m.Y H:i" }}</dd></div>
+      {% if document.confirmed_by %}<div><dt>{% translate "Bajardi" %}</dt><dd>{{ document.confirmed_by.display_name }}, {{ document.confirmed_at|date:"d.m.Y H:i" }}</dd></div>{% endif %}
+      {% if document.cancelled_by %}<div><dt>{% translate "Bekor qildi" %}</dt><dd>{{ document.cancelled_by.display_name }}</dd></div>{% endif %}
+    </dl>
+    {% if document.note %}<p style="margin:14px 0 0">{{ document.note|linebreaksbr }}</p>{% endif %}
+  </div>
+
+  <div class="card table-wrap">
+    <h2>{% translate "Tovarlar" %}</h2>
+    <table>
+      <thead><tr>
+        <th>SKU</th><th>{% translate "Tovar" %}</th>
+        <th>{% if kind == "transfer" %}{% translate "Qayerdan" %}{% else %}{% translate "Joy" %}{% endif %}</th>
+        {% if kind == "transfer" %}<th>{% translate "Qayerga" %}</th>{% endif %}
+        <th class="num">{% translate "Miqdor" %}</th>
+      </tr></thead>
+      <tbody>
+      {% for line in lines %}
+        <tr>
+          <td class="nowrap">{{ line.product.sku }}</td>
+          <td>{{ line.product.name }}</td>
+          <td>{{ line.location.code }}</td>
+          {% if kind == "transfer" %}<td>{{ line.to_location.warehouse.name }} / {{ line.to_location.code }}</td>{% endif %}
+          <td class="num">{{ line.quantity|qty }} {{ line.product.get_unit_display }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="empty">{% translate "Qatorlar yo'q." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>{% translate "Biriktirilgan fayllar" %}</h2>
+    <p class="muted small">{% translate "Nakladnoy, skan yoki boshqa hujjatlar. Fayllar bulutda (Amazon S3) xavfsiz saqlanadi." %}</p>
+    {% if attachments %}
+    <ul>
+      {% for file in attachments %}
+        <li><a href="{% url 'operations:attachment' kind document.pk file.pk %}" target="_blank">{{ file.original_name }}</a>
+          <span class="muted small">— {{ file.uploaded_by.display_name }}, {{ file.created_at|date:"d.m.Y H:i" }}</span></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if can_upload %}
+    <form method="post" enctype="multipart/form-data" action="{% url 'operations:upload' kind document.pk %}" class="filters" style="margin:0">
+      {% csrf_token %}
+      {{ attachment_form.file }}
+      <button class="btn" type="submit">{% translate "Yuklash" %}</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

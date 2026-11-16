@@ -1,0 +1,54 @@
+{% extends "app_base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head">
+  <h1>{{ kind_label }}: {% if form.instance.pk %}{{ form.instance.number }}{% else %}{% translate "yangi hujjat" %}{% endif %}</h1>
+</div>
+
+<form method="post" class="stack" novalidate>
+  {% csrf_token %}
+  <div class="card">
+    {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors|join:" " }}</div>{% endif %}
+    <div class="form-grid">
+      {% include "_field.html" with field=form.warehouse %}
+      {% if form.dest_warehouse %}{% include "_field.html" with field=form.dest_warehouse %}{% endif %}
+      {% if form.partner %}{% include "_field.html" with field=form.partner %}{% endif %}
+      {% include "_field.html" with field=form.note class="wide" %}
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>{% translate "Tovarlar" %}</h2>
+    <p class="muted small">
+      {% if kind == "receipt" %}{% translate "Joy — tovar qaysi yacheykaga qo'yiladi." %}
+      {% elif kind == "shipment" %}{% translate "Joy — tovar qaysi yacheykadan olinadi." %}
+      {% else %}{% translate "Tovar birinchi joydan olinib, ikkinchi joyga qo'yiladi." %}{% endif %}
+    </p>
+    {{ formset.management_form }}
+    {% if formset.non_form_errors %}<div class="form-errors">{{ formset.non_form_errors|join:" " }}</div>{% endif %}
+    <div class="table-wrap">
+      <table class="lines-table" data-formset="{{ formset.prefix }}">
+        <thead><tr>
+          <th>{% translate "Tovar" %}</th>
+          <th>{% if kind == "transfer" %}{% translate "Qayerdan" %}{% else %}{% translate "Joy" %}{% endif %}</th>
+          {% if kind == "transfer" %}<th>{% translate "Qayerga" %}</th>{% endif %}
+          <th>{% translate "Miqdor" %}</th><th></th>
+        </tr></thead>
+        <tbody>
+        {% for line in formset %}
+          {% include "operations/_line_row.html" with line=line %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {# Yangi qator uchun shablon — JS uni nusxalab jadvalga qo'shadi #}
+    <template id="empty-line">{% include "operations/_line_row.html" with line=formset.empty_form %}</template>
+    <button type="button" class="btn btn-sm" data-add-line style="margin-top:10px">+ {% translate "Qator qo'shish" %}</button>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" type="submit">{% translate "Saqlash" %}</button>
+    <a class="btn" href="{% if form.instance.pk %}{% url 'operations:detail' kind form.instance.pk %}{% else %}{% url 'operations:list' kind %}{% endif %}">{% translate "Bekor qilish" %}</a>
+  </div>
+</form>
+{% endblock %}
