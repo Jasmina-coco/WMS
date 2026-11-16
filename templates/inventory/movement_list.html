@@ -1,0 +1,15 @@
+{% extends "app_base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-head"><h1>{% translate "Harakatlar tarixi" %}</h1></div>
+<form class="filters" method="get">
+  <select name="reason">
+    <option value="">{% translate "Barcha turlar" %}</option>
+    {% for value, label in reasons %}<option value="{{ value }}" {% if request.GET.reason == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+  </select>
+  <input type="search" name="q" value="{{ request.GET.q }}" placeholder="{% translate 'Tovar yoki hujjat raqami' %}">
+  <button class="btn" type="submit">{% translate "Qidirish" %}</button>
+</form>
+<div class="card table-wrap">{% include "inventory/_movements_table.html" %}</div>
+{% include "_pagination.html" %}
+{% endblock %}

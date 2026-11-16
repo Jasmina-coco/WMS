@@ -1,0 +1,32 @@
+{% extends "app_base.html" %}
+{% load i18n wms %}
+{% block content %}
+<div class="page-head"><h1>{% translate "Qoldiqlar" %}</h1></div>
+<form class="filters" method="get">
+  <select name="warehouse">
+    <option value="">{% translate "Barcha omborlar" %}</option>
+    {% for w in warehouses %}<option value="{{ w.pk }}" {% if request.GET.warehouse == w.pk|stringformat:"s" %}selected{% endif %}>{{ w.name }}</option>{% endfor %}
+  </select>
+  <input type="search" name="q" value="{{ request.GET.q }}" placeholder="{% translate 'Tovar, SKU yoki joy kodi' %}">
+  <button class="btn" type="submit">{% translate "Qidirish" %}</button>
+</form>
+<div class="card table-wrap">
+  <table>
+    <thead><tr><th>SKU</th><th>{% translate "Tovar" %}</th><th>{% translate "Ombor" %}</th><th>{% translate "Joy" %}</th><th class="num">{% translate "Miqdor" %}</th></tr></thead>
+    <tbody>
+    {% for row in rows %}
+      <tr>
+        <td class="nowrap">{{ row.product.sku }}</td>
+        <td><a href="{% url 'catalog:product_detail' row.product.pk %}">{{ row.product.name }}</a></td>
+        <td>{{ row.location.warehouse.name }}</td>
+        <td>{{ row.location.code }}</td>
+        <td class="num">{{ row.quantity|qty }} {{ row.product.get_unit_display }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5" class="empty">{% translate "Qoldiq yo'q." %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "_pagination.html" %}
+{% endblock %}
