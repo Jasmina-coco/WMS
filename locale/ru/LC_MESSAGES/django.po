@@ -1,0 +1,1584 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-16 22:23+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: apps/accounts/forms.py:13 apps/accounts/forms.py:54
+#: templates/accounts/staff_list.html:10
+msgid "Login"
+msgstr "Логин"
+
+#: apps/accounts/forms.py:14 apps/accounts/forms.py:44
+msgid "Parol"
+msgstr "Пароль"
+
+#: apps/accounts/forms.py:19 templates/accounts/role_form.html:9
+msgid "Ruxsatlar"
+msgstr "Права доступа"
+
+#: apps/accounts/forms.py:28
+msgid "Rol nomi"
+msgstr "Название роли"
+
+#: apps/accounts/forms.py:36
+msgid "Bunday nomli rol allaqachon bor."
+msgstr "Роль с таким названием уже существует."
+
+#: apps/accounts/forms.py:47
+msgid "Tahrirlashda bo'sh qoldirsangiz, parol o'zgarmaydi."
+msgstr "Если оставить пустым при редактировании, пароль не изменится."
+
+#: apps/accounts/forms.py:55 apps/landing/models.py:16
+#: templates/accounts/staff_list.html:10 templates/panel/_lead_table.html:3
+#: templates/panel/lead_detail.html:14
+msgid "Ism"
+msgstr "Имя"
+
+#: apps/accounts/forms.py:56
+msgid "Familiya"
+msgstr "Фамилия"
+
+#: apps/accounts/forms.py:57 apps/accounts/models.py:16
+#: apps/catalog/models.py:50 apps/warehouses/models.py:10
+#: apps/warehouses/models.py:33 templates/accounts/staff_list.html:18
+#: templates/panel/company_list.html:18
+#: templates/warehouses/location_list.html:25
+#: templates/warehouses/warehouse_list.html:19
+msgid "Faol"
+msgstr "Активен"
+
+#: apps/accounts/forms.py:64
+msgid "Yangi xodim uchun parol kiriting."
+msgstr "Введите пароль для нового сотрудника."
+
+#: apps/accounts/models.py:12 apps/accounts/models.py:34
+#: apps/catalog/models.py:10 apps/catalog/models.py:31
+#: apps/warehouses/models.py:8 templates/accounts/role_list.html:11
+#: templates/catalog/category_list.html:10
+#: templates/catalog/product_list.html:21 templates/panel/company_list.html:10
+#: templates/warehouses/warehouse_list.html:13
+msgid "Nomi"
+msgstr "Название"
+
+#: apps/accounts/models.py:13 apps/accounts/models.py:64
+#: apps/landing/models.py:18 templates/landing/home.html:132
+#: templates/landing/home.html:142 templates/panel/_lead_table.html:3
+#: templates/panel/company_list.html:10 templates/panel/lead_detail.html:15
+msgid "Telefon"
+msgstr "Телефон"
+
+#: apps/accounts/models.py:14 templates/panel/company_list.html:10
+msgid "Mas'ul shaxs"
+msgstr "Ответственное лицо"
+
+#: apps/accounts/models.py:15 apps/landing/models.py:21
+#: apps/operations/models.py:49 templates/landing/home.html:149
+msgid "Izoh"
+msgstr "Комментарий"
+
+#: apps/accounts/models.py:20 apps/accounts/models.py:50
+#: apps/landing/models.py:17 templates/panel/_lead_table.html:3
+msgid "Kompaniya"
+msgstr "Компания"
+
+#: apps/accounts/models.py:21 templates/panel/base.html:8
+#: templates/panel/company_list.html:5
+msgid "Kompaniyalar"
+msgstr "Компании"
+
+#: apps/accounts/models.py:57
+msgid "Menejer"
+msgstr "Менеджер"
+
+#: apps/accounts/models.py:59 templates/accounts/staff_list.html:10
+msgid "Rol"
+msgstr "Роль"
+
+#: apps/accounts/models.py:62 templates/accounts/staff_list.html:10
+#: templates/reports/dashboard.html:28
+#: templates/warehouses/warehouse_list.html:5
+msgid "Omborlar"
+msgstr "Склады"
+
+#: apps/accounts/views.py:35
+msgid "Parol o'zgartirildi."
+msgstr "Пароль изменён."
+
+#: apps/accounts/views.py:102 apps/operations/views.py:321
+msgid "Saqlandi."
+msgstr "Сохранено."
+
+#: apps/catalog/forms.py:22
+msgid "Bunday kategoriya bor."
+msgstr "Такая категория уже есть."
+
+#: apps/catalog/forms.py:37
+msgid "Bu SKU boshqa tovarda ishlatilgan."
+msgstr "Этот SKU уже используется другим товаром."
+
+#: apps/catalog/forms.py:43
+msgid "Rasm hajmi 3 MB dan oshmasin."
+msgstr "Размер изображения не должен превышать 3 МБ."
+
+#: apps/catalog/forms.py:49
+msgid "Manfiy bo'lishi mumkin emas."
+msgstr "Не может быть отрицательным."
+
+#: apps/catalog/models.py:24
+msgid "dona"
+msgstr "шт"
+
+#: apps/catalog/models.py:25
+msgid "kg"
+msgstr "кг"
+
+#: apps/catalog/models.py:26
+msgid "litr"
+msgstr "л"
+
+#: apps/catalog/models.py:27
+msgid "metr"
+msgstr "м"
+
+#: apps/catalog/models.py:28
+msgid "quti"
+msgstr "кор"
+
+#: apps/catalog/models.py:30
+msgid "SKU (artikul)"
+msgstr "SKU (артикул)"
+
+#: apps/catalog/models.py:33 apps/catalog/views.py:87
+#: templates/catalog/product_detail.html:15
+#: templates/catalog/product_list.html:21
+msgid "Kategoriya"
+msgstr "Категория"
+
+#: apps/catalog/models.py:35 templates/catalog/product_detail.html:16
+msgid "O'lchov birligi"
+msgstr "Единица измерения"
+
+#: apps/catalog/models.py:37 templates/catalog/product_detail.html:14
+msgid "Shtrix-kod"
+msgstr "Штрихкод"
+
+#: apps/catalog/models.py:39 templates/catalog/product_detail.html:17
+msgid "Minimal qoldiq"
+msgstr "Минимальный остаток"
+
+#: apps/catalog/models.py:45
+msgid "Rasm"
+msgstr "Изображение"
+
+#: apps/catalog/views.py:64 apps/operations/forms.py:128
+#: apps/operations/models.py:88 apps/reports/views.py:131
+#: apps/reports/views.py:145 apps/reports/views.py:158
+#: templates/inventory/_movements_table.html:5
+#: templates/inventory/stock_list.html:15
+#: templates/operations/count_detail.html:25
+#: templates/operations/document_detail.html:53
+#: templates/operations/document_form.html:32
+#: templates/operations/document_print.html:32
+msgid "Tovar"
+msgstr "Товар"
+
+#: apps/core/middleware.py:26
+msgid "Kompaniya akkaunti faol emas. Administratorga murojaat qiling."
+msgstr "Аккаунт компании не активен. Обратитесь к администратору."
+
+#: apps/core/permissions.py:13
+msgid "Omborlar va lokatsiyalar"
+msgstr "Склады и ячейки"
+
+#: apps/core/permissions.py:15 apps/core/permissions.py:22
+#: apps/core/permissions.py:29 apps/core/permissions.py:35
+#: apps/core/permissions.py:44 apps/core/permissions.py:53
+#: apps/core/permissions.py:61 apps/core/permissions.py:69
+msgid "Ko'rish"
+msgstr "Просмотр"
+
+#: apps/core/permissions.py:16 apps/core/permissions.py:23
+msgid "Qo'shish va tahrirlash"
+msgstr "Добавление и редактирование"
+
+#: apps/core/permissions.py:20 templates/app_base.html:22
+#: templates/catalog/product_list.html:5 templates/landing/home.html:49
+#: templates/operations/document_detail.html:50
+#: templates/operations/document_form.html:21
+msgid "Tovarlar"
+msgstr "Товары"
+
+#: apps/core/permissions.py:27 apps/reports/views.py:89
+#: templates/app_base.html:20 templates/inventory/stock_list.html:4
+msgid "Qoldiqlar"
+msgstr "Остатки"
+
+#: apps/core/permissions.py:33 apps/inventory/models.py:40
+#: apps/operations/models.py:20 apps/reports/views.py:171
+#: templates/app_base.html:14 templates/landing/home.html:78
+#: templates/reports/dashboard.html:7
+msgid "Kirim"
+msgstr "Приход"
+
+#: apps/core/permissions.py:36 apps/core/permissions.py:45
+#: apps/core/permissions.py:54
+msgid "Yaratish"
+msgstr "Создание"
+
+#: apps/core/permissions.py:37 apps/core/permissions.py:55
+#: templates/operations/document_detail.html:26
+msgid "Tasdiqlash"
+msgstr "Подтверждение"
+
+#: apps/core/permissions.py:38 apps/core/permissions.py:47
+#: templates/accounts/role_form.html:24 templates/accounts/staff_form.html:21
+#: templates/form_page.html:14 templates/operations/document_detail.html:15
+#: templates/operations/document_form.html:51
+#: templates/panel/company_form.html:12
+msgid "Bekor qilish"
+msgstr "Отмена"
+
+#: apps/core/permissions.py:42 apps/inventory/models.py:41
+#: apps/operations/models.py:21 apps/reports/views.py:171
+#: templates/app_base.html:15 templates/reports/dashboard.html:8
+msgid "Chiqim"
+msgstr "Расход"
+
+#: apps/core/permissions.py:46 templates/landing/home.html:79
+msgid "Terish va jo'natish"
+msgstr "Сборка и отгрузка"
+
+#: apps/core/permissions.py:51 apps/operations/models.py:22
+#: apps/reports/views.py:171 templates/app_base.html:16
+#: templates/landing/home.html:80
+msgid "Ko'chirish"
+msgstr "Перемещение"
+
+#: apps/core/permissions.py:59 templates/app_base.html:17
+#: templates/landing/home.html:81 templates/operations/count_list.html:5
+msgid "Inventarizatsiya"
+msgstr "Инвентаризация"
+
+#: apps/core/permissions.py:62
+msgid "Sanoq o'tkazish"
+msgstr "Проведение пересчёта"
+
+#: apps/core/permissions.py:63 templates/operations/count_detail.html:52
+msgid "Yakunlash"
+msgstr "Завершение"
+
+#: apps/core/permissions.py:67 templates/app_base.html:27
+#: templates/landing/home.html:82 templates/reports/report.html:6
+msgid "Hisobotlar"
+msgstr "Отчёты"
+
+#: apps/core/permissions.py:70
+msgid "Eksport"
+msgstr "Экспорт"
+
+#: apps/core/permissions.py:74
+msgid "Xodimlar va rollar"
+msgstr "Сотрудники и роли"
+
+#: apps/core/permissions.py:76
+msgid "Boshqarish"
+msgstr "Управление"
+
+#: apps/inventory/models.py:42
+msgid "Ko'chirish (chiqdi)"
+msgstr "Перемещение (ушло)"
+
+#: apps/inventory/models.py:43
+msgid "Ko'chirish (keldi)"
+msgstr "Перемещение (пришло)"
+
+#: apps/inventory/models.py:44
+msgid "Inventarizatsiya tuzatishi"
+msgstr "Корректировка инвентаризации"
+
+#: apps/inventory/services.py:34
+msgid "Tovar va joy turli kompaniyalarga tegishli."
+msgstr "Товар и ячейка относятся к разным компаниям."
+
+#: apps/inventory/services.py:43
+#, python-format
+msgid ""
+"%(product)s: %(location)s da yetarli qoldiq yo'q (bor: %(have)s, kerak: "
+"%(need)s)"
+msgstr "%(product)s: в ячейке %(location)s недостаточно остатка (есть: %(have)s, нужно: %(need)s)"
+
+#: apps/landing/forms.py:26
+msgid "Telefon raqamini to'g'ri kiriting."
+msgstr "Введите корректный номер телефона."
+
+#: apps/landing/models.py:11
+msgid "Yangi"
+msgstr "Новая"
+
+#: apps/landing/models.py:12 templates/panel/dashboard.html:7
+msgid "Bog'lanildi"
+msgstr "Связались"
+
+#: apps/landing/models.py:13
+msgid "Rozi bo'ldi"
+msgstr "Согласился"
+
+#: apps/landing/models.py:14
+msgid "Rad etildi"
+msgstr "Отказ"
+
+#: apps/landing/models.py:19
+msgid "Email"
+msgstr "Email"
+
+#: apps/landing/models.py:20 templates/landing/home.html:147
+#: templates/panel/lead_detail.html:17
+msgid "Omborlar soni"
+msgstr "Количество складов"
+
+#: apps/landing/models.py:23 apps/operations/models.py:34
+#: templates/accounts/staff_list.html:10
+#: templates/operations/count_list.html:10
+#: templates/operations/document_list.html:24
+#: templates/panel/_lead_table.html:3 templates/panel/company_list.html:10
+#: templates/warehouses/location_list.html:18
+#: templates/warehouses/warehouse_list.html:13
+msgid "Holat"
+msgstr "Статус"
+
+#: apps/landing/models.py:24
+msgid "Admin izohi"
+msgstr "Комментарий администратора"
+
+#: apps/landing/views.py:54
+msgid "Rahmat! Arizangiz qabul qilindi, tez orada siz bilan bog'lanamiz."
+msgstr "Спасибо! Ваша заявка принята, мы скоро с вами свяжемся."
+
+#: apps/operations/forms.py:28 templates/operations/document_detail.html:40
+msgid "Yetkazib beruvchi"
+msgstr "Поставщик"
+
+#: apps/operations/forms.py:28 templates/operations/document_detail.html:40
+msgid "Mijoz / manzil"
+msgstr "Клиент / адрес"
+
+#: apps/operations/forms.py:90
+msgid "Kamida bitta qator kiriting."
+msgstr "Добавьте хотя бы одну строку."
+
+#: apps/operations/forms.py:111
+msgid "Fayl hajmi 10 MB dan oshmasin."
+msgstr "Размер файла не должен превышать 10 МБ."
+
+#: apps/operations/forms.py:129 apps/operations/models.py:98
+#: apps/reports/views.py:131 templates/catalog/product_detail.html:24
+#: templates/inventory/_movements_table.html:6
+#: templates/inventory/stock_list.html:15
+#: templates/operations/count_detail.html:25
+#: templates/operations/document_detail.html:54
+#: templates/operations/document_form.html:33
+#: templates/operations/document_print.html:30
+msgid "Joy"
+msgstr "Ячейка"
+
+#: apps/operations/forms.py:130
+msgid "Sanalgan miqdor"
+msgstr "Подсчитанное количество"
+
+#: apps/operations/models.py:25
+msgid "Qoralama"
+msgstr "Черновик"
+
+#: apps/operations/models.py:26 templates/landing/home.html:52
+msgid "Terilmoqda"
+msgstr "Сборка"
+
+#: apps/operations/models.py:27 templates/landing/home.html:53
+#: templates/landing/home.html:54 templates/landing/home.html:55
+msgid "Bajarildi"
+msgstr "Выполнен"
+
+#: apps/operations/models.py:28
+msgid "Bekor qilingan"
+msgstr "Отменён"
+
+#: apps/operations/models.py:33 templates/operations/count_list.html:10
+#: templates/operations/document_list.html:22
+msgid "Raqam"
+msgstr "Номер"
+
+#: apps/operations/models.py:36 apps/operations/models.py:140
+#: apps/reports/views.py:131 apps/warehouses/models.py:29
+#: apps/warehouses/views.py:22 templates/app_base.html:19
+#: templates/catalog/product_detail.html:24
+#: templates/inventory/stock_list.html:15
+#: templates/operations/count_detail.html:13
+#: templates/operations/count_list.html:10
+#: templates/operations/document_detail.html:36
+#: templates/operations/document_list.html:22
+#: templates/warehouses/location_list.html:18
+msgid "Ombor"
+msgstr "Склад"
+
+#: apps/operations/models.py:41 templates/operations/document_detail.html:38
+#: templates/operations/document_list.html:23
+msgid "Qaysi omborga"
+msgstr "На какой склад"
+
+#: apps/operations/models.py:48 templates/operations/document_list.html:23
+msgid "Kontragent"
+msgstr "Контрагент"
+
+#: apps/operations/models.py:91 apps/reports/views.py:131
+#: templates/catalog/product_detail.html:24
+#: templates/inventory/stock_list.html:15
+#: templates/operations/document_detail.html:56
+#: templates/operations/document_form.html:35
+#: templates/operations/document_print.html:32
+msgid "Miqdor"
+msgstr "Количество"
+
+#: apps/operations/models.py:103
+msgid "Qaysi joyga"
+msgstr "В какую ячейку"
+
+#: apps/operations/models.py:119
+msgid "Fayl"
+msgstr "Файл"
+
+#: apps/operations/models.py:136
+msgid "Ochiq"
+msgstr "Открыта"
+
+#: apps/operations/models.py:137
+msgid "Yakunlangan"
+msgstr "Завершена"
+
+#: apps/operations/models.py:143 apps/warehouses/models.py:31
+#: templates/operations/count_detail.html:14
+#: templates/operations/count_list.html:10
+#: templates/warehouses/location_list.html:18
+msgid "Zona"
+msgstr "Зона"
+
+#: apps/operations/models.py:143
+msgid "Bo'sh qolsa — butun ombor"
+msgstr "Если пусто — весь склад"
+
+#: apps/operations/services.py:26
+msgid "Hujjatda birorta ham qator yo'q."
+msgstr "В документе нет ни одной строки."
+
+#: apps/operations/services.py:31
+#, python-format
+msgid "%(code)s joyi %(warehouse)s omboriga tegishli emas."
+msgstr "Ячейка %(code)s не относится к складу %(warehouse)s."
+
+#: apps/operations/services.py:36
+msgid "Ko'chirishda har bir qator uchun 'qaysi joyga' tanlanishi kerak."
+msgstr "При перемещении для каждой строки нужно выбрать «в какую ячейку»."
+
+#: apps/operations/services.py:39
+#, python-format
+msgid "%(code)s joyi qabul qiluvchi omborga tegishli emas."
+msgstr "Ячейка %(code)s не относится к складу-получателю."
+
+#: apps/operations/services.py:43
+msgid "Bir joydan o'sha joyning o'ziga ko'chirib bo'lmaydi."
+msgstr "Нельзя переместить товар в ту же ячейку."
+
+#: apps/operations/services.py:57 apps/operations/services.py:113
+msgid "Bu hujjatni tasdiqlab bo'lmaydi."
+msgstr "Этот документ нельзя подтвердить."
+
+#: apps/operations/services.py:77
+msgid "Bu hujjat uchun terishni boshlab bo'lmaydi."
+msgstr "Для этого документа нельзя начать сборку."
+
+#: apps/operations/services.py:83
+#, python-format
+msgid "%(product)s: %(location)s da faqat %(have)s bor."
+msgstr "%(product)s: в ячейке %(location)s есть только %(have)s."
+
+#: apps/operations/services.py:97
+msgid "Avval terishni boshlang."
+msgstr "Сначала начните сборку."
+
+#: apps/operations/services.py:150
+msgid "Bajarilgan hujjatni bekor qilib bo'lmaydi."
+msgstr "Выполненный документ нельзя отменить."
+
+#: apps/operations/services.py:189
+msgid "Bu sanoq allaqachon yakunlangan."
+msgstr "Этот пересчёт уже завершён."
+
+#: apps/operations/views.py:131
+msgid "Hujjat saqlandi."
+msgstr "Документ сохранён."
+
+#: apps/operations/views.py:179
+msgid "Hujjat bekor qilindi."
+msgstr "Документ отменён."
+
+#: apps/operations/views.py:182
+msgid "Bajarildi."
+msgstr "Выполнено."
+
+#: apps/operations/views.py:201
+msgid "Fayl yuklandi."
+msgstr "Файл загружен."
+
+#: apps/operations/views.py:253 apps/operations/views.py:265
+msgid "Yangi inventarizatsiya"
+msgstr "Новая инвентаризация"
+
+#: apps/operations/views.py:294
+msgid "Inventarizatsiya yakunlandi, qoldiqlar tuzatildi."
+msgstr "Инвентаризация завершена, остатки скорректированы."
+
+#: apps/operations/views.py:313
+msgid "Qator qo'shildi."
+msgstr "Строка добавлена."
+
+#: apps/operations/views.py:315
+msgid "Qator ma'lumotlari noto'g'ri."
+msgstr "Неверные данные строки."
+
+#: apps/panel/forms.py:27
+msgid "Menejer logini"
+msgstr "Логин менеджера"
+
+#: apps/panel/forms.py:28
+msgid "Menejer paroli"
+msgstr "Пароль менеджера"
+
+#: apps/panel/forms.py:33
+msgid "Bu login band."
+msgstr "Этот логин занят."
+
+#: apps/panel/views.py:66
+msgid "Ariza yangilandi."
+msgstr "Заявка обновлена."
+
+#: apps/panel/views.py:98
+msgid "Kompaniya va menejer akkaunti yaratildi."
+msgstr "Компания и аккаунт менеджера созданы."
+
+#: apps/reports/views.py:90
+msgid "Tovar aylanmasi"
+msgstr "Оборачиваемость товаров"
+
+#: apps/reports/views.py:91 templates/reports/dashboard.html:54
+msgid "Kam qolgan tovarlar"
+msgstr "Товары на исходе"
+
+#: apps/reports/views.py:92
+msgid "Xodimlar faolligi"
+msgstr "Активность сотрудников"
+
+#: apps/reports/views.py:131 apps/reports/views.py:145
+#: apps/reports/views.py:158
+msgid "SKU"
+msgstr "SKU"
+
+#: apps/reports/views.py:131
+msgid "Birlik"
+msgstr "Ед."
+
+#: apps/reports/views.py:145
+msgid "Kirdi"
+msgstr "Пришло"
+
+#: apps/reports/views.py:145
+msgid "Chiqdi"
+msgstr "Ушло"
+
+#: apps/reports/views.py:145
+msgid "Amallar soni"
+msgstr "Кол-во операций"
+
+#: apps/reports/views.py:158 templates/catalog/product_list.html:21
+#: templates/inventory/_movements_table.html:7
+msgid "Qoldiq"
+msgstr "Остаток"
+
+#: apps/reports/views.py:158 templates/catalog/product_list.html:21
+msgid "Minimal"
+msgstr "Минимум"
+
+#: apps/reports/views.py:158
+msgid "Yetishmaydi"
+msgstr "Не хватает"
+
+#: apps/reports/views.py:171 templates/inventory/_movements_table.html:7
+msgid "Xodim"
+msgstr "Сотрудник"
+
+#: apps/reports/views.py:171
+msgid "Jami"
+msgstr "Итого"
+
+#: apps/warehouses/forms.py:20
+msgid "Bunday nomli ombor bor."
+msgstr "Склад с таким названием уже есть."
+
+#: apps/warehouses/forms.py:38
+msgid "Bu omborda shunday kodli joy bor."
+msgstr "На этом складе уже есть ячейка с таким кодом."
+
+#: apps/warehouses/models.py:9 templates/warehouses/warehouse_list.html:13
+msgid "Manzil"
+msgstr "Адрес"
+
+#: apps/warehouses/models.py:32 templates/warehouses/location_list.html:18
+msgid "Kod"
+msgstr "Код"
+
+#: apps/warehouses/views.py:63
+msgid "Joy (yacheyka)"
+msgstr "Ячейка"
+
+#: config/settings.py:138
+msgid "O'zbekcha"
+msgstr "O'zbekcha"
+
+#: config/settings.py:138
+msgid "Русский"
+msgstr "Русский"
+
+#: templates/403.html:2
+msgid "Bu sahifaga kirish uchun ruxsatingiz yo'q."
+msgstr "У вас нет доступа к этой странице."
+
+#: templates/403.html:2 templates/404.html:2 templates/app_base.html:11
+msgid "Bosh sahifa"
+msgstr "Главная"
+
+#: templates/404.html:2
+msgid "Sahifa topilmadi."
+msgstr "Страница не найдена."
+
+#: templates/_pagination.html:5
+#, python-format
+msgid "%(n)s / %(total)s-sahifa"
+msgstr "Страница %(n)s из %(total)s"
+
+#: templates/accounts/login.html:3 templates/accounts/login.html:15
+#: templates/landing/home.html:21
+msgid "Kirish"
+msgstr "Войти"
+
+#: templates/accounts/login.html:8 templates/landing/home.html:161
+msgid "Tizimga kirish"
+msgstr "Вход в систему"
+
+#: templates/accounts/login.html:12
+msgid "Login yoki parol noto'g'ri."
+msgstr "Неверный логин или пароль."
+
+#: templates/accounts/login.html:17
+msgid "Akkauntingiz yo'qmi?"
+msgstr "Нет аккаунта?"
+
+#: templates/accounts/login.html:17
+msgid "Ariza qoldiring"
+msgstr "Оставьте заявку"
+
+#: templates/accounts/password_change.html:4
+msgid "Parolni o'zgartirish"
+msgstr "Смена пароля"
+
+#: templates/accounts/password_change.html:9
+#: templates/accounts/role_form.html:23 templates/accounts/staff_form.html:20
+#: templates/form_page.html:13 templates/operations/count_detail.html:51
+#: templates/operations/document_form.html:50
+#: templates/panel/company_form.html:11 templates/panel/lead_detail.html:27
+msgid "Saqlash"
+msgstr "Сохранить"
+
+#: templates/accounts/role_form.html:4 templates/accounts/role_list.html:6
+msgid "Yangi rol"
+msgstr "Новая роль"
+
+#: templates/accounts/role_form.html:10
+msgid "Xodim faqat belgilangan amallarni bajara oladi."
+msgstr "Сотрудник сможет выполнять только отмеченные действия."
+
+#: templates/accounts/role_list.html:5 templates/app_base.html:33
+msgid "Rollar"
+msgstr "Роли"
+
+#: templates/accounts/role_list.html:8
+msgid ""
+"Rol — bu xodim nimalarni qila olishi ro'yxati. Rol yaratib, keyin uni "
+"xodimlarga biriktirasiz."
+msgstr "Роль — это список того, что может делать сотрудник. Создайте роль, затем назначьте её сотрудникам."
+
+#: templates/accounts/role_list.html:11
+msgid "Ruxsatlar soni"
+msgstr "Кол-во прав"
+
+#: templates/accounts/role_list.html:14 templates/accounts/staff_list.html:19
+#: templates/catalog/category_list.html:14
+#: templates/catalog/product_detail.html:6
+#: templates/operations/document_detail.html:11
+#: templates/warehouses/location_list.html:26
+#: templates/warehouses/warehouse_list.html:20
+msgid "Tahrirlash"
+msgstr "Изменить"
+
+#: templates/accounts/role_list.html:16
+msgid "Hali rol yo'q. Masalan, «Omborchi» rolini yarating."
+msgstr "Ролей пока нет. Например, создайте роль «Кладовщик»."
+
+#: templates/accounts/staff_form.html:4
+msgid "Yangi xodim"
+msgstr "Новый сотрудник"
+
+#: templates/accounts/staff_list.html:5 templates/app_base.html:32
+msgid "Xodimlar"
+msgstr "Сотрудники"
+
+#: templates/accounts/staff_list.html:6
+msgid "Xodim qo'shish"
+msgstr "Добавить сотрудника"
+
+#: templates/accounts/staff_list.html:17
+msgid "biriktirilmagan"
+msgstr "не назначены"
+
+#: templates/accounts/staff_list.html:18
+msgid "O'chirilgan"
+msgstr "Отключён"
+
+#: templates/accounts/staff_list.html:22
+msgid "Hali xodim qo'shilmagan."
+msgstr "Сотрудники ещё не добавлены."
+
+#: templates/app_base.html:13
+msgid "Operatsiyalar"
+msgstr "Операции"
+
+#: templates/app_base.html:21 templates/inventory/movement_list.html:4
+msgid "Harakatlar tarixi"
+msgstr "История движений"
+
+#: templates/app_base.html:23
+msgid "Omborlar va joylar"
+msgstr "Склады и ячейки"
+
+#: templates/app_base.html:26
+msgid "Tahlil"
+msgstr "Аналитика"
+
+#: templates/app_base.html:31
+msgid "Boshqaruv"
+msgstr "Управление"
+
+#: templates/app_base.html:40
+msgid "Menyu"
+msgstr "Меню"
+
+#: templates/app_base.html:45
+msgid "Chiqish"
+msgstr "Выйти"
+
+#: templates/catalog/category_list.html:5 templates/catalog/product_list.html:7
+msgid "Kategoriyalar"
+msgstr "Категории"
+
+#: templates/catalog/category_list.html:6
+msgid "Kategoriya qo'shish"
+msgstr "Добавить категорию"
+
+#: templates/catalog/category_list.html:16
+msgid "Hali kategoriya yo'q."
+msgstr "Категорий пока нет."
+
+#: templates/catalog/product_detail.html:22
+msgid "Qayerda turibdi"
+msgstr "Где находится"
+
+#: templates/catalog/product_detail.html:29
+msgid "Omborda yo'q."
+msgstr "Нет на складе."
+
+#: templates/catalog/product_detail.html:36 templates/reports/dashboard.html:72
+msgid "Oxirgi harakatlar"
+msgstr "Последние движения"
+
+#: templates/catalog/product_list.html:8
+msgid "Tovar qo'shish"
+msgstr "Добавить товар"
+
+#: templates/catalog/product_list.html:12
+msgid "Nomi, SKU yoki shtrix-kod"
+msgstr "Название, SKU или штрихкод"
+
+#: templates/catalog/product_list.html:14
+msgid "Barcha kategoriyalar"
+msgstr "Все категории"
+
+#: templates/catalog/product_list.html:17
+#: templates/inventory/movement_list.html:11
+#: templates/inventory/stock_list.html:11
+#: templates/operations/document_list.html:17 templates/panel/lead_list.html:11
+#: templates/warehouses/location_list.html:14
+msgid "Qidirish"
+msgstr "Найти"
+
+#: templates/catalog/product_list.html:26
+#: templates/warehouses/location_list.html:25
+#: templates/warehouses/warehouse_list.html:19
+msgid "Nofaol"
+msgstr "Неактивен"
+
+#: templates/catalog/product_list.html:32
+msgid "Tovarlar topilmadi."
+msgstr "Товары не найдены."
+
+#: templates/form_page.html:6
+msgid "yangi"
+msgstr "новый"
+
+#: templates/inventory/_movements_table.html:4
+msgid "Vaqt"
+msgstr "Время"
+
+#: templates/inventory/_movements_table.html:6
+msgid "Sabab"
+msgstr "Причина"
+
+#: templates/inventory/_movements_table.html:6
+msgid "Hujjat"
+msgstr "Документ"
+
+#: templates/inventory/_movements_table.html:7
+msgid "O'zgarish"
+msgstr "Изменение"
+
+#: templates/inventory/_movements_table.html:22
+msgid "Harakatlar yo'q."
+msgstr "Движений нет."
+
+#: templates/inventory/movement_list.html:7
+msgid "Barcha turlar"
+msgstr "Все типы"
+
+#: templates/inventory/movement_list.html:10
+msgid "Tovar yoki hujjat raqami"
+msgstr "Товар или номер документа"
+
+#: templates/inventory/stock_list.html:7 templates/reports/report.html:27
+#: templates/warehouses/location_list.html:10
+msgid "Barcha omborlar"
+msgstr "Все склады"
+
+#: templates/inventory/stock_list.html:10
+msgid "Tovar, SKU yoki joy kodi"
+msgstr "Товар, SKU или код ячейки"
+
+#: templates/inventory/stock_list.html:26
+msgid "Qoldiq yo'q."
+msgstr "Остатков нет."
+
+#: templates/landing/home.html:3
+msgid "omborlarni boshqarish tizimi"
+msgstr "система управления складом"
+
+#: templates/landing/home.html:5
+msgid ""
+"Omborlar, qoldiqlar, kirim-chiqim va inventarizatsiyani bitta tizimda "
+"boshqaring."
+msgstr "Управляйте складами, остатками, приходом-расходом и инвентаризацией в одной системе."
+
+#: templates/landing/home.html:14 templates/landing/home.html:75
+msgid "Imkoniyatlar"
+msgstr "Возможности"
+
+#: templates/landing/home.html:15
+msgid "Qanday ishlaydi"
+msgstr "Как это работает"
+
+#: templates/landing/home.html:16
+msgid "Savollar"
+msgstr "Вопросы"
+
+#: templates/landing/home.html:17
+msgid "Aloqa"
+msgstr "Контакты"
+
+#: templates/landing/home.html:30
+msgid "Omborlarni boshqarish tizimi (WMS)"
+msgstr "Система управления складом (WMS)"
+
+#: templates/landing/home.html:31
+msgid "Omboringizda nima, qayerda va qancha borligini har doim aniq biling"
+msgstr "Всегда точно знайте, что, где и сколько лежит на вашем складе"
+
+#: templates/landing/home.html:32
+msgid ""
+"Kirim, terish va jo'natish, ko'chirish, inventarizatsiya va hisobotlar — "
+"bitta qulay tizimda. Bir nechta ombor bilan ishlaysizmi? Hammasi bir joyda."
+msgstr "Приход, сборка и отгрузка, перемещение, инвентаризация и отчёты — в одной удобной системе. Работаете с несколькими складами? Всё в одном месте."
+
+#: templates/landing/home.html:34 templates/landing/home.html:139
+msgid "Ariza qoldirish"
+msgstr "Оставить заявку"
+
+#: templates/landing/home.html:35
+msgid "Batafsil"
+msgstr "Подробнее"
+
+#: templates/landing/home.html:38
+msgid "O'rnatish shart emas — brauzerda ishlaydi"
+msgstr "Не нужно ничего устанавливать — работает в браузере"
+
+#: templates/landing/home.html:39
+msgid "Ma'lumotlar bulutda xavfsiz saqlanadi"
+msgstr "Данные надёжно хранятся в облаке"
+
+#: templates/landing/home.html:47 templates/reports/dashboard.html:30
+msgid "Bugun kirdi"
+msgstr "Пришло сегодня"
+
+#: templates/landing/home.html:48 templates/reports/dashboard.html:31
+msgid "Bugun chiqdi"
+msgstr "Ушло сегодня"
+
+#: templates/landing/home.html:64
+msgid "Tanish muammolarmi?"
+msgstr "Знакомые проблемы?"
+
+#: templates/landing/home.html:66
+msgid "Qoldiq Excel bilan mos kelmaydi"
+msgstr "Остатки не сходятся с Excel"
+
+#: templates/landing/home.html:66
+msgid "Har oy sanoqda «yo'qolgan» tovar chiqadi, sababini hech kim bilmaydi."
+msgstr "Каждый месяц при пересчёте «теряется» товар, и никто не знает почему."
+
+#: templates/landing/home.html:67
+msgid "Tovarni qidirib vaqt ketadi"
+msgstr "Поиск товара отнимает время"
+
+#: templates/landing/home.html:67
+msgid "Omborchi kerakli tovar qaysi tokchada turganini eslab yurishi kerak."
+msgstr "Кладовщику приходится помнить, на какой полке лежит нужный товар."
+
+#: templates/landing/home.html:68
+msgid "Kim nima qilgani noma'lum"
+msgstr "Непонятно, кто что сделал"
+
+#: templates/landing/home.html:68
+msgid "Xato chiqqanda kim kiritgani, qachon chiqarilgani topilmaydi."
+msgstr "При ошибке невозможно найти, кто внёс данные и когда товар был отгружен."
+
+#: templates/landing/home.html:77
+msgid "Omborlar va yacheykalar"
+msgstr "Склады и ячейки"
+
+#: templates/landing/home.html:77
+msgid ""
+"Bir nechta ombor, zonalar va aniq joylar (A-01-03). Har bir tovar qayerda "
+"turgani ko'rinib turadi."
+msgstr "Несколько складов, зоны и точные ячейки (A-01-03). Всегда видно, где лежит каждый товар."
+
+#: templates/landing/home.html:78
+msgid ""
+"Yetkazib beruvchidan qabul qilish, nakladnoyni biriktirish, tovarni joyiga "
+"qo'yish."
+msgstr "Приёмка от поставщика, прикрепление накладной, размещение товара по ячейкам."
+
+#: templates/landing/home.html:79
+msgid ""
+"Terish varag'i: omborchi qaysi tovarni qaysi yacheykadan olishini aniq "
+"biladi."
+msgstr "Лист сборки: кладовщик точно знает, какой товар из какой ячейки взять."
+
+#: templates/landing/home.html:80
+msgid ""
+"Yacheykalar va omborlar orasida ko'chirish — qoldiq ikkala tomonda avtomatik "
+"yangilanadi."
+msgstr "Перемещение между ячейками и складами — остатки обновляются автоматически с обеих сторон."
+
+#: templates/landing/home.html:81
+msgid ""
+"Sanoq varag'i, farqlarni ko'rsatish va bir tugma bilan qoldiqni tuzatish."
+msgstr "Лист пересчёта, отображение расхождений и корректировка остатков одной кнопкой."
+
+#: templates/landing/home.html:82
+msgid ""
+"Qoldiq, aylanma, kam qolgan tovarlar, xodimlar faolligi. Excel (CSV) va PDF "
+"ga eksport."
+msgstr "Остатки, оборачиваемость, товары на исходе, активность сотрудников. Экспорт в Excel (CSV) и PDF."
+
+#: templates/landing/home.html:83
+msgid "Rollar va ruxsatlar"
+msgstr "Роли и права"
+
+#: templates/landing/home.html:83
+msgid "Har bir xodimga faqat kerakli amallarni va kerakli omborlarni bering."
+msgstr "Давайте каждому сотруднику только нужные действия и нужные склады."
+
+#: templates/landing/home.html:84
+msgid "To'liq tarix"
+msgstr "Полная история"
+
+#: templates/landing/home.html:84
+msgid ""
+"Har bir harakat yoziladi: kim, qachon, qaysi hujjat bilan. Hech narsa izsiz "
+"o'zgarmaydi."
+msgstr "Каждое движение записывается: кто, когда, каким документом. Ничего не меняется бесследно."
+
+#: templates/landing/home.html:85
+msgid "Bulutda ishlaydi"
+msgstr "Работает в облаке"
+
+#: templates/landing/home.html:85
+msgid "Kompyuter, planshet yoki telefondan — internet bor joyda ishlaydi."
+msgstr "С компьютера, планшета или телефона — везде, где есть интернет."
+
+#: templates/landing/home.html:92
+msgid "Qanday boshlanadi"
+msgstr "Как начать"
+
+#: templates/landing/home.html:94
+msgid "Ariza qoldirasiz"
+msgstr "Оставляете заявку"
+
+#: templates/landing/home.html:94
+msgid "Pastdagi formani to'ldirasiz — 1 daqiqa."
+msgstr "Заполните форму ниже — это займёт минуту."
+
+#: templates/landing/home.html:95
+msgid "Biz qo'ng'iroq qilamiz"
+msgstr "Мы звоним"
+
+#: templates/landing/home.html:95
+msgid "Omboringiz haqida so'rab, tizimni ko'rsatamiz."
+msgstr "Расспросим о вашем складе и покажем систему."
+
+#: templates/landing/home.html:96
+msgid "Akkaunt ochiladi"
+msgstr "Открываем аккаунт"
+
+#: templates/landing/home.html:96
+msgid "Menejer login va parolini olasiz."
+msgstr "Вы получаете логин и пароль менеджера."
+
+#: templates/landing/home.html:97
+msgid "Ishlay boshlaysiz"
+msgstr "Начинаете работать"
+
+#: templates/landing/home.html:97
+msgid "Ombor, tovar va xodimlarni qo'shasiz."
+msgstr "Добавляете склады, товары и сотрудников."
+
+#: templates/landing/home.html:104
+msgid "Kimlar uchun"
+msgstr "Для кого"
+
+#: templates/landing/home.html:106
+msgid "Chakana savdo tarmoqlari"
+msgstr "Розничные сети"
+
+#: templates/landing/home.html:106
+msgid "Markaziy ombor va do'konlar orasidagi tovar oqimi."
+msgstr "Движение товара между центральным складом и магазинами."
+
+#: templates/landing/home.html:107
+msgid "Distribyutorlar"
+msgstr "Дистрибьюторы"
+
+#: templates/landing/home.html:107
+msgid "Ko'p mijozga tez va xatosiz terish va jo'natish."
+msgstr "Быстрая и безошибочная сборка и отгрузка для множества клиентов."
+
+#: templates/landing/home.html:108
+msgid "Ishlab chiqarish"
+msgstr "Производство"
+
+#: templates/landing/home.html:108
+msgid "Xomashyo va tayyor mahsulot omborlari nazorati."
+msgstr "Контроль складов сырья и готовой продукции."
+
+#: templates/landing/home.html:115
+msgid "Ko'p beriladigan savollar"
+msgstr "Частые вопросы"
+
+#: templates/landing/home.html:117
+msgid "Biror dastur o'rnatish kerakmi?"
+msgstr "Нужно ли устанавливать программу?"
+
+#: templates/landing/home.html:117
+msgid "Yo'q. Tizim brauzerda ishlaydi — faqat internet kerak."
+msgstr "Нет. Система работает в браузере — нужен только интернет."
+
+#: templates/landing/home.html:118
+msgid "Ma'lumotlarimizni boshqa kompaniyalar ko'radimi?"
+msgstr "Видят ли наши данные другие компании?"
+
+#: templates/landing/home.html:118
+msgid ""
+"Yo'q. Har bir kompaniyaning ma'lumotlari to'liq ajratilgan, faqat sizning "
+"xodimlaringiz ko'radi."
+msgstr "Нет. Данные каждой компании полностью изолированы, их видят только ваши сотрудники."
+
+#: templates/landing/home.html:119
+msgid "Nechta ombor va xodim qo'shish mumkin?"
+msgstr "Сколько складов и сотрудников можно добавить?"
+
+#: templates/landing/home.html:119
+msgid "Cheklov yo'q — omborlar, joylar va xodimlarni o'zingiz qo'shasiz."
+msgstr "Ограничений нет — склады, ячейки и сотрудников вы добавляете сами."
+
+#: templates/landing/home.html:120
+msgid "Xodim faqat o'z omborini ko'rishi mumkinmi?"
+msgstr "Может ли сотрудник видеть только свой склад?"
+
+#: templates/landing/home.html:120
+msgid "Ha. Menejer har bir xodimga rol va omborlarni biriktiradi."
+msgstr "Да. Менеджер назначает каждому сотруднику роль и склады."
+
+#: templates/landing/home.html:121
+msgid "Shtrix-kod skaneri bilan ishlaydimi?"
+msgstr "Работает ли со сканером штрихкодов?"
+
+#: templates/landing/home.html:121
+msgid ""
+"Hozircha shtrix-kod qo'lda kiritiladi. Skaner bilan ishlash yaqin orada "
+"qo'shiladi."
+msgstr "Пока штрихкод вводится вручную. Работа со сканером скоро будет добавлена."
+
+#: templates/landing/home.html:129
+msgid "Bog'lanish"
+msgstr "Связаться с нами"
+
+#: templates/landing/home.html:130
+msgid ""
+"Ariza qoldiring — biz qo'ng'iroq qilib, tizimni sizning omboringiz misolida "
+"ko'rsatamiz."
+msgstr "Оставьте заявку — мы позвоним и покажем систему на примере вашего склада."
+
+#: templates/landing/home.html:141
+msgid "Ismingiz"
+msgstr "Ваше имя"
+
+#: templates/landing/home.html:144
+msgid "Kompaniya nomi"
+msgstr "Название компании"
+
+#: templates/landing/home.html:151
+msgid "Yuborish"
+msgstr "Отправить"
+
+#: templates/landing/thanks.html:5
+msgid "Rahmat!"
+msgstr "Спасибо!"
+
+#: templates/landing/thanks.html:7
+msgid "Bosh sahifaga"
+msgstr "На главную"
+
+#: templates/operations/_line_row.html:24
+msgid "O‘chirish"
+msgstr "Удалить"
+
+#: templates/operations/count_detail.html:7
+msgid "Sanoq varag'ini chop etish"
+msgstr "Распечатать лист пересчёта"
+
+#: templates/operations/count_detail.html:14
+msgid "butun ombor"
+msgstr "весь склад"
+
+#: templates/operations/count_detail.html:15
+#: templates/operations/count_list.html:10
+msgid "Ochgan"
+msgstr "Открыл"
+
+#: templates/operations/count_detail.html:16
+msgid "Yakunlagan"
+msgstr "Завершил"
+
+#: templates/operations/count_detail.html:22
+msgid ""
+"Har bir qatorga haqiqatda sanalgan miqdorni yozing. Sanalmagan qatorni bo'sh "
+"qoldiring — u o'zgarmaydi."
+msgstr "Впишите в каждую строку фактически подсчитанное количество. Неподсчитанную строку оставьте пустой — она не изменится."
+
+#: templates/operations/count_detail.html:26
+msgid "Tizimda"
+msgstr "В системе"
+
+#: templates/operations/count_detail.html:26
+msgid "Sanaldi"
+msgstr "Подсчитано"
+
+#: templates/operations/count_detail.html:26
+msgid "Farq"
+msgstr "Разница"
+
+#: templates/operations/count_detail.html:45
+msgid ""
+"Bu joylarda tizim bo'yicha qoldiq yo'q. Topilgan tovarlarni pastdan qo'shing."
+msgstr "По системе в этих ячейках нет остатков. Добавьте найденные товары ниже."
+
+#: templates/operations/count_detail.html:52
+msgid "Yakunlaysizmi? Farqlar qoldiqqa yoziladi va buni qaytarib bo‘lmaydi."
+msgstr "Завершить? Расхождения будут записаны в остатки, отменить это нельзя."
+
+#: templates/operations/count_detail.html:61
+msgid "Tizimda yo'q tovar topildimi?"
+msgstr "Найден товар, которого нет в системе?"
+
+#: templates/operations/count_detail.html:65
+msgid "Qo'shish"
+msgstr "Добавить"
+
+#: templates/operations/count_list.html:6
+msgid "Sanoq boshlash"
+msgstr "Начать пересчёт"
+
+#: templates/operations/count_list.html:10
+#: templates/operations/document_list.html:22
+#: templates/panel/_lead_table.html:3
+msgid "Sana"
+msgstr "Дата"
+
+#: templates/operations/count_list.html:22
+msgid "Hali inventarizatsiya o'tkazilmagan."
+msgstr "Инвентаризаций ещё не было."
+
+#: templates/operations/document_detail.html:9
+#: templates/operations/document_print.html:18
+msgid "Terish varag'i"
+msgstr "Лист сборки"
+
+#: templates/operations/document_detail.html:9
+#: templates/operations/document_print.html:24
+msgid "Chop etish"
+msgstr "Печать"
+
+#: templates/operations/document_detail.html:15
+msgid "Hujjatni bekor qilasizmi?"
+msgstr "Отменить документ?"
+
+#: templates/operations/document_detail.html:22
+msgid "Terishni boshlaysizmi?"
+msgstr "Начать сборку?"
+
+#: templates/operations/document_detail.html:22
+msgid "Terishni boshlash"
+msgstr "Начать сборку"
+
+#: templates/operations/document_detail.html:24
+msgid "Tovar jo‘natildimi? Qoldiq kamayadi."
+msgstr "Товар отгружен? Остаток уменьшится."
+
+#: templates/operations/document_detail.html:24
+msgid "Jo'natildi"
+msgstr "Отгружено"
+
+#: templates/operations/document_detail.html:26
+msgid "Tasdiqlaysizmi? Qoldiq o‘zgaradi."
+msgstr "Подтвердить? Остатки изменятся."
+
+#: templates/operations/document_detail.html:42
+msgid "Yaratdi"
+msgstr "Создал"
+
+#: templates/operations/document_detail.html:43
+msgid "Bajardi"
+msgstr "Выполнил"
+
+#: templates/operations/document_detail.html:44
+msgid "Bekor qildi"
+msgstr "Отменил"
+
+#: templates/operations/document_detail.html:54
+#: templates/operations/document_form.html:33
+#: templates/operations/document_print.html:30
+msgid "Qayerdan"
+msgstr "Откуда"
+
+#: templates/operations/document_detail.html:55
+#: templates/operations/document_form.html:34
+#: templates/operations/document_print.html:31
+msgid "Qayerga"
+msgstr "Куда"
+
+#: templates/operations/document_detail.html:68
+msgid "Qatorlar yo'q."
+msgstr "Строк нет."
+
+#: templates/operations/document_detail.html:75
+msgid "Biriktirilgan fayllar"
+msgstr "Прикреплённые файлы"
+
+#: templates/operations/document_detail.html:76
+msgid ""
+"Nakladnoy, skan yoki boshqa hujjatlar. Fayllar bulutda (Amazon S3) xavfsiz "
+"saqlanadi."
+msgstr "Накладная, скан или другие документы. Файлы надёжно хранятся в облаке (Amazon S3)."
+
+#: templates/operations/document_detail.html:89
+msgid "Yuklash"
+msgstr "Загрузить"
+
+#: templates/operations/document_form.html:5
+msgid "yangi hujjat"
+msgstr "новый документ"
+
+#: templates/operations/document_form.html:23
+msgid "Joy — tovar qaysi yacheykaga qo'yiladi."
+msgstr "Ячейка — в какую ячейку кладётся товар."
+
+#: templates/operations/document_form.html:24
+msgid "Joy — tovar qaysi yacheykadan olinadi."
+msgstr "Ячейка — из какой ячейки берётся товар."
+
+#: templates/operations/document_form.html:25
+msgid "Tovar birinchi joydan olinib, ikkinchi joyga qo'yiladi."
+msgstr "Товар забирается из первой ячейки и кладётся во вторую."
+
+#: templates/operations/document_form.html:46
+msgid "Qator qo'shish"
+msgstr "Добавить строку"
+
+#: templates/operations/document_list.html:7
+msgid "Yangi hujjat"
+msgstr "Новый документ"
+
+#: templates/operations/document_list.html:11 templates/panel/lead_list.html:7
+msgid "Barcha holatlar"
+msgstr "Все статусы"
+
+#: templates/operations/document_list.html:16
+msgid "Raqam yoki kontragent"
+msgstr "Номер или контрагент"
+
+#: templates/operations/document_list.html:24
+msgid "Yaratgan"
+msgstr "Создал"
+
+#: templates/operations/document_list.html:37
+msgid "Hujjatlar yo'q."
+msgstr "Документов нет."
+
+#: templates/operations/document_print.html:33
+msgid "Olindi"
+msgstr "Взято"
+
+#: templates/operations/document_print.html:50
+msgid "Topshirdi"
+msgstr "Сдал"
+
+#: templates/operations/document_print.html:51
+msgid "Qabul qildi"
+msgstr "Принял"
+
+#: templates/panel/_lead_table.html:14
+msgid "Arizalar yo'q."
+msgstr "Заявок нет."
+
+#: templates/panel/base.html:4
+msgid "Platforma paneli"
+msgstr "Панель платформы"
+
+#: templates/panel/base.html:6
+msgid "Umumiy"
+msgstr "Обзор"
+
+#: templates/panel/base.html:7 templates/panel/lead_list.html:4
+msgid "Arizalar"
+msgstr "Заявки"
+
+#: templates/panel/base.html:9
+msgid "Sayt"
+msgstr "Сайт"
+
+#: templates/panel/base.html:10
+msgid "Landing sahifa"
+msgstr "Лендинг"
+
+#: templates/panel/company_form.html:4
+msgid "Yangi kompaniya"
+msgstr "Новая компания"
+
+#: templates/panel/company_form.html:9
+msgid ""
+"Menejer shu login va parol bilan kiradi. Ularni mijozga xavfsiz yo'l bilan "
+"yetkazing."
+msgstr "Менеджер будет входить с этим логином и паролем. Передайте их клиенту безопасным способом."
+
+#: templates/panel/company_form.html:16
+msgid "Menejerlar"
+msgstr "Менеджеры"
+
+#: templates/panel/company_list.html:6
+msgid "Kompaniya qo'shish"
+msgstr "Добавить компанию"
+
+#: templates/panel/company_list.html:10
+msgid "Foydalanuvchilar"
+msgstr "Пользователи"
+
+#: templates/panel/company_list.html:10
+msgid "Qo'shilgan"
+msgstr "Добавлена"
+
+#: templates/panel/company_list.html:18
+msgid "Bloklangan"
+msgstr "Заблокирована"
+
+#: templates/panel/company_list.html:22
+msgid "Hali kompaniya yo'q."
+msgstr "Компаний пока нет."
+
+#: templates/panel/dashboard.html:4
+msgid "Platforma"
+msgstr "Платформа"
+
+#: templates/panel/dashboard.html:6
+msgid "Yangi arizalar"
+msgstr "Новые заявки"
+
+#: templates/panel/dashboard.html:8
+msgid "Rozi bo'lganlar"
+msgstr "Согласившиеся"
+
+#: templates/panel/dashboard.html:9
+msgid "Faol kompaniyalar"
+msgstr "Активные компании"
+
+#: templates/panel/dashboard.html:12
+msgid "Oxirgi arizalar"
+msgstr "Последние заявки"
+
+#: templates/panel/lead_detail.html:7
+msgid "Qo'ng'iroq qilish"
+msgstr "Позвонить"
+
+#: templates/panel/lead_detail.html:8
+msgid "Kompaniya yaratish"
+msgstr "Создать компанию"
+
+#: templates/panel/lead_detail.html:18
+msgid "Kelgan vaqti"
+msgstr "Время заявки"
+
+#: templates/panel/lead_detail.html:20
+msgid "Xabar"
+msgstr "Сообщение"
+
+#: templates/panel/lead_detail.html:23
+msgid "Qo'ng'iroq natijasi"
+msgstr "Результат звонка"
+
+#: templates/panel/lead_list.html:10
+msgid "Kompaniya, ism yoki telefon"
+msgstr "Компания, имя или телефон"
+
+#: templates/reports/dashboard.html:5
+#, python-format
+msgid "Salom, %(name)s!"
+msgstr "Здравствуйте, %(name)s!"
+
+#: templates/reports/dashboard.html:15
+msgid "Boshlash uchun 3 qadam"
+msgstr "3 шага, чтобы начать"
+
+#: templates/reports/dashboard.html:17
+msgid "Ombor qo'shing"
+msgstr "Добавьте склад"
+
+#: templates/reports/dashboard.html:18
+msgid "Ombordagi joylarni (yacheykalarni) kiriting"
+msgstr "Внесите ячейки склада"
+
+#: templates/reports/dashboard.html:19
+msgid "Tovarlarni qo'shing"
+msgstr "Добавьте товары"
+
+#: templates/reports/dashboard.html:19
+msgid "va birinchi kirimni rasmiylashtiring"
+msgstr "и оформите первый приход"
+
+#: templates/reports/dashboard.html:22
+msgid ""
+"Sizga hali birorta ombor biriktirilmagan. Menejeringizga murojaat qiling."
+msgstr "Вам ещё не назначен ни один склад. Обратитесь к менеджеру."
+
+#: templates/reports/dashboard.html:29
+msgid "Omborda bor tovarlar"
+msgstr "Товаров на складе"
+
+#: templates/reports/dashboard.html:36
+msgid "Ochiq hujjatlar"
+msgstr "Открытые документы"
+
+#: templates/reports/dashboard.html:47
+msgid "Ochiq hujjat yo'q."
+msgstr "Открытых документов нет."
+
+#: templates/reports/dashboard.html:64
+msgid "Hammasi yetarli."
+msgstr "Всего достаточно."
+
+#: templates/reports/report.html:8
+msgid "Chop etish / PDF"
+msgstr "Печать / PDF"
+
+#: templates/reports/report.html:9
+msgid "CSV yuklab olish"
+msgstr "Скачать CSV"
+
+#: templates/reports/report.html:31
+msgid "Ko'rsatish"
+msgstr "Показать"
+
+#: templates/reports/report.html:43
+msgid "Ma'lumot yo'q."
+msgstr "Нет данных."
+
+#: templates/warehouses/location_list.html:5
+#: templates/warehouses/warehouse_list.html:7
+msgid "Joylar (yacheykalar)"
+msgstr "Ячейки"
+
+#: templates/warehouses/location_list.html:6
+msgid "Joy qo'shish"
+msgstr "Добавить ячейку"
+
+#: templates/warehouses/location_list.html:13
+msgid "Kod bo‘yicha qidirish"
+msgstr "Поиск по коду"
+
+#: templates/warehouses/location_list.html:29
+msgid "Joylar topilmadi."
+msgstr "Ячейки не найдены."
+
+#: templates/warehouses/warehouse_list.html:8
+msgid "Ombor qo'shish"
+msgstr "Добавить склад"
+
+#: templates/warehouses/warehouse_list.html:23
+msgid "Hali ombor yo'q."
+msgstr "Складов пока нет."
