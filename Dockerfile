@@ -21,6 +21,10 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+# CI commit SHA ni beradi — /health/ sahifasida qaysi versiya ishlayotgani ko'rinadi
+ARG APP_VERSION=local
+ENV APP_VERSION=${APP_VERSION}
+
 RUN SECRET_KEY=build-only python manage.py collectstatic --noinput \
     && SECRET_KEY=build-only python manage.py compilemessages --locale ru
 

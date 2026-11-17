@@ -102,9 +102,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+# Serverda parol .env da emas, AWS Secrets Manager'da (DB_SECRET_ARN).
+# Lokalda esa oddiy DB_USER / DB_PASSWORD ishlatiladi.
+DB_SECRET_ARN = env("DB_SECRET_ARN")
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "apps.core.db" if DB_SECRET_ARN else "django.db.backends.postgresql",
+        "SECRET_ARN": DB_SECRET_ARN,
         "NAME": env("DB_NAME", "wms"),
         "USER": env("DB_USER", "postgres"),
         "PASSWORD": env("DB_PASSWORD"),
@@ -150,7 +155,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 USE_S3 = env_bool("USE_S3")
 AWS_S3_BUCKET = env("AWS_S3_BUCKET")
-AWS_REGION = env("AWS_REGION", "eu-central-1")
+AWS_REGION = env("AWS_REGION", "ap-southeast-2")
 
 STORAGES = {
     "default": {
@@ -176,6 +181,9 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Qaysi versiya ishlayotgani (/health/ da ko'rinadi, CI deployni shu bilan tekshiradi)
+APP_VERSION = env("APP_VERSION", "local")
 
 # Landing va sayt ma'lumotlari — bir joydan boshqariladi
 SITE_NAME = env("SITE_NAME", "OmborHub")

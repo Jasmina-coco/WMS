@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import connection
 from django.http import JsonResponse
 
@@ -15,4 +16,11 @@ def health(request):
         db_ok = False
 
     status = 200 if db_ok else 503
-    return JsonResponse({"status": "ok" if db_ok else "error", "database": db_ok}, status=status)
+    return JsonResponse(
+        {
+            "status": "ok" if db_ok else "error",
+            "database": db_ok,
+            "version": settings.APP_VERSION,
+        },
+        status=status,
+    )
