@@ -2,21 +2,22 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "WmsFilesOnly",
+      "Sid": "WmsBucketObjects",
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::BUCKET_NOMI/companies/*"
+      "Resource": "arn:aws:s3:::wms-vangogh-files-132074799573/*"
     },
     {
-      "Sid": "AppLogs",
+      "Sid": "WmsBucketList",
       "Effect": "Allow",
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-        "logs:DescribeLogStreams"
-      ],
-      "Resource": "arn:aws:logs:eu-central-1:AKKAUNT_ID:log-group:/wms/*"
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::wms-vangogh-files-132074799573"
+    },
+    {
+      "Sid": "ReadRdsMasterSecret",
+      "Effect": "Allow",
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": "arn:aws:secretsmanager:ap-southeast-2:132074799573:secret:rds!db-b0d819fc-3142-47ae-a867-097da70ee258-*"
     }
   ]
 }

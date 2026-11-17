@@ -14,7 +14,7 @@
   </defs>
 
   <rect width="960" height="600" fill="#f8fafc"/>
-  <text x="24" y="34" font-size="20" font-weight="bold" fill="#172033">OmborHub — AWS arxitekturasi (eu-central-1)</text>
+  <text x="24" y="34" font-size="20" font-weight="bold" fill="#172033">OmborHub — AWS arxitekturasi (ap-southeast-2, Sidney)</text>
 
   <!-- Foydalanuvchi va GitHub -->
   <rect class="box" x="24" y="80" width="160" height="64"/>
@@ -24,7 +24,7 @@
   <rect class="box" x="24" y="420" width="160" height="80"/>
   <text class="title" x="40" y="446">GitHub Actions</text>
   <text class="sub" x="40" y="466">lint → test → build</text>
-  <text class="sub" x="40" y="484">GHCR → deploy</text>
+  <text class="sub" x="40" y="484">GHCR ← server o‘zi oladi</text>
 
   <rect class="box" x="230" y="80" width="150" height="64"/>
   <text class="title" x="246" y="106">vangogh.uz</text>
@@ -33,7 +33,7 @@
   <!-- EC2 -->
   <rect class="ec2" x="420" y="60" width="300" height="370"/>
   <text class="title" x="436" y="86">EC2 t3.micro · Docker Swarm</text>
-  <text class="sub" x="436" y="104">Security Group: 80, 443 hamma; 22 faqat admin</text>
+  <text class="sub" x="436" y="104">Security Group: faqat 80 va 443 ochiq</text>
 
   <rect class="box" x="450" y="122" width="240" height="56"/>
   <text class="title" x="466" y="146">Nginx</text>
@@ -75,7 +75,7 @@
   <rect class="aws" x="770" y="420" width="170" height="80"/>
   <text class="title" x="786" y="446">IAM</text>
   <text class="sub" x="786" y="466">EC2 role (minimal)</text>
-  <text class="sub" x="786" y="484">GitHub OIDC role</text>
+  <text class="sub" x="786" y="484">SSM (SSH o‘rniga)</text>
 
   <!-- Chiziqlar -->
   <path class="line" d="M184 112 H226"/>

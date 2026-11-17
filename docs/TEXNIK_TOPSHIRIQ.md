@@ -255,7 +255,7 @@ Aniqlangan:
 - **Email (landing)**: jasminaismoilova279@gmail.com
 - **Telegram va manzil**: landingda ko'rsatilmaydi.
 - **Mahsulot nomi**: vaqtincha `OmborHub`. `SITE_NAME` sozlamasidan bitta joyda almashtiriladi.
-- **AWS region**: Frankfurt (`eu-central-1`). Sidney'dagi eski loyiha o'chiriladi.
+- **AWS region**: Sidney (`ap-southeast-2`). Akkaunt tashkilot siyosati (SCP) bilan shu regionga cheklangan; mavjud EC2, RDS, S3 va IAM qayta ishlatildi.
 
 ## 14. Bulutli texnologiyalar talablari (AWS, faqat Free Tier)
 

@@ -73,5 +73,5 @@ docs/          texnik topshiriq, AWS qo'llanma, bulut hisoboti
 
 ## Deploy
 
-`main` branchga push → GitHub Actions: lint → testlar → Docker image'lar (GHCR) → EC2 ga rolling
-update. Batafsil: [docs/aws/README.md](docs/aws/README.md).
+Sayt: <https://vangogh.uz>. `main` branchga push → GitHub Actions: lint → testlar → Docker image'lar (GHCR) → EC2 da rolling
+update (server yangi versiyani o'zi oladi). Batafsil: [docs/aws/README.md](docs/aws/README.md).

@@ -17,7 +17,8 @@ echo "== 2. Docker =="
 command -v docker >/dev/null || curl -fsSL https://get.docker.com | sh
 
 echo "== 3. Docker Swarm (bitta tugunli) =="
-docker info --format '{{.Swarm.LocalNodeState}}' | grep -q active || docker swarm init
+docker info --format '{{.Swarm.LocalNodeState}}' | grep -q active \
+  || docker swarm init --advertise-addr "$(hostname -I | awk '{print $1}')"
 
 echo "== 4. Papkalar va certbot =="
 mkdir -p /opt/omborhub /var/www/certbot
