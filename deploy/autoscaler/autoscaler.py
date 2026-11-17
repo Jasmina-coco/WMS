@@ -79,24 +79,36 @@ def container_cpu_percent(container_id):
     `docker stats` dagi CPU% ni hisoblash formulasi: konteyner sarflagan CPU
     vaqtining o'zgarishini butun tizim CPU vaqtining o'zgarishiga bo'lamiz.
     Natija — bitta yadroga nisbatan foiz (100% = bitta yadro to'liq band).
+
+    Docker ba'zan oldingi o'lchovni (precpu) bo'sh qaytaradi — bunday
+    natija ishonchsiz, None qaytaramiz va uni hisobga olmaymiz.
     """
     stats = docker("GET", f"/containers/{container_id}/stats?stream=false")
     cpu, pre = stats["cpu_stats"], stats["precpu_stats"]
+    if not pre.get("system_cpu_usage") or not pre.get("cpu_usage", {}).get("total_usage"):
+        return None
     cpu_delta = cpu["cpu_usage"]["total_usage"] - pre["cpu_usage"]["total_usage"]
-    system_delta = cpu.get("system_cpu_usage", 0) - pre.get("system_cpu_usage", 0)
+    system_delta = cpu.get("system_cpu_usage", 0) - pre["system_cpu_usage"]
     cores = cpu.get("online_cpus") or 1
     if system_delta <= 0 or cpu_delta < 0:
-        return 0.0
+        return None
     return cpu_delta / system_delta * cores * 100
 
 
 def average_load(service):
-    """Konteynerlarning o'rtacha yuklamasi, ularga ajratilgan limitga nisbatan (0–100%)."""
+    """
+    Konteynerlarning o'rtacha yuklamasi, ularga ajratilgan limitga nisbatan (0–100%).
+    Ishonchli o'lchov bo'lmasa — None.
+    """
     containers = running_containers()
-    if not containers:
-        return None
     limit = cpu_limit(service)
-    loads = [container_cpu_percent(c["Id"]) / limit for c in containers]
+    loads = []
+    for container in containers:
+        value = container_cpu_percent(container["Id"])
+        if value is not None:
+            loads.append(value / limit)
+    if not loads:
+        return None
     return sum(loads) / len(loads)
 
 
@@ -126,7 +138,9 @@ def main():
             load = average_load(service)
 
             if load is None:
-                log.info("konteynerlar topilmadi, kutamiz")
+                # Ketma-ketlik hisoblagichlarini nolga tushirmaymiz — bitta noto'g'ri
+                # o'lchov tufayli autoscaler qaror qabul qilishni kechiktirmasin
+                log.info("ishonchli o'lchov yo'q, keyingi tekshiruvni kutamiz")
             else:
                 high_streak = high_streak + 1 if load > SCALE_UP_AT else 0
                 low_streak = low_streak + 1 if load < SCALE_DOWN_AT else 0

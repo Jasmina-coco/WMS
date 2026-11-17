@@ -10,9 +10,15 @@ threads = 2
 timeout = 30
 graceful_timeout = 20
 
-# Xotira asta-sekin oqib ketmasligi uchun worker har ~1000 so'rovdan keyin yangilanadi
-max_requests = 1000
-max_requests_jitter = 100
+# Nginx ulanishlarni qayta ishlatadi (keepalive). Gunicorn ulanishni Nginx'dan
+# uzoqroq ushlab turishi kerak, aks holda Nginx yopilgan ulanishga so'rov yuborib,
+# foydalanuvchi 502 xato oladi.
+keepalive = 75
+
+# Xotira asta-sekin oqib ketmasligi uchun worker vaqti-vaqti bilan yangilanadi.
+# Juda tez-tez bo'lmasin: har yangilanish ochiq ulanishlarni uzadi.
+max_requests = 5000
+max_requests_jitter = 500
 
 accesslog = "-"
 errorlog = "-"
