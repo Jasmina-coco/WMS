@@ -5,23 +5,29 @@
 */
 
 :root {
-  --bg: #f5f7fb;
+  --bg: #f3f6fb;
   --surface: #ffffff;
-  --surface-2: #eef2f8;
-  --border: #dde3ee;
-  --text: #172033;
-  --muted: #5d6880;
-  --primary: #1f5eff;
-  --primary-dark: #1546c7;
-  --primary-soft: #e6eeff;
-  --success: #12805c;
-  --success-soft: #e3f6ef;
-  --warning: #a35c00;
-  --warning-soft: #fff2dc;
-  --danger: #c4314b;
-  --danger-soft: #fde8ec;
-  --radius: 10px;
-  --shadow: 0 1px 2px rgba(23, 32, 51, 0.06), 0 4px 16px rgba(23, 32, 51, 0.06);
+  --surface-2: #f1f4f9;
+  --border: #e3e8f0;
+  --text: #14213a;
+  --muted: #64708a;
+  --primary: #1565c0;
+  --primary-dark: #0d4a92;
+  --primary-soft: #e8f1fc;
+  --brand-1: #1a6fc4;
+  --brand-2: #0b3f7d;
+  --success: #0f9d6b;
+  --success-soft: #e4f7ef;
+  --warning: #d97706;
+  --warning-soft: #fff4e2;
+  --danger: #e0344f;
+  --danger-soft: #fdebee;
+  --violet: #8b3dff;
+  --violet-soft: #f2eaff;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(20, 33, 58, 0.05), 0 6px 20px rgba(20, 33, 58, 0.06);
+  --shadow-lg: 0 18px 40px rgba(13, 74, 146, 0.25);
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
@@ -61,11 +67,11 @@ h3 { font-size: 16px; }
   gap: 6px;
   padding: 9px 16px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--surface);
   color: var(--text);
   font: inherit;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   text-decoration: none;
   transition: background 0.15s, border-color 0.15s;

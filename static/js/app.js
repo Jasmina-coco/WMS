@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupConfirmButtons();
   setupLineFormset();
   setupAutoSubmitFilters();
+  setupSeriesSwitch();
 });
 
 // Telefonda chap menyuni ochish/yopish
@@ -81,5 +82,21 @@ function setupLineFormset() {
 function setupAutoSubmitFilters() {
   document.querySelectorAll(".filters select").forEach((select) => {
     select.addEventListener("change", () => select.form.submit());
+  });
+}
+
+// Bosh sahifadagi "Kirim / Chiqim" almashtirgichi: grafikda qaysi qatorlar ko'rinishini tanlaydi
+function setupSeriesSwitch() {
+  const switcher = document.querySelector("[data-switch]");
+  if (!switcher) return;
+  const card = switcher.closest(".card");
+
+  switcher.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-show]");
+    if (!button) return;
+    switcher.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === button));
+    card.querySelectorAll("[data-series]").forEach((el) => {
+      el.classList.toggle("shown", el.dataset.series === button.dataset.show);
+    });
   });
 }

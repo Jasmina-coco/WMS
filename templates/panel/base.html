@@ -1,12 +1,18 @@
 {% extends "app_base.html" %}
-{% load i18n %}
+{% load i18n wms %}
+{% block brand_sub %}{% translate "Platforma paneli" %}{% endblock %}
+{% block top_title %}{% translate "Platforma paneli" %}{% endblock %}
+{% block top_sub %}{% translate "Arizalar va mijoz kompaniyalar" %}{% endblock %}
+{% block top_search %}{% endblock %}
 {% block sidebar %}
-<div class="company">{% translate "Platforma paneli" %}</div>
 {% with url_name=request.resolver_match.url_name %}
-<a class="nav-link {% if url_name == 'dashboard' %}active{% endif %}" href="{% url 'panel:dashboard' %}">{% translate "Umumiy" %}</a>
-<a class="nav-link {% if url_name == 'leads' or url_name == 'lead_detail' %}active{% endif %}" href="{% url 'panel:leads' %}">{% translate "Arizalar" %}</a>
-<a class="nav-link {% if 'compan' in url_name %}active{% endif %}" href="{% url 'panel:companies' %}">{% translate "Kompaniyalar" %}</a>
-<div class="nav-title">{% translate "Sayt" %}</div>
-<a class="nav-link" href="{% url 'landing:home' %}" target="_blank">{% translate "Landing sahifa" %}</a>
+  {% url 'panel:dashboard' as u %}{% translate "Umumiy" as l %}
+  {% nav u l "grid" match="dashboard" %}
+  {% url 'panel:leads' as u %}{% translate "Arizalar" as l %}
+  {% nav u l "mail" match="leads,lead_detail" badge=new_leads_count %}
+  {% url 'panel:companies' as u %}{% translate "Kompaniyalar" as l %}
+  {% nav u l "building" match="companies,company_create,company_edit" %}
+  <div class="nav-title">{% translate "Sayt" %}</div>
+  <a class="nav-link" href="{% url 'landing:home' %}" target="_blank">{% include "_icon.html" with name="globe" %}<span>{% translate "Landing sahifa" %}</span></a>
 {% endwith %}
 {% endblock %}

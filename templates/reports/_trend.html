@@ -1,0 +1,1 @@
+{% if value is not None %}<span class="trend {% if value > 0 %}up{% elif value < 0 %}down{% else %}flat{% endif %}">{% if value >= 0 %}{% include "_icon.html" with name="up" %}+{% else %}{% include "_icon.html" with name="down" %}{% endif %}{{ value }}%</span>{% endif %}

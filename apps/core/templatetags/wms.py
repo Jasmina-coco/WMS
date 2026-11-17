@@ -27,3 +27,19 @@ def query_with(context, **kwargs):
     for key, value in kwargs.items():
         params[key] = value
     return params.urlencode()
+
+
+@register.inclusion_tag("_nav.html", takes_context=True)
+def nav(context, url, label, icon, match="", namespace="", kind="", badge=None):
+    """
+    Chap menyudagi bitta band. Joriy sahifaga mos kelsa, "active" bo'ladi:
+        {% nav u l "box" namespace="catalog" %}
+        {% nav u l "grid" match="dashboard" %}
+    """
+    resolved = context["request"].resolver_match
+    active = bool(
+        (match and resolved.url_name in match.split(","))
+        or (namespace and resolved.namespace == namespace)
+        or (kind and context.get("kind") == kind)
+    )
+    return {"url": url, "label": label, "icon": icon, "active": active, "badge": badge}

@@ -2,7 +2,6 @@ import csv
 from datetime import date, timedelta
 
 from django.core.exceptions import PermissionDenied
-from django.db.models import Count, Q, Sum
 from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.dateparse import parse_date
@@ -11,45 +10,34 @@ from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 
 from apps.core.mixins import CompanyRequiredMixin, PermissionMixin
-from apps.inventory.models import Stock, StockMovement
-from apps.operations.models import Document
 
-from . import queries
+from . import dashboard, queries
 
 
 class DashboardView(CompanyRequiredMixin, TemplateView):
-    """Bosh sahifa. Har bir xodim faqat ruxsati bor bloklarni ko'radi."""
+    """Bosh sahifa. Har bir xodim faqat ruxsati bor omborlar bo'yicha ma'lumotni ko'radi."""
 
     template_name = "reports/dashboard.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.request.user
         company = self.request.company
-        warehouses = user.allowed_warehouses()
-        today = timezone.localdate()
+        warehouses = self.request.user.allowed_warehouses()
+        flow, flow_totals = dashboard.monthly_flow(company, warehouses)
+        pending = dashboard.pending(company, warehouses)
 
-        context["warehouses_count"] = warehouses.count()
-        context["stock_total"] = Stock.objects.filter(location__warehouse__in=warehouses).aggregate(
-            positions=Count("id", filter=Q(quantity__gt=0)),
-            products=Count("product", distinct=True, filter=Q(quantity__gt=0)),
+        context.update(
+            today=timezone.localdate(),
+            kpis=dashboard.daily_kpis(company, warehouses),
+            cards=dashboard.summary_cards(company, warehouses),
+            flow=flow,
+            flow_totals=flow_totals,
+            activity=dashboard.recent_activity(warehouses),
+            top_products=dashboard.top_products(company, warehouses),
+            pending=pending,
+            pending_total=sum(pending.values()),
+            has_warehouses=warehouses.exists(),
         )
-        context["today"] = StockMovement.objects.filter(
-            location__warehouse__in=warehouses, created_at__date=today
-        ).aggregate(
-            incoming=Sum("quantity", filter=Q(reason="receipt")),
-            outgoing=Sum("quantity", filter=Q(reason="shipment")),
-            operations=Count("id"),
-        )
-        context["open_documents"] = (
-            Document.objects.for_company(company)
-            .filter(warehouse__in=warehouses, status__in=["draft", "picking"])
-            .select_related("warehouse")[:8]
-        )
-        context["low_stock"] = queries.low_stock(company, warehouses)[:8]
-        context["recent_movements"] = StockMovement.objects.filter(
-            location__warehouse__in=warehouses
-        ).select_related("product", "location", "created_by")[:8]
         return context
 
 
