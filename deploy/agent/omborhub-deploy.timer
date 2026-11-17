@@ -1,0 +1,9 @@
+[Unit]
+Description=OmborHub deploy agentini har daqiqada ishga tushirish
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+
+[Install]
+WantedBy=timers.target

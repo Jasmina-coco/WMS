@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # EC2 (Ubuntu 24.04) serverni bir marta tayyorlash.
-# Ishlatish:  sudo bash server-setup.sh
+# Loyiha papkasidan: sudo bash deploy/server-setup.sh
+# (Serverga SSH emas, AWS Systems Manager orqali kiriladi.)
 set -euo pipefail
 
-echo "== 1. Swap (t3.micro da 1 GB RAM, xotira yetmay qolmasligi uchun 2 GB swap) =="
+echo "== 1. Swap: t3.micro da 1 GB RAM, xotira yetmay qolmasligi uchun 1 GB swap =="
 if [ ! -f /swapfile ]; then
-  fallocate -l 2G /swapfile
+  fallocate -l 1G /swapfile
   chmod 600 /swapfile
   mkswap /swapfile
   swapon /swapfile
@@ -13,27 +14,24 @@ if [ ! -f /swapfile ]; then
 fi
 
 echo "== 2. Docker =="
-if ! command -v docker >/dev/null; then
-  curl -fsSL https://get.docker.com | sh
-fi
-usermod -aG docker ubuntu
+command -v docker >/dev/null || curl -fsSL https://get.docker.com | sh
 
 echo "== 3. Docker Swarm (bitta tugunli) =="
 docker info --format '{{.Swarm.LocalNodeState}}' | grep -q active || docker swarm init
 
-echo "== 4. Loyiha papkalari =="
-mkdir -p /opt/wms /var/www/certbot
-chown ubuntu:ubuntu /opt/wms
+echo "== 4. Papkalar va certbot =="
+mkdir -p /opt/omborhub /var/www/certbot
+command -v certbot >/dev/null || { apt-get update -y && apt-get install -y certbot; }
 
-echo "== 5. certbot (HTTPS sertifikat) =="
-apt-get update -y
-apt-get install -y certbot
+echo "== 5. Deploy agenti (har daqiqada yangi versiyani tekshiradi) =="
+install -m 755 deploy/agent/omborhub-deploy.sh /opt/omborhub/omborhub-deploy.sh
+install -m 644 deploy/agent/omborhub-deploy.service /etc/systemd/system/
+install -m 644 deploy/agent/omborhub-deploy.timer /etc/systemd/system/
+systemctl daemon-reload
 
-echo "== 6. CloudWatch Agent (RAM va disk metrikalari uchun) =="
-if [ ! -f /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl ]; then
-  curl -fsSLo /tmp/cwagent.deb \
-    https://amazoncloudwatch-agent.s3.amazonaws.com/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
-  dpkg -i /tmp/cwagent.deb
-fi
+echo "== 6. Sertifikatni avtomatik yangilash =="
+cat > /etc/cron.d/omborhub-certbot <<'CRON'
+0 3 * * * root certbot renew --webroot -w /var/www/certbot --quiet --deploy-hook "docker service update --force wms_nginx"
+CRON
 
-echo "Tayyor. Keyingi qadam: docs/aws/README.md dagi 7-bo'lim."
+echo "Tayyor. /opt/omborhub/.env ni yarating, so'ng: systemctl enable --now omborhub-deploy.timer"

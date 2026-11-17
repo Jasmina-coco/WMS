@@ -1,20 +1,21 @@
 # Production: bitta EC2 dagi Docker Swarm.
-#   docker stack deploy -c docker-stack.yml --with-registry-auth wms
+#   docker stack deploy -c docker-stack.yml wms
 #
-# IMAGE_PREFIX, TAG va CONF_VERSION ni CI/CD beradi.
+# WEB_IMAGE, NGINX_IMAGE, SCALER_IMAGE va CONF_VERSION ni serverdagi
+# deploy agenti (deploy/agent/omborhub-deploy.sh) beradi.
 
 x-logging: &cloudwatch
   # Konteyner loglari to'g'ridan-to'g'ri CloudWatch Logs ga ketadi (EC2 IAM role orqali)
   driver: awslogs
   options:
-    awslogs-region: eu-central-1
+    awslogs-region: ap-southeast-2
     awslogs-group: /wms/app
     awslogs-create-group: "true"
     tag: "{{.Name}}"
 
 services:
   nginx:
-    image: ${IMAGE_PREFIX}/wms-nginx:${TAG}
+    image: ${NGINX_IMAGE}
     ports:
       # mode: host — foydalanuvchining haqiqiy IP manzili Nginx'ga yetib keladi
       - { target: 80, published: 80, mode: host }
@@ -29,14 +30,15 @@ services:
     logging: *cloudwatch
     deploy:
       replicas: 1
+      # Host portlarni ikki konteyner bir vaqtda egallay olmaydi, shuning uchun avval eskisi to'xtaydi
       update_config: { order: stop-first }
       restart_policy: { condition: any }
       resources:
         limits: { memory: 64M }
 
   web:
-    image: ${IMAGE_PREFIX}/wms-web:${TAG}
-    env_file: /opt/wms/.env
+    image: ${WEB_IMAGE}
+    env_file: /opt/omborhub/.env
     networks: [app]
     logging: *cloudwatch
     deploy:
@@ -54,14 +56,15 @@ services:
         order: start-first
       restart_policy: { condition: any, delay: 5s }
       resources:
-        limits: { cpus: "0.5", memory: 220M }
+        limits: { cpus: "0.5", memory: 200M }
 
   autoscaler:
-    image: ${IMAGE_PREFIX}/wms-autoscaler:${TAG}
+    image: ${SCALER_IMAGE}
     environment:
       SERVICE_NAME: wms_web
+      # t3.micro da 1 GB xotira bor — 3 tadan ortiq replika sig'maydi
       MIN_REPLICAS: "2"
-      MAX_REPLICAS: "4"
+      MAX_REPLICAS: "3"
       SCALE_UP_CPU: "70"
       SCALE_DOWN_CPU: "25"
     volumes:
