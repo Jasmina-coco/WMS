@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" font-family="Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5d6880"/></marker>
+    <style>
+      .b { fill: #fff; stroke: #9fb3d1; stroke-width: 1.4; }
+      .g { fill: #e8f1fc; stroke: #1565c0; stroke-width: 1.4; }
+      .s { fill: #fff4e2; stroke: #d97706; stroke-width: 1.4; }
+      .t { font-weight: bold; font-size: 14px; fill: #14213a; }
+      .d { fill: #64708a; font-size: 12px; }
+      .l { stroke: #5d6880; stroke-width: 1.6; fill: none; marker-end: url(#a); }
+    </style>
+  </defs>
+  <rect width="1000" height="360" fill="#f8fafc"/>
+  <text x="20" y="32" font-size="20" font-weight="bold" fill="#14213a">CI/CD oqimi: git push dan saytgacha</text>
+
+  <rect class="b" x="20" y="70" width="130" height="70" rx="10"/>
+  <text class="t" x="34" y="98">git push</text><text class="d" x="34" y="120">main branch</text>
+
+  <rect class="g" x="190" y="60" width="560" height="90" rx="12"/>
+  <text class="d" x="204" y="80">GitHub Actions (.github/workflows/ci-cd.yml)</text>
+  <rect class="b" x="204" y="90" width="110" height="48" rx="8"/><text class="t" x="218" y="112">lint</text><text class="d" x="218" y="128">black, flake8</text>
+  <rect class="b" x="334" y="90" width="120" height="48" rx="8"/><text class="t" x="348" y="112">test</text><text class="d" x="348" y="128">PostgreSQL bilan</text>
+  <rect class="b" x="474" y="90" width="120" height="48" rx="8"/><text class="t" x="488" y="112">build</text><text class="d" x="488" y="128">3 ta image</text>
+  <rect class="b" x="614" y="90" width="122" height="48" rx="8"/><text class="t" x="628" y="112">verify</text><text class="d" x="628" y="128">/health/ versiya</text>
+
+  <rect class="b" x="800" y="70" width="180" height="70" rx="10"/>
+  <text class="t" x="814" y="98">GHCR</text><text class="d" x="814" y="120">wms-web, wms-nginx,</text><text class="d" x="814" y="134">wms-autoscaler :latest</text>
+
+  <rect class="s" x="300" y="215" width="680" height="128" rx="12"/>
+  <text class="d" x="316" y="334">AWS EC2 (server) — systemd timer har daqiqada tekshiradi</text>
+  <rect class="b" x="316" y="252" width="150" height="62" rx="8"/><text class="t" x="330" y="276">yangi image?</text><text class="d" x="330" y="296">digest solishtirish</text>
+  <rect class="b" x="486" y="252" width="140" height="62" rx="8"/><text class="t" x="500" y="276">migrate</text><text class="d" x="500" y="296">baza sxemasi</text>
+  <rect class="b" x="646" y="252" width="160" height="62" rx="8"/><text class="t" x="660" y="276">stack deploy</text><text class="d" x="660" y="296">rolling update</text>
+  <rect class="b" x="826" y="252" width="140" height="62" rx="8"/><text class="t" x="840" y="276">sayt yangilandi</text><text class="d" x="840" y="296">to'xtamasdan</text>
+
+  <path class="l" d="M150 105 H186"/>
+  <path class="l" d="M314 114 H330"/>
+  <path class="l" d="M454 114 H470"/>
+  <path class="l" d="M594 114 H610"/>
+  <path class="l" d="M594 100 C680 40 760 40 796 92"/>
+  <path class="l" d="M830 140 V200 H390 V248"/>
+  <text class="d" x="560" y="194">pull</text>
+  <path class="l" d="M466 283 H482"/>
+  <path class="l" d="M626 283 H642"/>
+  <path class="l" d="M806 283 H822"/>
+  <path class="l" d="M940 252 V176 H680 V142" stroke-dasharray="5 4"/>
+  <text class="d" x="700" y="170">/health/ tekshiruvi</text>
+  <text class="d" x="20" y="250">GitHub'da AWS yoki SSH</text>
+  <text class="d" x="20" y="266">kaliti saqlanmaydi:</text>
+  <text class="d" x="20" y="282">server image'ni o'zi</text>
+  <text class="d" x="20" y="298">yuklab oladi (pull).</text>
+</svg>

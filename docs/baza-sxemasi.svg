@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" font-family="Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5d6880"/></marker>
+    <style>
+      .t { fill: #fff; stroke: #9fb3d1; stroke-width: 1.4; }
+      .h { fill: #1565c0; }
+      .ht { fill: #fff; font-weight: bold; font-size: 14px; }
+      .f { fill: #263248; }
+      .k { fill: #a35c00; font-weight: bold; }
+      .l { stroke: #5d6880; stroke-width: 1.4; fill: none; marker-end: url(#a); }
+    </style>
+  </defs>
+  <rect width="1000" height="640" fill="#f8fafc"/>
+  <text x="20" y="32" font-size="20" font-weight="bold" fill="#14213a">OmborHub — ma'lumotlar bazasi tuzilmasi (asosiy jadvallar)</text>
+
+  <!-- Company -->
+  <g transform="translate(20,60)"><rect class="t" width="190" height="112" rx="8"/><rect class="h" width="190" height="28" rx="8"/><rect class="h" y="18" width="190" height="10"/>
+    <text class="ht" x="10" y="19">Company</text>
+    <text class="k" x="10" y="48">id</text><text class="f" x="10" y="66">name</text><text class="f" x="10" y="84">phone, contact_person</text><text class="f" x="10" y="102">is_active</text></g>
+
+  <!-- User -->
+  <g transform="translate(20,220)"><rect class="t" width="190" height="148" rx="8"/><rect class="h" width="190" height="28" rx="8"/><rect class="h" y="18" width="190" height="10"/>
+    <text class="ht" x="10" y="19">User</text>
+    <text class="k" x="10" y="48">id</text><text class="f" x="10" y="66">company_id → Company</text><text class="f" x="10" y="84">role_id → Role</text><text class="f" x="10" y="102">is_manager</text><text class="f" x="10" y="120">warehouses (M2M)</text><text class="f" x="10" y="138">username, password</text></g>
+
+  <!-- Role -->
+  <g transform="translate(20,420)"><rect class="t" width="190" height="94" rx="8"/><rect class="h" width="190" height="28" rx="8"/><rect class="h" y="18" width="190" height="10"/>
+    <text class="ht" x="10" y="19">Role</text>
+    <text class="k" x="10" y="48">id</text><text class="f" x="10" y="66">company_id, name</text><text class="f" x="10" y="84">permissions (array)</text></g>
+
+  <!-- Warehouse -->
+  <g transform="translate(270,60)"><rect class="t" width="190" height="94" rx="8"/><rect class="h" width="190" height="28" rx="8"/><rect class="h" y="18" width="190" height="10"/>
+    <text class="ht" x="10" y="19">Warehouse</text>
+    <text class="k" x="10" y="48">id</text><text class="f" x="10" y="66">company_id, name</text><text class="f" x="10" y="84">address, is_active</text></g>
+
+  <!-- Location -->
+  <g transform="translate(270,200)"><rect class="t" width="190" height="94" rx="8"/><rect class="h" width="190" height="28" rx="8"/><rect class="h" y="18" width="190" height="10"/>
+    <text class="ht" x="10" y="19">Location</text>
+    <text class="k" x="10" y="48">id</text><text class="f" x="10" y="66">warehouse_id → Warehouse</text><text class="f" x="10" y="84">zone, code (A-01-03)</text></g>
+
+  <!-- Product -->
+  <g transform="translate(520,60)"><rect class="t" width="210" height="130" rx="8"/><rect class="h" width="210" height="28" rx="8"/><rect class="h" y="18" width="210" height="10"/>
+    <text class="ht" x="10" y="19">Product</text>
+    <text class="k" x="10" y="48">id</text><text class="f" x="10" y="66">company_id, sku (noyob)</text><text class="f" x="10" y="84">name, category_id, unit</text><text class="f" x="10" y="102">barcode, min_stock</text><text class="f" x="10" y="120">image → Amazon S3</text></g>
+
+  <!-- Stock -->
+  <g transform="translate(520,240)"><rect class="t" width="210" height="112" rx="8"/><rect width="210" height="28" rx="8" style="fill:#0f9d6b"/><rect y="18" width="210" height="10" style="fill:#0f9d6b"/>
+    <text class="ht" x="10" y="19">Stock (qoldiq)</text>
+    <text class="k" x="10" y="48">product_id + location_id</text><text class="f" x="10" y="66">quantity ≥ 0 (CHECK)</text><text class="f" x="10" y="84">select_for_update</text><text class="f" x="10" y="102">bilan o'zgartiriladi</text></g>
+
+  <!-- StockMovement -->
+  <g transform="translate(780,240)"><rect class="t" width="200" height="148" rx="8"/><rect width="200" height="28" rx="8" style="fill:#0f9d6b"/><rect y="18" width="200" height="10" style="fill:#0f9d6b"/>
+    <text class="ht" x="10" y="19">StockMovement</text>
+    <text class="k" x="10" y="48">id</text><text class="f" x="10" y="66">product_id, location_id</text><text class="f" x="10" y="84">quantity (+/−)</text><text class="f" x="10" y="102">balance_after, reason</text><text class="f" x="10" y="120">document_number</text><text class="f" x="10" y="138">created_by → User</text></g>
+
+  <!-- Document -->
+  <g transform="translate(270,400)"><rect class="t" width="210" height="148" rx="8"/><rect width="210" height="28" rx="8" style="fill:#d97706"/><rect y="18" width="210" height="10" style="fill:#d97706"/>
+    <text class="ht" x="10" y="19">Document</text>
+    <text class="k" x="10" y="48">id, number (KR-000001)</text><text class="f" x="10" y="66">kind: kirim/chiqim/ko'chirish</text><text class="f" x="10" y="84">status, warehouse_id</text><text class="f" x="10" y="102">dest_warehouse_id</text><text class="f" x="10" y="120">created_by, confirmed_by</text><text class="f" x="10" y="138">partner, note</text></g>
+
+  <!-- DocumentLine -->
+  <g transform="translate(520,420)"><rect class="t" width="210" height="112" rx="8"/><rect width="210" height="28" rx="8" style="fill:#d97706"/><rect y="18" width="210" height="10" style="fill:#d97706"/>
+    <text class="ht" x="10" y="19">DocumentLine</text>
+    <text class="k" x="10" y="48">document_id → Document</text><text class="f" x="10" y="66">product_id, quantity</text><text class="f" x="10" y="84">location_id</text><text class="f" x="10" y="102">to_location_id</text></g>
+
+  <!-- Attachment / StockCount -->
+  <g transform="translate(780,430)"><rect class="t" width="200" height="76" rx="8"/><rect width="200" height="28" rx="8" style="fill:#d97706"/><rect y="18" width="200" height="10" style="fill:#d97706"/>
+    <text class="ht" x="10" y="19">Attachment</text>
+    <text class="f" x="10" y="48">document_id</text><text class="f" x="10" y="66">file → Amazon S3</text></g>
+  <g transform="translate(780,530)"><rect class="t" width="200" height="76" rx="8"/><rect width="200" height="28" rx="8" style="fill:#8b3dff"/><rect y="18" width="200" height="10" style="fill:#8b3dff"/>
+    <text class="ht" x="10" y="19">StockCount (+ Line)</text>
+    <text class="f" x="10" y="48">warehouse_id, zone</text><text class="f" x="10" y="66">system / counted qty</text></g>
+
+  <!-- bog'lanishlar -->
+  <path class="l" d="M115 220 V176"/>
+  <path class="l" d="M115 420 V372"/>
+  <path class="l" d="M210 100 H266"/>
+  <path class="l" d="M365 200 V158"/>
+  <path class="l" d="M625 240 V194"/>
+  <path class="l" d="M520 300 H464"/>
+  <path class="l" d="M730 300 H776"/>
+  <path class="l" d="M480 480 H516"/>
+  <path class="l" d="M730 468 H776"/>
+
+  <text x="20" y="600" font-size="12" fill="#64708a">Har bir jadvalda company_id bor — kompaniyalar ma'lumoti shu ustun orqali bir-biridan ajratiladi.</text>
+  <text x="20" y="618" font-size="12" fill="#64708a">Ko'k — asosiy ma'lumotlar, yashil — qoldiq va jurnal, to'q sariq — hujjatlar, binafsha — inventarizatsiya.</text>
+</svg>
