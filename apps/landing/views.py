@@ -32,6 +32,17 @@ def robots_txt(request):
     return HttpResponse("\n".join(lines) + "\n", content_type="text/plain; charset=utf-8")
 
 
+# Google Search Console sayt egasini shu fayl orqali tasdiqlaydi — o'chirmang
+GOOGLE_VERIFICATION_FILE = "google07cedd02fcf117f8.html"
+
+
+def google_verification(request):
+    return HttpResponse(
+        f"google-site-verification: {GOOGLE_VERIFICATION_FILE}",
+        content_type="text/html; charset=utf-8",
+    )
+
+
 def sitemap_xml(request):
     # Saytda indekslanadigan sahifa bitta — landing
     url = request.build_absolute_uri("/")

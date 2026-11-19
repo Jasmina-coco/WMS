@@ -18,6 +18,12 @@ class SeoTests(TestCase):
         self.assertIn("Disallow: /app/", response.content.decode())
         self.assertIn("Sitemap: http://testserver/sitemap.xml", response.content.decode())
 
+    def test_google_verification_file(self):
+        response = self.client.get("/google07cedd02fcf117f8.html")
+        self.assertEqual(
+            response.content.decode(), "google-site-verification: google07cedd02fcf117f8.html"
+        )
+
     def test_sitemap_lists_landing(self):
         response = self.client.get("/sitemap.xml")
         self.assertEqual(response.status_code, 200)
