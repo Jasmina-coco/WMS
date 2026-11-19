@@ -1,9 +1,6 @@
 {% load i18n %}
 <div class="kpi">
-  <div class="kpi-label"><span class="chip">{% include "_icon.html" with name=icon %}</span>{{ label }}</div>
+  <div class="kpi-label">{{ label }}</div>
   <div class="kpi-value">{{ item.value }}</div>
-  <div class="kpi-note">
-    {% if note %}{{ note }}
-    {% else %}{% translate "kecha" %}: {{ item.yesterday }}{% if item.change is not None and item.value %} · {% if item.change >= 0 %}+{% endif %}{{ item.change }}%{% endif %}{% endif %}
-  </div>
+  <div class="kpi-note">{% if note %}{{ note }}{% else %}{% translate "kecha" %}: {{ item.yesterday }}{% endif %}</div>
 </div>

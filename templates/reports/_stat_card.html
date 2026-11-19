@@ -1,7 +1,5 @@
-{% load wms %}
-<div class="card stat-card tone-{{ tone }}">
-  <span class="stat-icon">{% include "_icon.html" with name=icon %}</span>
-  <div class="stat-value">{{ card.value }}</div>
+{% if link %}<a class="card stat-card{% if warn %} warn{% endif %}" href="{% url 'reports:report' link %}">{% else %}<div class="card stat-card{% if warn %} warn{% endif %}">{% endif %}
   <div class="stat-label">{{ label }}</div>
+  <div class="stat-value">{{ card.value }}</div>
   <div class="stat-sub">{{ sub_label }}: {{ card.sub }}</div>
-</div>
+{% if link %}</a>{% else %}</div>{% endif %}

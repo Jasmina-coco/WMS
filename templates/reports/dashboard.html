@@ -1,33 +1,31 @@
 {% extends "app_base.html" %}
 {% load i18n wms %}
 {% block top_title %}{% translate "Bosh sahifa" %}{% endblock %}
-{% block top_sub %}{% translate "Omboringizning bugungi holati" %}{% endblock %}
+{% block top_sub %}{{ today|date:"l, j F Y" }}{% endblock %}
 
 {% block content %}
-{# --- Salomlashish va bugungi ko'rsatkichlar --- #}
+{# --- Bugun: asosiy raqamlar va tez-tez kerak bo'ladigan tugmalar --- #}
 <section class="hero">
   <div class="hero-top">
-    <div>
-      <h1>{% blocktranslate with name=user.first_name|default:user.username %}Xush kelibsiz, {{ name }}{% endblocktranslate %}
-        <span class="date-pill">{{ today|date:"l, j F Y" }}</span></h1>
-      <p>{% translate "Omborlaringiz bo'yicha bugungi asosiy ko'rsatkichlar" %}</p>
-    </div>
+    <h1>{% translate "Bugun" %}</h1>
     <div class="actions">
-      {% if user|can:"reports.view" %}<a class="btn btn-sm" href="{% url 'reports:report' 'stock' %}">{% include "_icon.html" with name="chart" %} {% translate "Hisobotlar" %}</a>{% endif %}
-      <a class="btn btn-sm" href="" title="{% translate 'Yangilash' %}">{% include "_icon.html" with name="refresh" %}</a>
+      {% if user|can:"receipts.create" %}<a class="btn btn-sm" href="{% url 'operations:create' 'receipt' %}">+ {% translate "Kirim" %}</a>{% endif %}
+      {% if user|can:"shipments.create" %}<a class="btn btn-sm" href="{% url 'operations:create' 'shipment' %}">+ {% translate "Chiqim" %}</a>{% endif %}
+      {% if user|can:"transfers.create" %}<a class="btn btn-sm" href="{% url 'operations:create' 'transfer' %}">+ {% translate "Ko'chirish" %}</a>{% endif %}
+      {% if user|can:"counts.do" %}<a class="btn btn-sm" href="{% url 'operations:count_create' %}">+ {% translate "Sanoq" %}</a>{% endif %}
     </div>
   </div>
 
   <div class="kpis">
-    {% include "reports/_kpi.html" with icon="in" label=_("Bugungi kirimlar") item=kpis.receipt %}
-    {% include "reports/_kpi.html" with icon="truck" label=_("Bugungi jo'natmalar") item=kpis.shipment %}
-    {% include "reports/_kpi.html" with icon="history" label=_("Bugungi harakatlar") item=kpis.movements %}
-    {% include "reports/_kpi.html" with icon="file" label=_("Ochiq hujjatlar") item=kpis.open note=_("qoralama va terilayotgan") %}
+    {% include "reports/_kpi.html" with label=_("Kirim hujjatlari") item=kpis.receipt %}
+    {% include "reports/_kpi.html" with label=_("Jo'natmalar") item=kpis.shipment %}
+    {% include "reports/_kpi.html" with label=_("Qoldiq harakatlari") item=kpis.movements %}
+    {% include "reports/_kpi.html" with label=_("Ochiq hujjatlar") item=kpis.open note=_("qoralama yoki terilmoqda") %}
   </div>
 </section>
 
 {% if not has_warehouses %}
-<div class="card" style="margin-bottom:22px">
+<div class="card" style="margin-bottom:20px">
   {% if user.is_manager %}
     <h2>{% translate "Boshlash uchun 3 qadam" %}</h2>
     <ol>
@@ -41,141 +39,111 @@
 </div>
 {% endif %}
 
-{# --- To'rtta asosiy karta --- #}
+{# --- Ombor holati --- #}
 <section class="stat-cards">
   {% for card in cards %}
     {% if card.key == "warehouses" %}
-      {% include "reports/_stat_card.html" with tone="blue" icon="warehouse" label=_("Omborlar") sub_label=_("faol") %}
+      {% include "reports/_stat_card.html" with label=_("Omborlar") sub_label=_("faol") %}
     {% elif card.key == "products" %}
-      {% include "reports/_stat_card.html" with tone="green" icon="box" label=_("Tovarlar") sub_label=_("omborda bor") %}
+      {% include "reports/_stat_card.html" with label=_("Tovarlar") sub_label=_("omborda bor") %}
     {% elif card.key == "locations" %}
-      {% include "reports/_stat_card.html" with tone="orange" icon="pin" label=_("Joylar (yacheykalar)") sub_label=_("band") %}
+      {% include "reports/_stat_card.html" with label=_("Yacheykalar") sub_label=_("band") %}
+    {% elif user|can:"reports.view" %}
+      {% include "reports/_stat_card.html" with label=_("Kam qolgan tovarlar") sub_label=_("yetarli") warn=card.value link="low" %}
     {% else %}
-      {% include "reports/_stat_card.html" with tone="red" icon="alert" label=_("Kam qolgan tovarlar") sub_label=_("yetarli") %}
+      {% include "reports/_stat_card.html" with label=_("Kam qolgan tovarlar") sub_label=_("yetarli") warn=card.value %}
     {% endif %}
   {% endfor %}
 </section>
 
-{# --- Oylik aylanma va jonli faollik --- #}
 <section class="dash-row">
+  {# --- Kutayotgan ishlar --- #}
   <div class="card">
     <div class="card-head">
-      <div>
-        <h2>{% translate "Ombor aylanmasi" %}</h2>
-        <p>{% translate "Oxirgi 3 oy bo'yicha kirgan va chiqqan tovar miqdori" %}</p>
-      </div>
-      <div class="segmented" data-switch>
-        <button type="button" class="active" data-show="in">{% translate "Kirim" %}</button>
-        <button type="button" data-show="out">{% translate "Chiqim" %}</button>
-      </div>
+      <h2>{% translate "Kutayotgan ishlar" %}</h2>
+      {% if pending_total %}<span class="pending-badge">{{ pending_total }}</span>{% endif %}
     </div>
-
-    {% for row in flow %}
-    <div class="bar-item">
-      <div class="bar-meta">
-        <b>{{ row.month|date:"F" }}</b>
-        <span class="muted">· {% blocktranslate count n=row.operations %}{{ n }} ta amal{% plural %}{{ n }} ta amal{% endblocktranslate %}</span>
-        <span class="end">
-          {% include "reports/_trend.html" with value=row.change %}
-          <span data-series="in" class="shown">{{ row.incoming|qty }}</span>
-          <span data-series="out">{{ row.outgoing|qty }}</span>
-        </span>
-      </div>
-      <div class="bar shown" data-series="in">{% if row.in_width %}<span style="width:{{ row.in_width }}%"></span>{% endif %}</div>
-      <div class="bar out" data-series="out">{% if row.out_width %}<span style="width:{{ row.out_width }}%"></span>{% endif %}</div>
-    </div>
-    {% endfor %}
-
-    <div class="mini-stats">
-      <div class="mini-stat">{% include "_icon.html" with name="in" %}<b>{{ flow_totals.incoming|qty }}</b><small>{% translate "Jami kirdi" %}</small></div>
-      <div class="mini-stat">{% include "_icon.html" with name="truck" %}<b>{{ flow_totals.outgoing|qty }}</b><small>{% translate "Jami chiqdi" %}</small></div>
-      <div class="mini-stat">{% include "_icon.html" with name="chart" %}<b>{{ flow_totals.per_month }}</b><small>{% translate "Oyiga amal" %}</small></div>
-      <div class="mini-stat">{% include "_icon.html" with name="history" %}<b>{{ flow_totals.operations }}</b><small>{% translate "Jami amallar" %}</small></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-head">
-      <div>
-        <h2>{% translate "So'nggi faollik" %}</h2>
-        <p>{% translate "Ombordagi oxirgi harakatlar" %}</p>
-      </div>
-    </div>
-    <ul class="feed">
-      {% for m in activity %}
+    <ul class="todo">
       <li>
-        {% if m.reason == "receipt" %}<span class="chip tone-green soft">{% include "_icon.html" with name="in" %}</span>
-        {% elif m.reason == "shipment" %}<span class="chip tone-orange soft">{% include "_icon.html" with name="truck" %}</span>
-        {% elif m.reason == "count" %}<span class="chip tone-violet soft">{% include "_icon.html" with name="clipboard" %}</span>
-        {% else %}<span class="chip tone-blue soft">{% include "_icon.html" with name="swap" %}</span>{% endif %}
-        <div>
-          <p><b>{{ m.created_by.display_name }}</b> · {{ m.get_reason_display|lower }} · {{ m.product.name }}</p>
-          <span class="qty {% if m.quantity > 0 %}plus{% else %}minus{% endif %}">{% if m.quantity > 0 %}+{% endif %}{{ m.quantity|qty }}</span>
-          <small> · {{ m.location.code }} · {% blocktranslate with t=m.created_at|timesince %}{{ t }} oldin{% endblocktranslate %}</small>
-        </div>
+        <span class="count{% if pending.receipts %} on{% endif %}">{{ pending.receipts }}</span>
+        <span class="label">{% translate "Tasdiqlanmagan kirimlar" %}</span>
+        {% if user|can:"receipts.view" %}<a href="{% url 'operations:list' 'receipt' %}?status=draft">{% translate "ochish" %}</a>{% endif %}
       </li>
-      {% empty %}
-      <li class="empty">{% translate "Hali harakatlar yo'q." %}</li>
-      {% endfor %}
+      <li>
+        <span class="count{% if pending.shipments %} on{% endif %}">{{ pending.shipments }}</span>
+        <span class="label">{% translate "Jo'natilmagan chiqimlar" %}</span>
+        {% if user|can:"shipments.view" %}<a href="{% url 'operations:list' 'shipment' %}">{% translate "ochish" %}</a>{% endif %}
+      </li>
+      <li>
+        <span class="count{% if pending.counts %} on{% endif %}">{{ pending.counts }}</span>
+        <span class="label">{% translate "Ochiq inventarizatsiyalar" %}</span>
+        {% if user|can:"counts.view" %}<a href="{% url 'operations:counts' %}">{% translate "ochish" %}</a>{% endif %}
+      </li>
     </ul>
-    {% if user|can:"stock.view" %}<a class="card-foot" href="{% url 'inventory:movements' %}">{% translate "Barcha harakatlar" %}</a>{% endif %}
-  </div>
-</section>
 
-{# --- Tezkor amallar va eng ko'p jo'natilgan tovarlar --- #}
-<section class="dash-row even">
-  <div class="card">
-    <div class="card-head"><div><h2>{% translate "Tezkor amallar" %}</h2><p>{% translate "Eng ko'p ishlatiladigan amallar" %}</p></div></div>
-    <div class="quick">
-      {% if user|can:"receipts.create" %}<a href="{% url 'operations:create' 'receipt' %}">{% include "_icon.html" with name="in" %}{% translate "Kirim qilish" %}<small>{% translate "Yetkazib beruvchidan qabul" %}</small></a>{% endif %}
-      {% if user|can:"shipments.create" %}<a href="{% url 'operations:create' 'shipment' %}">{% include "_icon.html" with name="truck" %}{% translate "Chiqim qilish" %}<small>{% translate "Terish va jo'natish" %}</small></a>{% endif %}
-      {% if user|can:"transfers.create" %}<a href="{% url 'operations:create' 'transfer' %}">{% include "_icon.html" with name="swap" %}{% translate "Ko'chirish" %}<small>{% translate "Joylar va omborlar orasida" %}</small></a>{% endif %}
-      {% if user|can:"counts.do" %}<a href="{% url 'operations:count_create' %}">{% include "_icon.html" with name="clipboard" %}{% translate "Inventarizatsiya" %}<small>{% translate "Sanoq boshlash" %}</small></a>{% endif %}
-    </div>
+    <h2 class="sub-head">{% translate "Eng ko'p jo'natilganlar" %} <small>{% translate "shu oy" %}</small></h2>
+    <table class="plain">
+      {% for p in top_products %}
+      <tr>
+        <td class="muted">{{ forloop.counter }}.</td>
+        <td>{{ p.product__name }} <span class="muted small">{{ p.product__sku }}</span></td>
+        <td class="num">{{ p.shipped|qty }}</td>
+      </tr>
+      {% empty %}
+      <tr><td class="muted">{% translate "Bu oy hali jo'natma bo'lmagan." %}</td></tr>
+      {% endfor %}
+    </table>
   </div>
 
+  {# --- Oxirgi harakatlar --- #}
   <div class="card">
     <div class="card-head">
-      <div><h2>{% translate "Eng ko'p jo'natilganlar" %}</h2><p>{% translate "Shu oyning yetakchi tovarlari" %}</p></div>
-      {% if user|can:"reports.view" %}<a class="small" href="{% url 'reports:report' 'turnover' %}">{% translate "Hammasi" %} →</a>{% endif %}
+      <h2>{% translate "Oxirgi harakatlar" %}</h2>
+      {% if user|can:"stock.view" %}<a class="small" href="{% url 'inventory:movements' %}">{% translate "hammasi" %} →</a>{% endif %}
     </div>
-    {% for p in top_products %}
-    <div class="leader">
-      <span class="leader-badge">{{ forloop.counter }}</span>
-      <div class="name"><b>{{ p.product__name }}</b><small>{{ p.product__sku }} · {% blocktranslate count n=p.operations %}{{ n }} ta jo'natma{% plural %}{{ n }} ta jo'natma{% endblocktranslate %}</small></div>
-      <div class="total"><b>{{ p.shipped|qty }}</b><small>{% translate "jo'natildi" %}</small></div>
-    </div>
-    {% empty %}
-    <p class="empty">{% translate "Bu oy hali jo'natma bo'lmagan." %}</p>
-    {% endfor %}
+    <table class="plain">
+      {% for m in activity %}
+      <tr>
+        <td class="num {% if m.quantity > 0 %}plus{% else %}minus{% endif %}">{% if m.quantity > 0 %}+{% endif %}{{ m.quantity|qty }}</td>
+        <td>{{ m.product.name }}<div class="muted small">{{ m.get_reason_display|lower }}, {{ m.location.code }} · {{ m.created_by.display_name }}</div></td>
+        <td class="muted small nowrap">{{ m.created_at|date:"d.m H:i" }}</td>
+      </tr>
+      {% empty %}
+      <tr><td class="muted">{% translate "Hali harakatlar yo'q." %}</td></tr>
+      {% endfor %}
+    </table>
   </div>
 </section>
 
-{# --- Kutayotgan ishlar --- #}
+{# --- Oylik aylanma --- #}
 <section class="card">
   <div class="card-head">
-    <div><h2>{% translate "Kutayotgan ishlar" %}</h2><p>{% translate "E'tiboringizni talab qiladigan hujjatlar" %}</p></div>
-    {% if pending_total %}<span class="pending-badge">{% blocktranslate count n=pending_total %}{{ n }} ta kutmoqda{% plural %}{{ n }} ta kutmoqda{% endblocktranslate %}</span>{% endif %}
-  </div>
-  <div class="pending-grid">
-    <div class="pending-item p-orange">
-      <div class="top"><span class="stat-icon">{% include "_icon.html" with name="in" %}</span><span class="count{% if pending.receipts %} on{% endif %}">{{ pending.receipts }}</span></div>
-      <h3>{% translate "Tasdiqlanmagan kirimlar" %}</h3>
-      <p>{% translate "Qoralama holatidagi kirim hujjatlari" %}</p>
-      {% if user|can:"receipts.view" %}<a class="btn" href="{% url 'operations:list' 'receipt' %}?status=draft">{% translate "Ko'rib chiqish" %} {% include "_icon.html" with name="arrow" %}</a>{% endif %}
-    </div>
-    <div class="pending-item p-blue">
-      <div class="top"><span class="stat-icon">{% include "_icon.html" with name="truck" %}</span><span class="count{% if pending.shipments %} on{% endif %}">{{ pending.shipments }}</span></div>
-      <h3>{% translate "Jo'natilmagan chiqimlar" %}</h3>
-      <p>{% translate "Qoralama yoki terilayotgan buyurtmalar" %}</p>
-      {% if user|can:"shipments.view" %}<a class="btn" href="{% url 'operations:list' 'shipment' %}">{% translate "Ko'rib chiqish" %} {% include "_icon.html" with name="arrow" %}</a>{% endif %}
-    </div>
-    <div class="pending-item p-red">
-      <div class="top"><span class="stat-icon">{% include "_icon.html" with name="clipboard" %}</span><span class="count{% if pending.counts %} on{% endif %}">{{ pending.counts }}</span></div>
-      <h3>{% translate "Ochiq inventarizatsiyalar" %}</h3>
-      <p>{% translate "Yakunlanmagan sanoqlar" %}</p>
-      {% if user|can:"counts.view" %}<a class="btn" href="{% url 'operations:counts' %}">{% translate "Ko'rish" %} {% include "_icon.html" with name="arrow" %}</a>{% endif %}
+    <h2>{% translate "Oylik aylanma" %}</h2>
+    <div class="segmented" data-switch>
+      <button type="button" class="active" data-show="in">{% translate "Kirim" %}</button>
+      <button type="button" data-show="out">{% translate "Chiqim" %}</button>
     </div>
   </div>
+
+  {% for row in flow %}
+  <div class="bar-item">
+    <div class="bar-meta">
+      <b>{{ row.month|date:"F" }}</b>
+      <span class="muted">{% blocktranslate count n=row.operations %}{{ n }} ta amal{% plural %}{{ n }} ta amal{% endblocktranslate %}{% if row.change is not None %}, {% if row.change >= 0 %}+{% endif %}{{ row.change }}%{% endif %}</span>
+      <span class="end">
+        <span data-series="in" class="shown">{{ row.incoming|qty }}</span>
+        <span data-series="out">{{ row.outgoing|qty }}</span>
+      </span>
+    </div>
+    <div class="bar shown" data-series="in">{% if row.in_width %}<span style="width:{{ row.in_width }}%"></span>{% endif %}</div>
+    <div class="bar out" data-series="out">{% if row.out_width %}<span style="width:{{ row.out_width }}%"></span>{% endif %}</div>
+  </div>
+  {% endfor %}
+
+  <p class="muted small flow-total">
+    {% translate "3 oyda jami" %}: {% translate "kirdi" %} <b>{{ flow_totals.incoming|qty }}</b>,
+    {% translate "chiqdi" %} <b>{{ flow_totals.outgoing|qty }}</b>,
+    {% translate "amallar" %} <b>{{ flow_totals.operations }}</b>
+  </p>
 </section>
 {% endblock %}
