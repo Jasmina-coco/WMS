@@ -1,12 +1,7 @@
 {% load wms %}
 <div class="card stat-card tone-{{ tone }}">
-  <div class="row">
-    <span class="stat-icon">{% include "_icon.html" with name=icon %}</span>
-    <span class="trend flat">{{ card.progress }}%</span>
-  </div>
+  <span class="stat-icon">{% include "_icon.html" with name=icon %}</span>
   <div class="stat-value">{{ card.value }}</div>
   <div class="stat-label">{{ label }}</div>
   <div class="stat-sub">{{ sub_label }}: {{ card.sub }}</div>
-  <div class="progress-row"><span>{{ progress_label }}</span><b>{{ card.progress }}%</b></div>
-  <div class="progress"><span style="width:{{ card.progress }}%"></span></div>
 </div>

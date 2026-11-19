@@ -14,7 +14,7 @@
   --primary: #1565c0;
   --primary-dark: #0d4a92;
   --primary-soft: #e8f1fc;
-  --brand-1: #1a6fc4;
+  --brand-1: #1f5fa6;
   --brand-2: #0b3f7d;
   --success: #0f9d6b;
   --success-soft: #e4f7ef;
@@ -24,10 +24,9 @@
   --danger-soft: #fdebee;
   --violet: #8b3dff;
   --violet-soft: #f2eaff;
-  --radius: 14px;
-  --radius-sm: 10px;
-  --shadow: 0 1px 2px rgba(20, 33, 58, 0.05), 0 6px 20px rgba(20, 33, 58, 0.06);
-  --shadow-lg: 0 18px 40px rgba(13, 74, 146, 0.25);
+  --radius: 10px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgba(20, 33, 58, 0.06);
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
