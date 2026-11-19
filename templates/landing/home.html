@@ -3,6 +3,12 @@
 {% block title %}{{ SITE_NAME }} — {% translate "omborlarni boshqarish tizimi" %}{% endblock %}
 {% block styles %}
 <meta name="description" content="{% translate 'Omborlar, qoldiqlar, kirim-chiqim va inventarizatsiyani bitta tizimda boshqaring.' %}">
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ SITE_NAME }}">
+<meta property="og:title" content="{{ SITE_NAME }} — {% translate 'omborlarni boshqarish tizimi' %}">
+<meta property="og:description" content="{% translate 'Omborlar, qoldiqlar, kirim-chiqim va inventarizatsiyani bitta tizimda boshqaring.' %}">
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}/">
 <link rel="stylesheet" href="{% static 'css/landing.css' %}">
 {% endblock %}
 

@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -13,6 +13,35 @@ from .models import Lead
 
 def home(request):
     return render(request, "landing/home.html", {"form": LeadForm()})
+
+
+def robots_txt(request):
+    # Qidiruv tizimlariga faqat ochiq sahifalarni ko'rsatamiz; tizim ichi va panel yopiq
+    lines = [
+        "User-agent: *",
+        "Allow: /$",
+        "Disallow: /app/",
+        "Disallow: /panel/",
+        "Disallow: /django-admin/",
+        "Disallow: /login/",
+        "Disallow: /ariza/",
+        "Disallow: /health/",
+        "",
+        f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
+    ]
+    return HttpResponse("\n".join(lines) + "\n", content_type="text/plain; charset=utf-8")
+
+
+def sitemap_xml(request):
+    # Saytda indekslanadigan sahifa bitta — landing
+    url = request.build_absolute_uri("/")
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"  <url><loc>{url}</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>\n"
+        "</urlset>\n"
+    )
+    return HttpResponse(xml, content_type="application/xml; charset=utf-8")
 
 
 def client_ip(request):

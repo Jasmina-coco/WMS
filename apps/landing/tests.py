@@ -11,6 +11,19 @@ VALID = {
 }
 
 
+class SeoTests(TestCase):
+    def test_robots_closes_private_pages(self):
+        response = self.client.get("/robots.txt")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Disallow: /app/", response.content.decode())
+        self.assertIn("Sitemap: http://testserver/sitemap.xml", response.content.decode())
+
+    def test_sitemap_lists_landing(self):
+        response = self.client.get("/sitemap.xml")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("<loc>http://testserver/</loc>", response.content.decode())
+
+
 class LeadTests(TestCase):
     def test_landing_opens(self):
         self.assertEqual(self.client.get(reverse("landing:home")).status_code, 200)
