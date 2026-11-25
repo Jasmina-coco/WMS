@@ -1,6 +1,6 @@
 from unittest import mock
 
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
 
 from apps.core.db import base
 
@@ -31,3 +31,19 @@ class SecretCredentialsTests(SimpleTestCase):
         with mock.patch.object(base.boto3, "client", return_value=self.fake_client("new")):
             self.assertEqual(base.fetch_credentials("arn:test")["password"], "old")
             self.assertEqual(base.fetch_credentials("arn:test", force=True)["password"], "new")
+
+
+class ReadOnlyAdminTests(TestCase):
+    """Admin'da baza ma'lumoti faqat ko'riladi: qo'shish va o'chirish taqiqlangan."""
+
+    def setUp(self):
+        from apps.accounts.models import User
+
+        self.client.force_login(User.objects.create_superuser("root", password=None))
+
+    def test_tables_are_listed(self):
+        for url in ["catalog/product", "inventory/stockmovement", "operations/document"]:
+            self.assertEqual(self.client.get(f"/django-admin/{url}/").status_code, 200)
+
+    def test_add_is_forbidden(self):
+        self.assertEqual(self.client.get("/django-admin/catalog/product/add/").status_code, 403)
