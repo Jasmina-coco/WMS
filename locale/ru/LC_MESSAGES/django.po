@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-19 10:49+0500\n"
+"POT-Creation-Date: 2026-11-25 11:26+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,7 +111,7 @@ msgid "Rol"
 msgstr "Роль"
 
 #: apps/accounts/models.py:62 templates/accounts/staff_list.html:10
-#: templates/reports/dashboard.html:46
+#: templates/reports/dashboard.html:98
 #: templates/warehouses/warehouse_list.html:5
 msgid "Omborlar"
 msgstr "Склады"
@@ -221,7 +221,7 @@ msgstr "Добавление и редактирование"
 #: templates/catalog/product_list.html:5 templates/landing/home.html:55
 #: templates/operations/document_detail.html:50
 #: templates/operations/document_form.html:21
-#: templates/reports/dashboard.html:48
+#: templates/reports/dashboard.html:99
 msgid "Tovarlar"
 msgstr "Товары"
 
@@ -233,7 +233,6 @@ msgstr "Остатки"
 #: apps/core/permissions.py:33 apps/inventory/models.py:38
 #: apps/operations/models.py:20 apps/reports/views.py:157
 #: templates/app_base.html:22 templates/landing/home.html:84
-#: templates/reports/dashboard.html:12 templates/reports/dashboard.html:123
 msgid "Kirim"
 msgstr "Приход"
 
@@ -257,8 +256,7 @@ msgstr "Отмена"
 
 #: apps/core/permissions.py:42 apps/inventory/models.py:39
 #: apps/operations/models.py:21 apps/reports/views.py:157
-#: templates/app_base.html:24 templates/reports/dashboard.html:13
-#: templates/reports/dashboard.html:124
+#: templates/app_base.html:24
 msgid "Chiqim"
 msgstr "Расход"
 
@@ -268,7 +266,7 @@ msgstr "Сборка и отгрузка"
 
 #: apps/core/permissions.py:51 apps/operations/models.py:22
 #: apps/reports/views.py:157 templates/app_base.html:26
-#: templates/landing/home.html:86 templates/reports/dashboard.html:14
+#: templates/landing/home.html:86 templates/reports/dashboard.html:17
 msgid "Ko'chirish"
 msgstr "Перемещение"
 
@@ -588,8 +586,7 @@ msgstr "Компания и аккаунт менеджера созданы."
 msgid "Tovar aylanmasi"
 msgstr "Оборачиваемость товаров"
 
-#: apps/reports/views.py:77 templates/reports/dashboard.html:52
-#: templates/reports/dashboard.html:54
+#: apps/reports/views.py:77
 msgid "Kam qolgan tovarlar"
 msgstr "Товары на исходе"
 
@@ -850,8 +847,7 @@ msgstr "Где находится"
 msgid "Omborda yo'q."
 msgstr "Нет на складе."
 
-#: templates/catalog/product_detail.html:36
-#: templates/reports/dashboard.html:101
+#: templates/catalog/product_detail.html:36 templates/reports/dashboard.html:76
 msgid "Oxirgi harakatlar"
 msgstr "Последние движения"
 
@@ -1017,7 +1013,8 @@ msgstr "Непонятно, кто что сделал"
 #: templates/landing/home.html:74
 msgid "Xato chiqqanda kim kiritgani, qachon chiqarilgani topilmaydi."
 msgstr "При ошибке не понять, кто ввёл данные и когда товар был отгружен."
-"При ошибке невозможно найти, кто внёс данные и когда товар был отгружен."
+"При ошибке не понять, кто ввёл данные и когда товар был отгружен.При ошибке "
+"невозможно найти, кто внёс данные и когда товар был отгружен."
 
 #: templates/landing/home.html:83
 msgid "Omborlar va yacheykalar"
@@ -1586,136 +1583,177 @@ msgstr "Результат звонка"
 msgid "Kompaniya, ism yoki telefon"
 msgstr "Компания, имя или телефон"
 
-#: templates/reports/_kpi.html:5
+#: templates/reports/_kpi.html:5 templates/reports/dashboard.html:23
+#: templates/reports/dashboard.html:24 templates/reports/dashboard.html:25
 msgid "kecha"
 msgstr "вчера"
 
-#: templates/reports/dashboard.html:10
-msgid "Bugun"
-msgstr "Сегодня"
+#: templates/reports/dashboard.html:11
+#, python-format
+msgid "Salom, %(name)s"
+msgstr "Здравствуйте, %(name)s"
+
+#: templates/reports/dashboard.html:12
+msgid "Bugun nima qilamiz?"
+msgstr "Что делаем сегодня?"
 
 #: templates/reports/dashboard.html:15
+msgid "Kirim qilish"
+msgstr "Оформить приход"
+
+#: templates/reports/dashboard.html:16
+msgid "Chiqim qilish"
+msgstr "Оформить расход"
+
+#: templates/reports/dashboard.html:18
 msgid "Sanoq"
 msgstr "Пересчёт"
 
-#: templates/reports/dashboard.html:20
-msgid "Kirim hujjatlari"
-msgstr "Приходные документы"
+#: templates/reports/dashboard.html:23
+msgid "Bugun kirim"
+msgstr "Приход сегодня"
 
-#: templates/reports/dashboard.html:21
-msgid "Jo'natmalar"
-msgstr "Отгрузки"
+#: templates/reports/dashboard.html:24
+msgid "Bugun chiqim"
+msgstr "Расход сегодня"
 
-#: templates/reports/dashboard.html:22
+#: templates/reports/dashboard.html:25
 msgid "Qoldiq harakatlari"
 msgstr "Движения остатков"
 
-#: templates/reports/dashboard.html:23
+#: templates/reports/dashboard.html:26
 msgid "Ochiq hujjatlar"
 msgstr "Открытые документы"
 
-#: templates/reports/dashboard.html:23
+#: templates/reports/dashboard.html:26
 msgid "qoralama yoki terilmoqda"
 msgstr "черновик или в сборке"
 
-#: templates/reports/dashboard.html:30
+#: templates/reports/dashboard.html:33
 msgid "Boshlash uchun 3 qadam"
 msgstr "3 шага, чтобы начать"
 
-#: templates/reports/dashboard.html:32
+#: templates/reports/dashboard.html:35
 msgid "Ombor qo'shing"
 msgstr "Добавьте склад"
 
-#: templates/reports/dashboard.html:33
+#: templates/reports/dashboard.html:36
 msgid "Ombordagi joylarni (yacheykalarni) kiriting"
 msgstr "Внесите ячейки склада"
 
-#: templates/reports/dashboard.html:34
+#: templates/reports/dashboard.html:37
 msgid "Tovarlarni qo'shing"
 msgstr "Добавьте товары"
 
-#: templates/reports/dashboard.html:34
+#: templates/reports/dashboard.html:37
 msgid "va birinchi kirimni rasmiylashtiring"
 msgstr "и оформите первый приход"
 
-#: templates/reports/dashboard.html:37
+#: templates/reports/dashboard.html:40
 msgid ""
 "Sizga hali birorta ombor biriktirilmagan. Menejeringizga murojaat qiling."
 msgstr "Вам ещё не назначен ни один склад. Обратитесь к менеджеру."
 
-#
 #: templates/reports/dashboard.html:46
-msgid "faol"
-msgstr "активных"
+msgid "E'tibor talab qiladi"
+msgstr "Требует внимания"
+
+#: templates/reports/dashboard.html:51
+msgid "Tasdiqlanmagan kirim"
+msgstr "Неподтверждённый приход"
+
+#: templates/reports/dashboard.html:52
+msgid "ko'rib chiqing"
+msgstr "посмотреть"
 
 #
-#: templates/reports/dashboard.html:48
-msgid "omborda bor"
-msgstr "есть на складе"
+#: templates/reports/dashboard.html:52 templates/reports/dashboard.html:57
+#: templates/reports/dashboard.html:62
+msgid "hammasi joyida"
+msgstr "всё в порядке"
 
-#: templates/reports/dashboard.html:50
-msgid "Yacheykalar"
-msgstr "Ячейки"
+#: templates/reports/dashboard.html:56
+msgid "Jo'natilmagan chiqim"
+msgstr "Неотгруженный расход"
 
-#: templates/reports/dashboard.html:50
-msgid "band"
-msgstr "занято"
+#: templates/reports/dashboard.html:57
+msgid "terish yoki jo'natish kerak"
+msgstr "нужно собрать или отгрузить"
 
-#
-#: templates/reports/dashboard.html:52 templates/reports/dashboard.html:54
-msgid "yetarli"
-msgstr "достаточно"
+#: templates/reports/dashboard.html:61
+msgid "Ochiq sanoq"
+msgstr "Открытый пересчёт"
 
-#: templates/reports/dashboard.html:63
-msgid "Kutayotgan ishlar"
-msgstr "Ожидающие задачи"
+#: templates/reports/dashboard.html:62
+msgid "yakunlash kerak"
+msgstr "нужно завершить"
 
-#: templates/reports/dashboard.html:69
-msgid "Tasdiqlanmagan kirimlar"
-msgstr "Неподтверждённые приходы"
+#: templates/reports/dashboard.html:66
+msgid "Kam qolgan tovar"
+msgstr "Товар на исходе"
 
-#: templates/reports/dashboard.html:70 templates/reports/dashboard.html:75
-#: templates/reports/dashboard.html:80
-msgid "ochish"
-msgstr "открыть"
-
-#: templates/reports/dashboard.html:74
-msgid "Jo'natilmagan chiqimlar"
-msgstr "Неотгруженные расходы"
+#: templates/reports/dashboard.html:67
+msgid "buyurtma berish kerak"
+msgstr "нужно заказать"
 
 #
-#: templates/reports/dashboard.html:79
-msgid "Ochiq inventarizatsiyalar"
-msgstr "Открытые инвентаризации"
-
-#: templates/reports/dashboard.html:84
-msgid "Eng ko'p jo'natilganlar"
-msgstr "Чаще всего отгружали"
-
-#: templates/reports/dashboard.html:84
-msgid "shu oy"
-msgstr "за этот месяц"
-
-#: templates/reports/dashboard.html:93
-msgid "Bu oy hali jo'natma bo'lmagan."
-msgstr "В этом месяце отгрузок ещё не было."
+#: templates/reports/dashboard.html:67
+msgid "zaxira yetarli"
+msgstr "запаса достаточно"
 
 #
-#: templates/reports/dashboard.html:102
+#: templates/reports/dashboard.html:77
 msgid "hammasi"
 msgstr "все"
 
 #
-#: templates/reports/dashboard.html:112
+#: templates/reports/dashboard.html:87
 msgid "Hali harakatlar yo'q."
 msgstr "Движений пока нет."
 
+#: templates/reports/dashboard.html:95
+msgid "Ombor holati"
+msgstr "Состояние склада"
+
 #
-#: templates/reports/dashboard.html:121
+#: templates/reports/dashboard.html:99
+msgid "omborda"
+msgstr "на складе"
+
+#: templates/reports/dashboard.html:100
+msgid "Yacheykalar"
+msgstr "Ячейки"
+
+#: templates/reports/dashboard.html:100
+msgid "band"
+msgstr "занято"
+
+#: templates/reports/dashboard.html:108
+msgid "Eng ko'p jo'natilgan"
+msgstr "Чаще всего отгружали"
+
+#: templates/reports/dashboard.html:108
+msgid "shu oy"
+msgstr "за этот месяц"
+
+#: templates/reports/dashboard.html:113
+msgid "Bu oy hali jo'natma bo'lmagan."
+msgstr "В этом месяце отгрузок ещё не было."
+
+#
+#: templates/reports/dashboard.html:123
 msgid "Oylik aylanma"
 msgstr "Оборот по месяцам"
 
-#: templates/reports/dashboard.html:132
+#: templates/reports/dashboard.html:124
+msgid "kirdi"
+msgstr "пришло"
+
+#: templates/reports/dashboard.html:124
+msgid "chiqdi"
+msgstr "ушло"
+
+#: templates/reports/dashboard.html:134
 #, python-format
 msgid "%(n)s ta amal"
 msgid_plural "%(n)s ta amal"
@@ -1723,22 +1761,6 @@ msgstr[0] "%(n)s операция"
 msgstr[1] "%(n)s операции"
 msgstr[2] "%(n)s операций"
 msgstr[3] "%(n)s операций"
-
-#: templates/reports/dashboard.html:144
-msgid "3 oyda jami"
-msgstr "Итого за 3 месяца"
-
-#: templates/reports/dashboard.html:144
-msgid "kirdi"
-msgstr "пришло"
-
-#: templates/reports/dashboard.html:145
-msgid "chiqdi"
-msgstr "ушло"
-
-#: templates/reports/dashboard.html:146
-msgid "amallar"
-msgstr "операций"
 
 #: templates/reports/report.html:8
 msgid "Chop etish / PDF"
